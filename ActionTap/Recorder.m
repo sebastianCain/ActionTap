@@ -24,6 +24,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
+    
+    
+    
+    
+    
+    
+}
+
 /*
 #pragma mark - Navigation
 

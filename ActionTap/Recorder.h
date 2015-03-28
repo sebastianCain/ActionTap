@@ -10,4 +10,7 @@
 
 @interface Recorder : UIViewController
 
+-(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url;
+
+
 @end

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  ActionTap
 //
 //  Created by Sebastian Cain on 3/28/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MainViewController : UIViewController
 
 @end
-

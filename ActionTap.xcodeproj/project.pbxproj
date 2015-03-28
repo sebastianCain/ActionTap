@@ -10,11 +10,13 @@
 		0A4BA28E1AC73E77002CF438 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA28D1AC73E77002CF438 /* main.m */; };
 		0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2901AC73E77002CF438 /* AppDelegate.m */; };
 		0A4BA2941AC73E77002CF438 /* ActionTap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2921AC73E77002CF438 /* ActionTap.xcdatamodeld */; };
-		0A4BA2971AC73E77002CF438 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2961AC73E77002CF438 /* ViewController.m */; };
 		0A4BA29A1AC73E77002CF438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA2981AC73E77002CF438 /* Main.storyboard */; };
 		0A4BA29C1AC73E77002CF438 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA29B1AC73E77002CF438 /* Images.xcassets */; };
 		0A4BA29F1AC73E77002CF438 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA29D1AC73E77002CF438 /* LaunchScreen.xib */; };
 		0A4BA2AB1AC73E77002CF438 /* ActionTapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2AA1AC73E77002CF438 /* ActionTapTests.m */; };
+		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
+		0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */; };
+		0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,14 +36,18 @@
 		0A4BA28F1AC73E77002CF438 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0A4BA2901AC73E77002CF438 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0A4BA2931AC73E77002CF438 /* ActionTap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActionTap.xcdatamodel; sourceTree = "<group>"; };
-		0A4BA2951AC73E77002CF438 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0A4BA2961AC73E77002CF438 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0A4BA2991AC73E77002CF438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A4BA29B1AC73E77002CF438 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0A4BA29E1AC73E77002CF438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0A4BA2A41AC73E77002CF438 /* ActionTapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActionTapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4BA2A91AC73E77002CF438 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A4BA2AA1AC73E77002CF438 /* ActionTapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionTapTests.m; sourceTree = "<group>"; };
+		0A4BA2B41AC75290002CF438 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		0A4BA2B51AC75290002CF438 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		0A4BA2B71AC752CA002CF438 /* MyActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyActionsViewController.h; sourceTree = "<group>"; };
+		0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActionsViewController.m; sourceTree = "<group>"; };
+		0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
+		0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,13 +91,17 @@
 			children = (
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
 				0A4BA2901AC73E77002CF438 /* AppDelegate.m */,
-				0A4BA2951AC73E77002CF438 /* ViewController.h */,
-				0A4BA2961AC73E77002CF438 /* ViewController.m */,
 				0A4BA2981AC73E77002CF438 /* Main.storyboard */,
 				0A4BA29B1AC73E77002CF438 /* Images.xcassets */,
 				0A4BA29D1AC73E77002CF438 /* LaunchScreen.xib */,
 				0A4BA2921AC73E77002CF438 /* ActionTap.xcdatamodeld */,
 				0A4BA28B1AC73E77002CF438 /* Supporting Files */,
+				0A4BA2B41AC75290002CF438 /* MainViewController.h */,
+				0A4BA2B51AC75290002CF438 /* MainViewController.m */,
+				0A4BA2B71AC752CA002CF438 /* MyActionsViewController.h */,
+				0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */,
+				0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */,
+				0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */,
 			);
 			path = ActionTap;
 			sourceTree = "<group>";
@@ -224,8 +234,10 @@
 			files = (
 				0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */,
 				0A4BA2941AC73E77002CF438 /* ActionTap.xcdatamodeld in Sources */,
-				0A4BA2971AC73E77002CF438 /* ViewController.m in Sources */,
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
+				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
+				0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */,
+				0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

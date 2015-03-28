@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,14 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="W1e-2z-Wrm" kind="presentation" identifier="maintoaction" modalTransitionStyle="coverVertical" id="R6U-RD-jzB"/>
+                        <segue destination="iAS-ac-xOC" kind="presentation" identifier="maintoactions" id="NJG-OX-nTj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="301" y="351"/>
         </scene>
-        <!--View Controller-->
+        <!--Action View Controller-->
         <scene sceneID="DQ3-TB-Z5e">
             <objects>
-                <viewController id="W1e-2z-Wrm" sceneMemberID="viewController">
+                <viewController id="W1e-2z-Wrm" customClass="ActionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CNO-tj-ZZY"/>
                         <viewControllerLayoutGuide type="bottom" id="vQd-s7-2Bo"/>
@@ -34,15 +39,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="actiontomain" id="Tvm-Du-qa6"/>
+                        <segue destination="iAS-ac-xOC" kind="presentation" identifier="actiontoactions" id="MoI-6Z-pfj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vgo-wB-B66" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="973" y="351"/>
+            <point key="canvasLocation" x="985" y="-61"/>
         </scene>
-        <!--View Controller-->
+        <!--My Actions View Controller-->
         <scene sceneID="sFv-yI-EEL">
             <objects>
-                <viewController id="iAS-ac-xOC" sceneMemberID="viewController">
+                <viewController id="iAS-ac-xOC" customClass="MyActionsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XQW-Y9-hcw"/>
                         <viewControllerLayoutGuide type="bottom" id="s7C-RK-e9Z"/>
@@ -52,10 +61,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="W1e-2z-Wrm" kind="presentation" identifier="actionstoaction" id="io3-tQ-bIB"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="actionstomain" id="nDJ-r8-XLp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="04x-Lb-qhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1629" y="351"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="NJG-OX-nTj"/>
+        <segue reference="nDJ-r8-XLp"/>
+        <segue reference="io3-tQ-bIB"/>
+    </inferredMetricsTieBreakers>
 </document>

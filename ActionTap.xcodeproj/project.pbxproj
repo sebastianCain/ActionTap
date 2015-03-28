@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A4BA28E1AC73E77002CF438 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA28D1AC73E77002CF438 /* main.m */; };
 		0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2901AC73E77002CF438 /* AppDelegate.m */; };
-		0A4BA2941AC73E77002CF438 /* ActionTap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2921AC73E77002CF438 /* ActionTap.xcdatamodeld */; };
 		0A4BA29A1AC73E77002CF438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA2981AC73E77002CF438 /* Main.storyboard */; };
 		0A4BA29C1AC73E77002CF438 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA29B1AC73E77002CF438 /* Images.xcassets */; };
 		0A4BA29F1AC73E77002CF438 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA29D1AC73E77002CF438 /* LaunchScreen.xib */; };
@@ -17,6 +16,11 @@
 		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
 		0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */; };
 		0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */; };
+		BB1F92C01AC75AC200229753 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92BF1AC75AC200229753 /* Recorder.m */; };
+		BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */; };
+		BB1F92C61AC75D6300229753 /* Pattern.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C51AC75D6300229753 /* Pattern.m */; };
+		BB1F92CA1AC75DB300229753 /* Pattern+Pattern_Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C91AC75DB300229753 /* Pattern+Pattern_Functions.m */; };
+		BB1F92CD1AC7628400229753 /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92CC1AC7628400229753 /* DataAccess.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +39,6 @@
 		0A4BA28D1AC73E77002CF438 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0A4BA28F1AC73E77002CF438 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0A4BA2901AC73E77002CF438 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0A4BA2931AC73E77002CF438 /* ActionTap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActionTap.xcdatamodel; sourceTree = "<group>"; };
 		0A4BA2991AC73E77002CF438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A4BA29B1AC73E77002CF438 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0A4BA29E1AC73E77002CF438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -48,6 +51,15 @@
 		0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActionsViewController.m; sourceTree = "<group>"; };
 		0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
+		BB1F92BE1AC75AC200229753 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
+		BB1F92BF1AC75AC200229753 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
+		BB1F92C21AC75AD700229753 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		BB1F92C41AC75D6300229753 /* Pattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pattern.h; sourceTree = "<group>"; };
+		BB1F92C51AC75D6300229753 /* Pattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pattern.m; sourceTree = "<group>"; };
+		BB1F92C81AC75DB300229753 /* Pattern+Pattern_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pattern+Pattern_Functions.h"; sourceTree = "<group>"; };
+		BB1F92C91AC75DB300229753 /* Pattern+Pattern_Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pattern+Pattern_Functions.m"; sourceTree = "<group>"; };
+		BB1F92CB1AC7628400229753 /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
+		BB1F92CC1AC7628400229753 /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +106,6 @@
 				0A4BA2981AC73E77002CF438 /* Main.storyboard */,
 				0A4BA29B1AC73E77002CF438 /* Images.xcassets */,
 				0A4BA29D1AC73E77002CF438 /* LaunchScreen.xib */,
-				0A4BA2921AC73E77002CF438 /* ActionTap.xcdatamodeld */,
 				0A4BA28B1AC73E77002CF438 /* Supporting Files */,
 				0A4BA2B41AC75290002CF438 /* MainViewController.h */,
 				0A4BA2B51AC75290002CF438 /* MainViewController.m */,
@@ -102,6 +113,11 @@
 				0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */,
 				0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */,
 				0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */,
+				BB1F92BE1AC75AC200229753 /* Recorder.h */,
+				BB1F92BF1AC75AC200229753 /* Recorder.m */,
+				BB1F92CB1AC7628400229753 /* DataAccess.h */,
+				BB1F92CC1AC7628400229753 /* DataAccess.m */,
+				BB1F92C71AC75D6900229753 /* CoreData */,
 			);
 			path = ActionTap;
 			sourceTree = "<group>";
@@ -130,6 +146,18 @@
 				0A4BA2A91AC73E77002CF438 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BB1F92C71AC75D6900229753 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */,
+				BB1F92C81AC75DB300229753 /* Pattern+Pattern_Functions.h */,
+				BB1F92C91AC75DB300229753 /* Pattern+Pattern_Functions.m */,
+				BB1F92C41AC75D6300229753 /* Pattern.h */,
+				BB1F92C51AC75D6300229753 /* Pattern.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,12 +260,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB1F92CA1AC75DB300229753 /* Pattern+Pattern_Functions.m in Sources */,
 				0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */,
-				0A4BA2941AC73E77002CF438 /* ActionTap.xcdatamodeld in Sources */,
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
+				BB1F92C61AC75D6300229753 /* Pattern.m in Sources */,
+				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,
 				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
 				0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */,
 				0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */,
+				BB1F92C01AC75AC200229753 /* Recorder.m in Sources */,
+				BB1F92CD1AC7628400229753 /* DataAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +462,7 @@
 				0A4BA2B01AC73E77002CF438 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A4BA2B11AC73E77002CF438 /* Build configuration list for PBXNativeTarget "ActionTapTests" */ = {
 			isa = XCConfigurationList;
@@ -438,17 +471,18 @@
 				0A4BA2B31AC73E77002CF438 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0A4BA2921AC73E77002CF438 /* ActionTap.xcdatamodeld */ = {
+		BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				0A4BA2931AC73E77002CF438 /* ActionTap.xcdatamodel */,
+				BB1F92C21AC75AD700229753 /* Model.xcdatamodel */,
 			);
-			currentVersion = 0A4BA2931AC73E77002CF438 /* ActionTap.xcdatamodel */;
-			path = ActionTap.xcdatamodeld;
+			currentVersion = BB1F92C21AC75AD700229753 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

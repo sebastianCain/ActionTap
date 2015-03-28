@@ -16,12 +16,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    CADisplayLink *displayLink = [[CADisplayLink alloc] init];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tapGesture.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        [self startReadingInput];
+    }
+}
+
+-(void)onDisplayLink{
+    
 }
 
 -(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
@@ -30,6 +43,9 @@
     
     
     
+    
+}
+-(void)startReadingInput{
     
 }
 

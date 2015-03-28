@@ -17,6 +17,8 @@
 		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
 		0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */; };
 		0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */; };
+		BB1F92C01AC75AC200229753 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92BF1AC75AC200229753 /* Recorder.m */; };
+		BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActionsViewController.m; sourceTree = "<group>"; };
 		0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
+		BB1F92BE1AC75AC200229753 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
+		BB1F92BF1AC75AC200229753 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
+		BB1F92C21AC75AD700229753 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +107,9 @@
 				0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */,
 				0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */,
 				0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */,
+				BB1F92BE1AC75AC200229753 /* Recorder.h */,
+				BB1F92BF1AC75AC200229753 /* Recorder.m */,
+				BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */,
 			);
 			path = ActionTap;
 			sourceTree = "<group>";
@@ -235,9 +243,11 @@
 				0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */,
 				0A4BA2941AC73E77002CF438 /* ActionTap.xcdatamodeld in Sources */,
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
+				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,
 				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
 				0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */,
 				0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */,
+				BB1F92C01AC75AC200229753 /* Recorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +440,7 @@
 				0A4BA2B01AC73E77002CF438 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A4BA2B11AC73E77002CF438 /* Build configuration list for PBXNativeTarget "ActionTapTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +449,7 @@
 				0A4BA2B31AC73E77002CF438 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -449,6 +461,16 @@
 			);
 			currentVersion = 0A4BA2931AC73E77002CF438 /* ActionTap.xcdatamodel */;
 			path = ActionTap.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BB1F92C21AC75AD700229753 /* Model.xcdatamodel */,
+			);
+			currentVersion = BB1F92C21AC75AD700229753 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

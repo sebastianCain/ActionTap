@@ -24,6 +24,7 @@
 @property UIButton *startButton;
 @property UIButton *confirmButton;
 @property BOOL recording;
+@property BOOL listening;
 @property int numberOfTaps;
 @property double startTime;
 @property double lastTapTime;

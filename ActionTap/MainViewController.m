@@ -245,6 +245,61 @@
     // Dispose of any resources that can be recreated.
 }
 
+//Listening Functions
+
+-(void)runListenLoop{
+    if (self.listening) {
+        
+        if (CACurrentMediaTime() - self.startTime >5 ) {
+            self.recording = NO;
+            [UIView animateWithDuration:1.0 animations:^{
+                self.startButton.alpha = 1.0;
+            }];
+            
+            double smallest = 5.0;
+            NSString *smallestName;
+            
+            for (NSString *arrayName in [self.allPatterns allKeys]) {
+                NSMutableArray *array = [self.allPatterns valueForKey:arrayName];
+                
+                double difference = [self compareArray:self.tapData toPattern:array];
+                if (difference < smallest) {
+                    smallest = difference;
+                    smallestName = arrayName;
+                }
+                
+            }
+            
+            return;
+        }
+    }
+    
+}
+
+-(double)compareArray:(NSMutableArray *)a toPattern:(NSMutableArray *)b {
+    double sum = 0.0;
+    int count = 0;
+    for (int i=0; i<[b count]; i++) {
+        double difference = [b[i] doubleValue] - [a[i] doubleValue];
+        sum += ABS(difference);
+        count++;
+    }
+    return sum/(double)count;
+}
+
+-(void)startListening {
+    self.listening = YES;
+    self.numberOfTaps = 0;
+    self.tapData = [[NSMutableArray alloc] init];
+    self.startTime = CACurrentMediaTime();
+    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(runListenLoop)];
+    displayLink.frameInterval = 1;
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+
+//CoreData Functions
+
 -(void)refreshAllPatterns{
     NSManagedObjectContext *context = [DataAccess context];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
@@ -257,6 +312,8 @@
     
 }
 
+
+//Recording Methods
 
 -(void)startRecording{
     /*
@@ -312,40 +369,68 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-	if (self.recording) {
-		if (CACurrentMediaTime() - self.startTime >5 ) {
-			self.recording = NO;
-			[UIView animateWithDuration:1.0 animations:^{
-				self.startButton.alpha = 1.0;
-			}];
-            self.touchDetector.userInteractionEnabled = NO;
-            self.scrollLock = NO;
-			return;
-		}
-		
-		if ([self.tapData count] == 0) {
-			self.startTime = CACurrentMediaTime();
-			self.lastTapTime = CACurrentMediaTime();
-			[self.tapData addObject:[NSNumber numberWithDouble:0.0]];
-			UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
-			bar.backgroundColor = [UIColor greenColor];
-			[self.page3 addSubview:bar];
-			[self.allBars addObject:bar];
-		}else{
-			UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
-			bar.backgroundColor = [UIColor greenColor];
-			[self.page3 addSubview:bar];
-			[self.allBars addObject:bar];
-			NSLog(@"Seconds from last tap - %f", CACurrentMediaTime()-self.lastTapTime);
-			[self.tapData addObject:[NSNumber numberWithDouble:(CACurrentMediaTime()-self.lastTapTime)]];
-			self.lastTapTime = CACurrentMediaTime();
-		}
-		
-		self.numberOfTaps +=1;
-		NSLog(@"tapCount - %d",self.numberOfTaps);
-		
-	}
+    if (self.pageControl.currentPage == 3) {
+        if (self.recording) {
+            if (CACurrentMediaTime() - self.startTime >5 ) {
+                self.recording = NO;
+                [UIView animateWithDuration:1.0 animations:^{
+                    self.startButton.alpha = 1.0;
+                }];
+                return;
+            }
+            
+            if ([self.tapData count] == 0) {
+                self.startTime = CACurrentMediaTime();
+                self.lastTapTime = CACurrentMediaTime();
+                [self.tapData addObject:[NSNumber numberWithDouble:0.0]];
+                UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
+                bar.backgroundColor = [UIColor greenColor];
+                [self.page3 addSubview:bar];
+                [self.allBars addObject:bar];
+            }else{
+                UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
+                bar.backgroundColor = [UIColor greenColor];
+                [self.page3 addSubview:bar];
+                [self.allBars addObject:bar];
+                NSLog(@"Seconds from last tap - %f", CACurrentMediaTime()-self.lastTapTime);
+                [self.tapData addObject:[NSNumber numberWithDouble:(CACurrentMediaTime()-self.lastTapTime)]];
+                self.lastTapTime = CACurrentMediaTime();
+            }
+            
+            self.numberOfTaps +=1;
+            NSLog(@"tapCount - %d",self.numberOfTaps);
+            
+        }
+    } else if (self.pageControl.currentPage == 1) {
+        if (!self.listening) {
+            if (CACurrentMediaTime() - self.lastTapTime < 0.5) {
+                [self startListening];
+                self.lastTapTime = CACurrentMediaTime();
+            } else {
+                self.lastTapTime = CACurrentMediaTime();
+            }
+            
+        } else {
+            if ([self.tapData count] == 0) {
+                self.startTime = CACurrentMediaTime();
+                self.lastTapTime = CACurrentMediaTime();
+                [self.tapData addObject:[NSNumber numberWithDouble:0.0]];
+                UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
+                bar.backgroundColor = [UIColor greenColor];
+                [self.page3 addSubview:bar];
+                [self.allBars addObject:bar];
+            }else{
+                UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
+                bar.backgroundColor = [UIColor greenColor];
+                [self.page3 addSubview:bar];
+                [self.allBars addObject:bar];
+                NSLog(@"Seconds from last tap - %f", CACurrentMediaTime()-self.lastTapTime);
+                [self.tapData addObject:[NSNumber numberWithDouble:(CACurrentMediaTime()-self.lastTapTime)]];
+                self.lastTapTime = CACurrentMediaTime();
+            }
+            
+        }
+    }
 }
 
 -(void)refreshAllPatternsForTV{

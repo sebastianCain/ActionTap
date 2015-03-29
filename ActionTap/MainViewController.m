@@ -536,7 +536,9 @@
 -(void)refreshAllPatternsForTV{
     self.allPatternsForTV = [[NSMutableArray alloc]init];
     NSManagedObjectContext *context = [DataAccess context];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Patern"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.allPatternsForTV = [context executeFetchRequest:request error:nil];
     
 }

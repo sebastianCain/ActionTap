@@ -191,6 +191,10 @@
     self.recorder.delegate = self;
 }
 
+-(void)recordingFinishedForPatternWithName:(NSString *)name{
+    
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSLog(@"scrolling");
     if (self.scrollLock) {

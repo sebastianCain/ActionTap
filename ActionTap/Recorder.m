@@ -38,7 +38,7 @@
         
         self.LOW_VOLUME_THRESHOLD = -22;
         self.HIGH_VOLUME_THRESHOLD = 0;
-        self.LOW_MAGNITUDE_THRESHOLD = 98;
+        self.LOW_MAGNITUDE_THRESHOLD = 97;
         self.HIGH_MAGNITUDE_THRESHOLD = 102;
         self.audioRecorder = [[AudioRecorder alloc] init];
         self.motionListener = [[MotionListener alloc] init];
@@ -74,7 +74,7 @@
             if(self.freezeDisplayLink == 0)
             {
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
-                self.freezeDisplayLink = 5;
+                self.freezeDisplayLink = 30;
             }
         } else
         {
@@ -84,6 +84,9 @@
     } else
     {
         [self.displayLink setPaused:YES];
+        for(int i = 0; i < 300; i++){
+            NSLog(@"%i", [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue]);
+        }
         //Save To core data
         NSManagedObjectContext *context = [DataAccess context];
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];

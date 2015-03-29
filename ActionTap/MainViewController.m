@@ -485,9 +485,10 @@
     if (background) {
         NSLog(@"FINISHED");
         [self.backgroundRecorder stopRecording];
+        
     }else{
         [self refreshLines];
-   
+
     }
 }
 

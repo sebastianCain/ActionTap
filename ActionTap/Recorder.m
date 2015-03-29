@@ -85,6 +85,7 @@
         {
             if(self.freezeDisplayLink == 0)
             {
+                NSLog(@"%f", magnitude);
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
                 self.freezeDisplayLink = 10;
             }else{

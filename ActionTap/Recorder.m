@@ -74,7 +74,7 @@
             if(self.freezeDisplayLink == 0)
             {
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
-                self.freezeDisplayLink = 30;
+                self.freezeDisplayLink = 10;
             }
         } else
         {
@@ -85,7 +85,12 @@
     {
         [self.displayLink setPaused:YES];
         for(int i = 0; i < 300; i++){
-            NSLog(@"%i", [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue]);
+            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue];
+            if (x == 0){
+                NSLog(@"%i", x);
+            }else{
+                NSLog(@"💙");
+            }
         }
         //Save To core data
         NSManagedObjectContext *context = [DataAccess context];

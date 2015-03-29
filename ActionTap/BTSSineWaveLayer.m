@@ -65,7 +65,7 @@ static NSString *const kBTSSineWaveLayerPhase = @"phase";
 
     CGContextTranslateCTM(context, 0.0, CGRectGetHeight(bounds) / 2.0);
 
-    BTSDrawCoordinateAxes(context);
+    //BTSDrawCoordinateAxes(context);
 
     CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
     CGContextSetLineWidth(context, 2.0);

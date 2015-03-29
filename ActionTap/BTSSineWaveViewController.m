@@ -10,9 +10,9 @@
 #import "BTSSineWaveLayer.h"
 
 @interface BTSSineWaveViewController () {
-    IBOutlet UISlider *__weak _amplitudeSlider;
-    IBOutlet UISlider *__weak _frequencySlider;
-    IBOutlet UISlider *__weak _phaseSlider;
+	IBOutlet UISlider *amplitudeSlider;
+	IBOutlet UISlider *frequencySlider;
+	IBOutlet UISlider *phaseSlider;
 }
 
 @end
@@ -38,21 +38,22 @@
 
     CGRect layerBounds = [layer bounds];
 
-    [_amplitudeSlider setMinimumValue:0.0];
-    [_amplitudeSlider setMaximumValue:layerBounds.size.height / 2.0 - 5.0];
-    [_amplitudeSlider setValue:[_amplitudeSlider maximumValue] / 2.0];
+    [
+	 amplitudeSlider setMinimumValue:0.0];
+    [amplitudeSlider setMaximumValue:layerBounds.size.height / 2.0 - 5.0];
+	[amplitudeSlider setValue:[amplitudeSlider maximumValue] / 2.0];
 
-    [_frequencySlider setMinimumValue:0.0];
-    [_frequencySlider setMaximumValue:(float)((2 * M_PI / layerBounds.size.width) * 10.0)];
-    [_frequencySlider setValue:[_frequencySlider maximumValue] / 2.0];
+    [frequencySlider setMinimumValue:0.0];
+    [frequencySlider setMaximumValue:(float)((2 * M_PI / layerBounds.size.width) * 10.0)];
+    [frequencySlider setValue:[frequencySlider maximumValue] / 2.0];
 
-    [_phaseSlider setMinimumValue:(float)-M_PI];
-    [_phaseSlider setMaximumValue:(float)M_PI];
-    [_phaseSlider setValue:0.0];
+    [phaseSlider setMinimumValue:(float)-100];
+    [phaseSlider setMaximumValue:(float)100];
+    [phaseSlider setValue:0.0];
 
-    [layer setAmplitude:[_amplitudeSlider value]];
-    [layer setFrequency:[_frequencySlider value]];
-    [layer setPhase:[_phaseSlider value]];
+    [layer setAmplitude:[amplitudeSlider value]];
+    [layer setFrequency:[frequencySlider value]];
+    [layer setPhase:[phaseSlider value]];
 
     [layer setNeedsDisplay];
 }

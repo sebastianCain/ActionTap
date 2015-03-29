@@ -20,8 +20,9 @@
     
     self.recorder = [[AudioRecorder alloc]init];
     [self.recorder recordAudio];
-    
-    
+	
+	
+	
 	return YES;
 }
 

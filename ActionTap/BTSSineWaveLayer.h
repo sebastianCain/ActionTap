@@ -7,11 +7,13 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
 @interface BTSSineWaveLayer : CALayer
 
 @property (nonatomic, assign, readwrite) CGFloat amplitude;
 @property (nonatomic, assign, readwrite) CGFloat frequency;
 @property (nonatomic, assign, readwrite) CGFloat phase;
+
 
 @end

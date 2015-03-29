@@ -7,7 +7,8 @@
 //
 
 #import "Recorder.h"
-
+#import "DataAccess.h"
+#import "Pattern+Pattern_Functions.h"
 @interface Recorder ()
 @property NSString *name;
 @property NSMutableArray *tempPattern; //of NSNumbers hoding float values
@@ -56,6 +57,26 @@
         }
     } else {
         //Save To core data
+        NSManagedObjectContext *context = [DataAccess context];
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+        NSArray *ar = [context executeFetchRequest:request error:nil];
+        BOOL objectFound = NO;
+        Pattern *pattern;
+        for (Pattern *p in ar) {
+            if ([p.name isEqualToString:self.name]) {
+                objectFound = YES;
+                pattern = p;
+            }
+        }
+        
+        if (!objectFound) {
+            pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
+            pattern.name = self.name;
+        }
+        
+        [[DataAccess sharedInstance]saveContext];
+        
+        
         
         //Trigger function in delegate
         [self.delegate recordingFinishedForPatternWithName:self.name];

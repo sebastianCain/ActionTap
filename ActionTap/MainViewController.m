@@ -32,7 +32,7 @@
     [self refreshAllPatterns];
     NSLog(@"second");
     [self refreshAllPatternsForTV];
-    
+    self.allBars = [[NSMutableArray alloc]init];
 	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	
 	self.page1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -429,12 +429,15 @@
 	[cell setTag: indexPath.row];
 	
 	[cell setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
-	UIView *bgColorView = [[UIView alloc] init];
-	bgColorView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:1.0];
+
+	UIView *bgColorView = [[UIView alloc] initWithFrame:cell.frame];
+
+    bgColorView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:1.0];
+    //[cell setBackgroundView:bgColorView];
 	[cell setSelectedBackgroundView:bgColorView];
 	[cell.textLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
 	[cell.textLabel setTextColor:[UIColor whiteColor]];
-	[cell setBackgroundColor:[UIColor whiteColor]];
+	//[cell setBackgroundColor:[UIColor whiteColor]];
 	
 	
 	return cell;
@@ -504,25 +507,23 @@
     if (test == nil) {
         NSLog(@"Second nil");
     }
-    NSObject *obj = [NSKeyedUnarchiver unarchiveObjectWithData:self.pickedPattern.allTaps];
-    if ([obj isKindOfClass:[NSNull class]]) {
-        
-        for (UIView *v in self.allBars) {
-            [v removeFromSuperview];
-        }
-        self.allBars = [[NSMutableArray alloc]init];
-        return;
+   
+    NSLog(self.pickedPattern.name);
+    NSArray *allTaps =[NSKeyedUnarchiver unarchiveObjectWithData:self.pickedPattern.allTaps];
+    for (UIView *v in self.allBars) {
+        [v removeFromSuperview];
     }
-    NSArray *allTaps =(NSArray*) obj;
-       if ([allTaps count]==300) {
+    if ([allTaps count]==300) {
         for (UIView *v in self.allBars) {
             [v removeFromSuperview];
         }
+
         self.allBars = [[NSMutableArray alloc]init];
         for (int i=0; i<300; i++) {
             if ([[allTaps objectAtIndex:i]intValue]==1) {
                 UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(i/300.0*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
                 bar.backgroundColor = [UIColor greenColor];
+                bar.tag = 123412;
                 [self.page3 addSubview:bar];
                 [self.allBars addObject:bar];
 

@@ -129,7 +129,7 @@
     float magnitude = [self.motionListener2 getMagnitude];
    // NSLog(@"%f", magnitude);
     self.currentIndex ++;
-    if ((magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD) &&self.isbackground)
+    if ((magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD) && !self.backgroundStarted)
     {
         NSLog(@"%f", magnitude);
         if (self.currentIndex -self.lastDetectIndex<60) {
@@ -153,8 +153,9 @@
         {
             if(self.freezeDisplayLink == 0)
             {
+                NSLog(@"%f", magnitude);
                 [self.tempPattern2 addObject:[NSNumber numberWithInt:1]];
-                self.freezeDisplayLink = 10;
+                self.freezeDisplayLink = 13;
             }else{
                 [self.tempPattern2 addObject:[NSNumber numberWithInt:0]];
             }
@@ -163,7 +164,7 @@
             [self.tempPattern2 addObject:[NSNumber numberWithInt:0]];
             
         }
-    } else if(self.backgroundStarted)
+    } else if(self.backgroundStarted&&[self.tempPattern2 count]>=300)
     {
         [self.displayLink setPaused:YES];
         for(int i = 0; i < 300; i++){
@@ -177,7 +178,7 @@
         self.backgroundStarted = NO;
         //Save To core data
         self.backgroundPattern.allTaps =[NSKeyedArchiver archivedDataWithRootObject:self.tempPattern2];
-        
+        self.tempPattern2 = [[NSMutableArray alloc]init];
         
         
         

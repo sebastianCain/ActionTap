@@ -42,13 +42,12 @@
     
 }
 
--(NSArray)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
+-(NSArray*)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
+    //record beats every 1/10th second, starting with a hit, into array of 50 elements
+    //create permutations in a 2d array
     
     
-    
-    
-    
-    
+    return nil;
 }
 -(void)startReadingInput{
     

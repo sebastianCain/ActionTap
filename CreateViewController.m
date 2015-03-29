@@ -23,9 +23,9 @@
 	UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
 	numberToolbar.barStyle = UIBarStyleBlackTranslucent;
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelNumberPad)];
-	[cancelButton setTintColor:[UIColor colorWithRed:46/255.0 green:204/255.0 blue:113/255.0 alpha:1.0]];
+	[cancelButton setTintColor:[UIColor whiteColor]];
 	UIBarButtonItem *donebutton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)];
-	[donebutton setTintColor:[UIColor colorWithRed:46/255.0 green:204/255.0 blue:113/255.0 alpha:1.0]];
+	[donebutton setTintColor:[UIColor whiteColor]];
 	numberToolbar.items = [NSArray arrayWithObjects:
 						   cancelButton,
 						   [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
@@ -66,9 +66,12 @@
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
-    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height*3/4, 150, 80)];
-    confirmButton.backgroundColor = [UIColor blueColor];
-    confirmButton.titleLabel.text = @"Confirm";
+    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,100,50)];
+	[confirmButton setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height-50)];
+    //confirmButton.backgroundColor = [UIColor blueColor];
+    [confirmButton setTitle:@"Confirm" forState:UIControlStateNormal];
+	[confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[confirmButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
     [confirmButton addTarget:self action:@selector(showMainMenu) forControlEvents:UIControlEventTouchUpInside];
     self.confirmButton = confirmButton;
     [self.view addSubview:confirmButton];

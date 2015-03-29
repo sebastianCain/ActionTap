@@ -492,12 +492,21 @@
         NSLog(@"FINISHED");
         [self.backgroundRecorder stopRecording];
         
+        [self compare];
+        
+        
+        
     }else{
         [self refreshLines];
 
     }
 }
-
+-(void)compare{
+    NSManagedObjectContext *context = [DataAccess context];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSMutableArray *allPatterns = [context executeFetchRequest:request error:nil];
+    
+}
 -(void)refreshLines{
     NSLog(@"refresh lines");
     NSData *test = self.pickedPattern.allTaps;

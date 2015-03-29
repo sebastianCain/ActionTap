@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "MyActionsViewController.h"
 #import "ActionViewController.h"
+#import "QuartzCore/QuartzCore.h"
 
 @interface MainViewController ()
 
@@ -19,11 +20,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[self.view setBackgroundColor:[UIColor blackColor]];
+	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
-	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height-self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.width)];
+	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
 	[bgimage setContentMode:UIViewContentModeScaleAspectFill];
 	
+	CAGradientLayer *l = [CAGradientLayer layer];
+	l.frame = bgimage.bounds;
+	l.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
+	l.startPoint = CGPointMake(0.5f, 0.5f);
+	l.endPoint = CGPointMake(0.5f, 1.0f);
+	bgimage.layer.mask = l;
 	
 	[self.view addSubview:bgimage];
 	
@@ -50,7 +57,7 @@
 	[newAction setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[newAction.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
 	[newAction.titleLabel setTextAlignment:NSTextAlignmentCenter];
-	[newAction setCenter:CGPointMake(self.view.frame.size.width/2-swaggyp-20, 220)];
+	[newAction setCenter:CGPointMake(self.view.frame.size.width/2-swaggyp-20, self.view.frame.size.height-70)];
 	[newAction addTarget:self action:@selector(newAction) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:newAction];
 	
@@ -64,7 +71,7 @@
 	[myActions setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[myActions.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
 	[myActions.titleLabel setTextAlignment:NSTextAlignmentCenter];
-	[myActions setCenter:CGPointMake(self.view.frame.size.width/2, 220)];
+	[myActions setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height-70)];
 	[myActions addTarget:self action:@selector(myActions) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:myActions];
 	
@@ -78,7 +85,7 @@
 	[settings setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[settings.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
 	[settings.titleLabel setTextAlignment:NSTextAlignmentCenter];
-	[settings setCenter:CGPointMake(self.view.frame.size.width/2+swaggyp+20, 220)];
+	[settings setCenter:CGPointMake(self.view.frame.size.width/2+swaggyp+20, self.view.frame.size.height-70)];
 	[settings addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:settings];
 }

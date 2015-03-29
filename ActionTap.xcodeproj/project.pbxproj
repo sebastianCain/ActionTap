@@ -16,7 +16,7 @@
 		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
 		0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */; };
 		0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */; };
-		3BBEC4C11AC77F20008255BF /* AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEC4C01AC77F20008255BF /* AudioRecorder.m */; };
+		0A4BA2BE1AC781CE002CF438 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */; };
 		BB1F92C01AC75AC200229753 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92BF1AC75AC200229753 /* Recorder.m */; };
 		BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */; };
 		BB1F92C61AC75D6300229753 /* Pattern.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C51AC75D6300229753 /* Pattern.m */; };
@@ -52,8 +52,7 @@
 		0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActionsViewController.m; sourceTree = "<group>"; };
 		0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
-		3BBEC4BF1AC77F20008255BF /* AudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorder.h; sourceTree = "<group>"; };
-		3BBEC4C01AC77F20008255BF /* AudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorder.m; sourceTree = "<group>"; };
+		0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB1F92BE1AC75AC200229753 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
 		BB1F92BF1AC75AC200229753 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
 		BB1F92C21AC75AD700229753 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -70,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4BA2BE1AC781CE002CF438 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +86,7 @@
 		0A4BA27F1AC73E76002CF438 = {
 			isa = PBXGroup;
 			children = (
+				0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */,
 				0A4BA28A1AC73E77002CF438 /* ActionTap */,
 				0A4BA2A71AC73E77002CF438 /* ActionTapTests */,
 				0A4BA2891AC73E77002CF438 /* Products */,
@@ -118,8 +119,6 @@
 				0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */,
 				BB1F92BE1AC75AC200229753 /* Recorder.h */,
 				BB1F92BF1AC75AC200229753 /* Recorder.m */,
-				3BBEC4BF1AC77F20008255BF /* AudioRecorder.h */,
-				3BBEC4C01AC77F20008255BF /* AudioRecorder.m */,
 				BB1F92CB1AC7628400229753 /* DataAccess.h */,
 				BB1F92CC1AC7628400229753 /* DataAccess.m */,
 				BB1F92C71AC75D6900229753 /* CoreData */,
@@ -272,7 +271,6 @@
 				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,
 				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
 				0A4BA2BC1AC752F8002CF438 /* ActionViewController.m in Sources */,
-				3BBEC4C11AC77F20008255BF /* AudioRecorder.m in Sources */,
 				0A4BA2B91AC752CA002CF438 /* MyActionsViewController.m in Sources */,
 				BB1F92C01AC75AC200229753 /* Recorder.m in Sources */,
 				BB1F92CD1AC7628400229753 /* DataAccess.m in Sources */,

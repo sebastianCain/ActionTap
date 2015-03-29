@@ -16,11 +16,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, self.view.frame.size.height - 250)];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 250)];
     [tableView setDataSource:self];
     [tableView setDelegate:self];
-    
-    
+    self.tableView = tableView;
+    [self.view addSubview:tableView];
     
     
     // Do any additional setup after loading the view.
@@ -35,8 +35,21 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
+    UITableViewCell *cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PatternCell"];
     
+    
+    
+    [cell.textLabel setTextAlignment: NSTextAlignmentLeft];
+    [cell setTag: indexPath.row];
+    [cell.textLabel setTextColor:[UIColor blackColor]];
+    
+
+    
+    [cell.layer setCornerRadius:10.0];
+    [cell.layer setBorderWidth:2.0];
+    [cell.layer setBorderColor:[UIColor colorWithRed:14/255.0 green:191/255.0 blue:233/255.0 alpha:1.0].CGColor];
+    cell.layer.masksToBounds = YES;
+    [cell setBackgroundColor:[UIColor whiteColor]];
     
     
     return cell;
@@ -46,6 +59,10 @@
 {
     
     return 1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 90.0f;
 }
 
 /*

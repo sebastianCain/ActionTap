@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface MainViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property UIView *page1;
 @property UIView *page2;
@@ -24,6 +24,7 @@
 @property UIButton *startButton;
 @property UIButton *confirmButton;
 @property BOOL recording;
+@property BOOL listening;
 @property int numberOfTaps;
 @property double startTime;
 @property double lastTapTime;

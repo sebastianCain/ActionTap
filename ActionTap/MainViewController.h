@@ -40,6 +40,9 @@
 @property NSString *pickedPatternName;
 @property Pattern* pickedPattern;
 @property Pattern* backgroudPattern;
+@property Pattern * closestPattern;
+@property NSString *closestPatternName;
+@property int lastMin;
 
 @property UITextField   *textField;
 @property UIButton *confirmButton;
@@ -51,5 +54,7 @@
 @property NSString *url;
 
 @property BOOL shouldJumpToPage3;
+
+@property UIView *bgView;
 
 @end

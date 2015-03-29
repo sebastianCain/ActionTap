@@ -23,6 +23,7 @@
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
 @property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview;
+@property   UIButton *backgroundTrigger;
 @end
 
 @implementation MainViewController
@@ -39,6 +40,11 @@
     self.page2 = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.page3 = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
+    UIButton *backgroundTrigger = [[UIButton alloc]initWithFrame:self.view.frame];
+    [self.page1 addSubview:backgroundTrigger];
+    backgroundTrigger.userInteractionEnabled = NO;
+    [backgroundTrigger addTarget:self action:@selector(triggerBackground) forControlEvents:UIControlEventTouchUpInside];
+    self.backgroundTrigger = backgroundTrigger;
     
     //SCROLL VIEW SETUP
     
@@ -63,7 +69,7 @@
     
     // Do any additional setup after loading the view.
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
-    [title setText:@"jarvis"];
+    [title setText:@"smith"];
     [title setTextColor:[UIColor whiteColor]];
     [title setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:72]];
     [title setTextAlignment:NSTextAlignmentCenter];
@@ -96,6 +102,7 @@
     l.endPoint = CGPointMake(0.5f, 1.0f);
     bgimage.layer.mask = l;
     [self.page1 addSubview:bgimage];
+    self.bgView = bgimage;
     
     NSLog(@"%@", bgimage);
     //int swaggyp = (self.view.frame.size.width-80)/3;
@@ -166,25 +173,27 @@
     [self.page3 addSubview:coverView3];
     
     UILabel *title3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
-    title3.text = @"Action";
+    title3.text = @"Set Actions >>";
     title3.textAlignment = NSTextAlignmentCenter;
     title3.font = [UIFont boldSystemFontOfSize:40];
-    [self.page3 addSubview:title3];
+    //[self.page3 addSubview:title3];
     
-    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 120, self.view.frame.size.width-40, 40)];
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 50, self.view.frame.size.width-40, 40)];
     [tf setDelegate:self];
-    [tf setPlaceholder:@"put action name here"];
+    //[tf setPlaceholder:@"put action name here"];
+    
+    tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Process Name" attributes:@{NSForegroundColorAttributeName: [UIColor grayColor], NSFontAttributeName:[UIFont fontWithName:@"AvenirNext-Regular" size:17]}];
     [tf setTintColor:[UIColor whiteColor]];
     [tf setTextColor:[UIColor whiteColor]];
     [tf setTextAlignment:NSTextAlignmentCenter];
     [tf.layer setCornerRadius:10.0];
     [tf.layer setMasksToBounds:YES];
-    [tf.layer setBorderWidth:2.0];
+    [tf.layer setBorderWidth:1.0];
     [tf.layer setBorderColor:[UIColor whiteColor].CGColor];
     [tf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     [self.page3 addSubview:tf];
     self.textField = tf;
-    
     
     UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
@@ -195,32 +204,48 @@
     UIButton *calibrateButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 40, self.view.frame.size.height - 40, 80, 80)];
     [calibrateButton setImage:[UIImage imageNamed:@"calibrateButton"] forState:UIControlStateNormal];
     [calibrateButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
-    [self.page3 addSubview:calibrateButton];
+    //[self.page3 addSubview:calibrateButton];
     
-    UIButton *actionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 100, self.view.frame.size.height*(2/3), 200, 100)];
-    actionsButton.backgroundColor  = [UIColor blueColor];
+    UIButton *actionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 100, 120, 200, 40)];
+    [actionsButton setTitle:@"Set Action >>" forState:UIControlStateNormal];
+    [actionsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [actionsButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
     [actionsButton addTarget:self action:@selector(showActions) forControlEvents:UIControlEventTouchUpInside];
+    [actionsButton.layer setCornerRadius:10.0];
+    [actionsButton.layer setMasksToBounds:YES];
+    [actionsButton.layer setBorderWidth:1.0];
+    [actionsButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [actionsButton setAlpha:1.0];
     self.actionsButton = actionsButton;
     [self.page3 addSubview:actionsButton];
     
-    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 170, self.view.frame.size.width/2-40, 40)];
-    confirmButton.titleLabel.text = @"Confirm Changes?";
-    [self.page3 addSubview: confirmButton];
+    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height-80, self.view.frame.size.width/2-40, 40)];
+    [confirmButton setTitle:@"Save Changes" forState:UIControlStateNormal];
+    [confirmButton.layer setBorderColor:[UIColor greenColor].CGColor];
+    [confirmButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
     [confirmButton addTarget:self action:@selector(confirmChanges) forControlEvents:UIControlEventTouchUpInside];
-    confirmButton.backgroundColor = [UIColor greenColor];
+    [confirmButton.layer setCornerRadius:10.0];
+    [confirmButton.layer setMasksToBounds:YES];
+    [confirmButton.layer setBorderWidth:1.0];
+    [self.page3 addSubview: confirmButton];
     self.confirmButton = confirmButton;
     
     
-    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(20+self.view.frame.size.width/2, 170, self.view.frame.size.width/2-40, 40)];
-    cancelButton.titleLabel.text = @"Confirm Changes?";
-    [self.page3 addSubview: cancelButton];
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(20+self.view.frame.size.width/2, self.view.frame.size.height-80, self.view.frame.size.width/2-40, 40)];
+    [cancelButton setTitle:@"Cancel Changes" forState:UIControlStateNormal];
+    [cancelButton.layer setBorderColor:[UIColor redColor].CGColor];
+    [cancelButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
     [cancelButton addTarget:self action:@selector(cancelChanges) forControlEvents:UIControlEventTouchUpInside];
-    cancelButton.backgroundColor = [UIColor redColor];
+    [cancelButton.layer setCornerRadius:10.0];
+    [cancelButton.layer setMasksToBounds:YES];
+    [cancelButton.layer setBorderWidth:1.0];
+    [self.page3 addSubview: cancelButton];
     self.cancelButton = cancelButton;
     
     self.currentBar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
     self.currentBar.backgroundColor = [UIColor redColor];
     [self.page3 addSubview:self.currentBar];
+    
     
     UIButton *touchButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.page3.frame.size.width, self.page3.frame.size.height)];
     touchButton.userInteractionEnabled = NO;
@@ -261,7 +286,19 @@
     
     [self startRecordingInBackground];
     
-    [self comparePattern:nil withPattern:nil];
+
+    
+    /*
+    Pattern *pat = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:[DataAccess context]];
+    pat.name = @"a";
+    
+    pat = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:[DataAccess context]];
+    pat.name = @"b";
+    
+    pat = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:[DataAccess context]];
+    pat.name = @"c";
+    [[DataAccess sharedInstance] saveContext];
+    */
 }
 
 -(void)jumpToPage3{
@@ -333,6 +370,41 @@
     }
     if (self.pageControl.currentPage !=0) {
         [self.backgroundRecorder stopRecording];
+        self.backgroundTrigger.userInteractionEnabled = NO;
+    }else{
+        if (!self.backgroundRecorder.backgroundIsRecording) {
+            self.backgroundTrigger.userInteractionEnabled = YES;
+            
+            [self.sineview removeFromSuperview];
+            
+            self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, 400)];
+            [self.sineview setTag:100];
+            [self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height - 100)];
+            [self.sineview setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+            [self.sineview.layer setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0].CGColor];
+            [self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
+            [self.page1 addSubview:self.sineview];
+            
+            [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:10];
+            [(BTSSineWaveLayer *)self.sineview.layer setFrequency:0.01];
+            [(BTSSineWaveLayer *)self.sineview.layer setPhase:1];
+            
+            [self.sineview.layer setNeedsDisplay];
+            
+            [self.bgView removeFromSuperview];
+            
+            UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
+            [bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
+            [bgimage setContentMode:UIViewContentModeScaleAspectFill];
+            
+            CAGradientLayer *l = [CAGradientLayer layer];
+            l.frame = bgimage.bounds;
+            l.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
+            l.startPoint = CGPointMake(0.5f, 0.5f);
+            l.endPoint = CGPointMake(0.5f, 1.0f);
+            bgimage.layer.mask = l;
+            [self.page1 addSubview:bgimage];
+        }
     }
     
     
@@ -340,6 +412,9 @@
     float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
     NSInteger page = lround(fractionalPage);
     self.pageControl.currentPage = page;
+    
+    
+    
     
     if (self.pageControl.currentPage==1) {
         self.pickedPatternName = @"";
@@ -369,10 +444,12 @@
         }
         [self refreshActionPage];
         [self refreshAllPatterns];
+        
     }
     NSLog(@"scrolling- %d",self.pageControl.currentPage);
     
     
+
     
 }
 
@@ -407,6 +484,12 @@
     self.scrollLock = YES;
     self.editingPattern = YES;
     self.pickedPattern.name = textField.text;
+}
+
+-(void)triggerBackground{
+    [self.backgroundRecorder stopRecording];
+    [self.backgroundRecorder startNewPatternWithPattern:self.backgroudPattern isBackground:YES];
+    self.backgroundTrigger.userInteractionEnabled = NO;
 }
 
 -(void)setEditingPattern:(BOOL)editingPattern
@@ -446,7 +529,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [self.allPatternsForTV count];;
+    return [self.allPatternsForTV count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -502,8 +585,11 @@
     }
 }
 -(void)compare{
+    self.lastMin = 1000000;
     NSManagedObjectContext *context = [DataAccess context];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObjects:sort, nil];
     NSMutableArray *tempAllPatterns = [context executeFetchRequest:request error:nil];
 
     NSMutableArray *allPatterns = [[NSMutableArray alloc]init];
@@ -511,29 +597,28 @@
     for (int i=0; i<[tempAllPatterns count]; i++) {
         Pattern* p = [tempAllPatterns objectAtIndex:i];
         if (![p.name isEqualToString:@"BackgroundPattern"]) {
+            NSURL *myURL = [NSURL URLWithString:@"tel:9738738225"];
+            //[[UIApplication sharedApplication] openURL:myURL];
             [allPatterns addObject:p];
         }
     }
     NSMutableArray *scoreArray = [[NSMutableArray alloc]init];
     for (Pattern *p in allPatterns) {
-        int i = [self comparePattern:p withPattern:self.backgroudPattern];
-        [scoreArray  addObject:[NSNumber numberWithInt:i]];
+        NSNumber* i = [self comparePattern:p withPattern:self.backgroudPattern] ;
+        NSLog(@"Name%@, %d",p.name,[i intValue]);
+        [scoreArray  addObject:i];
     }
-    int min=10000000,minIndex=0;
+    int min=100000,minIndex=0;
+    Pattern *closestPattern;
     
-    if ([scoreArray count]) {
-        int min = [[scoreArray objectAtIndex:0]intValue];
-        int minIndex = 0;
-        for (int i=0; i<[scoreArray count]; i++) {
-            if ([[scoreArray objectAtIndex:i]intValue]<min) {
-                minIndex = i;
-                min = [[scoreArray objectAtIndex:i]intValue];
-            }
+    for (Pattern *p in allPatterns) {
+        if ([p.name isEqualToString:self.closestPatternName]) {
+            closestPattern = p;
         }
-        
     }
+    // NSLog(@"a - %d \nb - %d \nc - %d \n",[[scoreArray objectAtIndex:0]intValue],[[scoreArray objectAtIndex:1]intValue],[[scoreArray objectAtIndex:2]intValue]);
     
-    Pattern *closestPattern = [allPatterns objectAtIndex:minIndex];
+    
     NSString *urlString = closestPattern.url;
     NSLog(@"Name_%@",closestPattern.name);
     
@@ -710,30 +795,11 @@
     
 }
 
--(int)comparePattern:(Pattern*)first withPattern:(Pattern*)second{
+-(NSNumber *)comparePattern:(Pattern*)first withPattern:(Pattern*)second{
     double score = 0;
     
-    /*
-     NSData *test = first.allTaps;
-     if (test ==[NSNull null]) {
-     NSLog(@"First Null");
-     return 100000000;
-     }
-     if (test == nil) {
-     NSLog(@"First nil");
-     return 100000000;
-     }
-     
-     test = second.allTaps;
-     if (test ==[NSNull null]) {
-     NSLog(@"First Null");
-     return 100000000;
-     }
-     if (test == nil) {
-     NSLog(@"Second nil");
-     return 100000000;
-     }
-     */
+
+    
     int lastIndex1=0, lastIndex2=0;
     NSMutableArray *firstPatternRaw = [NSKeyedUnarchiver unarchiveObjectWithData:first.allTaps];
     NSMutableArray *secondPatternRaw =[NSKeyedUnarchiver unarchiveObjectWithData:second.allTaps];
@@ -782,26 +848,43 @@
         
         double diff = [firstPattern[i] intValue] - [secondPattern[i] intValue];
         
-        sum+= pow(abs(diff), 2);
+        sum+= pow(abs(diff), 1.3);
         count++;
         
-        NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
+        //NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
     }
     score += sum/count;
     
-    NSLog(@"SECOND");
     
-    //    for (int i=0; i<[secondPattern count]; i++) {
-    //        NSLog(@"%d =  %d",i,[[secondPattern objectAtIndex:i]intValue]);
-    //    }
+    NSLog(@"FIRST");
     
+    for (int i=0; i<[firstPattern count]; i++) {
+       // NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
+    }
     
+    NSLog(@"First");
     
-    NSLog(@"Score - %f",score);
-    score += ([firstPattern count]-[secondPattern count])*100;
+       for (int i=0; i<[firstPattern count]; i++) {
+        NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
+      }
     
+    if ([first.name isEqualToString:@""]) {
+        score +=100000;
+    }
     
-    return score;
+    NSLog(@"Name %@ Score - %f",first.name, score);
+    int diffInNum =abs([firstPattern count]-[secondPattern count]);
+    NSLog(@"DiffInNum %d",diffInNum);
+    score += 2000*diffInNum;
+    if ([firstPattern count]==0) {
+        score +=100000;
+    }
+    NSLog(@"%f",score);
+    if (score<self.lastMin) {
+        self.lastMin = score;
+        self.closestPatternName = first.name;
+    }
+    return [NSNumber numberWithInt:score];
 }
 
 @end

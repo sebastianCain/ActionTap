@@ -16,9 +16,6 @@
 @property float HIGH_VOLUME_THRESHOLD;
 @property float LOW_MAGNITUDE_THRESHOLD;
 @property float HIGH_MAGNITUDE_THRESHOLD;
-@property(readwrite) bool isRecording;
-@property BOOL isbackground;
-@property(readwrite) bool backgroundIsRecording;
 @property int freezeDisplayLink;
 @end
 
@@ -80,7 +77,7 @@
 
     float magnitude = [self.motionListener getMagnitude];
                     //NSLog(@"%f", magnitude);
-    NSLog(@"Displaylink1%f", magnitude);
+    NSLog(@"Recording - %f", magnitude);
     if ([self.tempPattern count] < 300)
     {
         if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
@@ -113,7 +110,7 @@
         self.currentPattern.allTaps =[NSKeyedArchiver archivedDataWithRootObject:self.tempPattern];
         NSLog(self.currentPattern.name);
         
-        
+        [[DataAccess sharedInstance]saveContext];
         
         //Trigger function in delegate
         [self.delegate recordingFinishedForPatternIsBackground:self.isbackground];
@@ -122,9 +119,9 @@
 
 -(void)onDisplayLink2
 {
-    //NSLog(@"RECORDING IN BACKGROUND");
+    NSLog(@"RECORDING IN BACKGROUND");
     //float volume = [self.audioRecorder getVolume];
-    NSLog(@"UNPAUSED");
+    //NSLog(@"UNPAUSED");
     if (self.freezeDisplayLink > 0){
         self.freezeDisplayLink -= 1;
         return;
@@ -190,7 +187,7 @@
 }
 -(void)startNewPatternWithPattern:(Pattern*)pattern isBackground:(BOOL)background
 {
-    
+    NSString *str = pattern.name;
     self.isbackground = background;
     if (!background) {
         self.isRecording = YES;

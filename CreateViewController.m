@@ -197,7 +197,7 @@
     mainVC.patternPicked = YES;
     NSString *url;
     if (self.arrayindex == 0) {
-        url = [@"workflow://import-workflow?url=" stringByAppendingString:self.schemeValue];
+        url = [@"workflow://run-workflow?name=" stringByAppendingString:self.schemeValue];
     } else if (self.arrayindex == 1) {
         url = @"music:";
     } else if (self.arrayindex == 2) {

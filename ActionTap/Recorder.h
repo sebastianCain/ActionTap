@@ -21,7 +21,7 @@
 @property UITapGestureRecognizer *tapGesture;
 @property AudioRecorder *audioRecorder;
 @property MotionListener *motionListener;
-@property(readonly) bool isRecording;
+@property bool isRecording;
 -(void)stopRecording;
 @property  Pattern *currentPattern;
 @property  Pattern *backgroundPattern;
@@ -33,6 +33,10 @@
 @property BOOL backgroundStarted;
 @property int currentIndex;
 @property int lastDetectIndex;
+
+
+@property BOOL isbackground;
+@property(readwrite) BOOL backgroundIsRecording;
 
 -(void)startNewPatternWithPattern:(Pattern*)pattern isBackground:(BOOL)background;
 

@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshAllPatterns];
+    [self refreshAllPatternsForTV];
+    
 	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	
 	self.page1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -172,7 +174,7 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
-    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 150, self.view.frame.size.width-40, 40)];
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 120, self.view.frame.size.width-40, 40)];
     [tf setDelegate:self];
     [tf setPlaceholder:@"put action name here"];
     [tf setTintColor:[UIColor whiteColor]];
@@ -182,6 +184,7 @@
     [tf.layer setMasksToBounds:YES];
     [tf.layer setBorderWidth:2.0];
     [tf.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [tf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.page3 addSubview:tf];
     self.textField = tf;
     
@@ -280,11 +283,6 @@
 	return (BTSSineWaveLayer *)[[[self view] viewWithTag:100] layer];
 }
 
-
-
--(void)recordingFinishedForPatternWithName:(NSString *)name{
-    
-}
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -438,19 +436,26 @@
     
 }
 
+-(void)recordingFinishedForPatternWithName:(NSString *)name
+{
+    
+}
 
 -(void)startRecording
 {
+    self.editingPattern = YES;
+    self.scrollLock = YES;
+    
     if(self.recorder.isRecording == NO)
     {
-        [self.recorder.audioRecorder recordAudio];
+        self.recorder.delegate = self;
         [self.recorder startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
     } else
     {
-        [self.recorder.audioRecorder stopAudio];
         [self.recorder stopRecording];
     }
-	    /*
+     
+    /*
 	 self.recording = YES;
 	 self.numberOfTaps = 0;
 	 [UIView animateWithDuration:0.5 animations:^{

@@ -11,7 +11,12 @@
 @interface ActionViewController : UIViewController
 
 @property UIButton *startButton;
+@property UIButton *replayButton;
+
 @property BOOL recording;
 @property int numberOfTaps;
-@property double startTime
+@property double startTime;
+@property double lastTapTime;
+@property  NSMutableArray *tapData;
+
 @end

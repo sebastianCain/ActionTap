@@ -108,7 +108,7 @@
 
 -(void)startReadingInput
 {
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    //NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
 }
 

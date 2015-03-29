@@ -78,7 +78,7 @@
 	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
 	[self.page1 addSubview:title];
 	
-	int swaggyp = (self.view.frame.size.width-80)/3;
+	//int swaggyp = (self.view.frame.size.width-80)/3;
 	/*
 	UIButton *newAction = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, swaggyp, swaggyp)];
 	[newAction.layer setCornerRadius:swaggyp/2];

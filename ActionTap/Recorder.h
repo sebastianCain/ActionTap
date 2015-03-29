@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface Recorder : UIViewController
-
+@property CADisplayLink *displayLink;
+@property UITapGestureRecognizer *tapGesture;
 -(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url;
 
 

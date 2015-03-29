@@ -327,7 +327,9 @@
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
     }
-    
+    if (self.pageControl.currentPage !=0) {
+        [self.backgroundRecorder stopRecording];
+    }
     
     
     CGFloat pageWidth = self.scrollView.frame.size.width;
@@ -474,11 +476,6 @@
     NSArray *tempAll = [context executeFetchRequest:request error:&error];
     self.allPatterns = [[NSMutableDictionary alloc]init];
     for (Pattern *p in tempAll) {
-        NSLog(@"name - %@",p.name);
-        if (!p.name) {
-            [context deleteObject:p];
-            continue;
-        }
         [self.allPatterns  setValue:p forKey:p.name];
     }
     [[DataAccess sharedInstance]saveContext];
@@ -488,6 +485,7 @@
 -(void)recordingFinishedForPatternIsBackground:(BOOL)background{
     if (background) {
         NSLog(@"FINISHED");
+        [self.backgroundRecorder stopRecording];
     }else{
         [self refreshLines];
    
@@ -644,11 +642,14 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.allPatternsForTV = [[context executeFetchRequest:request error:nil] mutableCopy];
-    for (Pattern *p in self.allPatternsForTV) {
+    Pattern *p;
+    for (int i=0; i<[self.allPatternsForTV count]; i++) {
+        p=[self.allPatternsForTV objectAtIndex:i];
         if ([p.name isEqualToString:@"BackgroundPattern"]) {
             [self.allPatternsForTV removeObject:p];
         }
     }
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

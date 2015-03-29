@@ -23,15 +23,15 @@
     self = [super init];
     if(self ){
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
-        self.displayLink.frameInterval = 6;
+        self.displayLink.frameInterval = 1;
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
         [self.displayLink setPaused:NO];
         //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         //self.tapGesture.numberOfTapsRequired = 2;
         //[self.view addGestureRecognizer:self.tapGesture];
         
-        self.LOW_VOLUME_THRESHOLD = 60;
-        self.HIGH_VOLUME_THRESHOLD = 180;
+        self.LOW_VOLUME_THRESHOLD = -22;
+        self.HIGH_VOLUME_THRESHOLD = 0;
         self.audioRecorder = [[AudioRecorder alloc] init];
     }
     
@@ -50,11 +50,11 @@
 -(void)onDisplayLink
 {
     float volume = [self.audioRecorder getVolume];
-        NSLog(@"%f", [self.audioRecorder getVolume]);
-    if ([self.tempPattern count] < 50)
+    if ([self.tempPattern count] < 300)
     {
         if (volume > self.LOW_VOLUME_THRESHOLD && volume < self.HIGH_VOLUME_THRESHOLD)
         {
+            NSLog(@"%f", volume);
             [self.tempPattern addObject:[NSNumber numberWithInt:1]];
         } else {
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];

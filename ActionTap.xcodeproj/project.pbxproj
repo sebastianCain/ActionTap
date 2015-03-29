@@ -17,6 +17,7 @@
 		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
 		0A4BA2BE1AC781CE002CF438 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */; };
 		3B37AB581AC78DAA00EAAFD7 /* AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */; };
+		3B37AB5F1AC7C3CE00EAAFD7 /* MotionListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */; };
 		BB1F92C01AC75AC200229753 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92BF1AC75AC200229753 /* Recorder.m */; };
 		BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */; };
 		BB1F92C61AC75D6300229753 /* Pattern.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C51AC75D6300229753 /* Pattern.m */; };
@@ -53,6 +54,8 @@
 		0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B37AB561AC78DAA00EAAFD7 /* AudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioRecorder.h; path = ../AudioRecorder.h; sourceTree = "<group>"; };
 		3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioRecorder.m; path = ../AudioRecorder.m; sourceTree = "<group>"; };
+		3B37AB5D1AC7C3CE00EAAFD7 /* MotionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionListener.h; sourceTree = "<group>"; };
+		3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionListener.m; sourceTree = "<group>"; };
 		BB1F92BE1AC75AC200229753 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
 		BB1F92BF1AC75AC200229753 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
 		BB1F92C21AC75AD700229753 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 		3B37AB591AC78E7700EAAFD7 /* Recorders */ = {
 			isa = PBXGroup;
 			children = (
+				3B37AB5D1AC7C3CE00EAAFD7 /* MotionListener.h */,
+				3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */,
 				3B37AB561AC78DAA00EAAFD7 /* AudioRecorder.h */,
 				3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */,
 				BB1F92BE1AC75AC200229753 /* Recorder.h */,
@@ -221,7 +226,7 @@
 				TargetAttributes = {
 					0A4BA2871AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = K68L32QYS3;
+						DevelopmentTeam = 9XWYL3K4YT;
 					};
 					0A4BA2A31AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -280,6 +285,7 @@
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
 				BB1F92C61AC75D6300229753 /* Pattern.m in Sources */,
 				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,
+				3B37AB5F1AC7C3CE00EAAFD7 /* MotionListener.m in Sources */,
 				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
 				3B37AB581AC78DAA00EAAFD7 /* AudioRecorder.m in Sources */,
 				BB1F92C01AC75AC200229753 /* Recorder.m in Sources */,

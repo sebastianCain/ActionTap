@@ -140,9 +140,9 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
-	
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	startButton.backgroundColor = [UIColor greenColor];
+    [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
 	[startButton addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
@@ -162,7 +162,7 @@
     [self.page3 addSubview:touchButton];
     [touchButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
     //touchButton.backgroundColor= [UIColor redColor];
-    self.touchDetector=touchButton;
+    self.touchDetector = touchButton;
 	
 	
 	

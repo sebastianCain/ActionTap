@@ -35,7 +35,7 @@
     confirmButton.backgroundColor = [UIColor greenColor];
     [confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
     self.confirmButton = confirmButton;
-    //[self.view addSubview:replayButton];
+    //[self.page3 addSubview:replayButton];
     
     self.currentBar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
     self.currentBar.backgroundColor = [UIColor redColor];

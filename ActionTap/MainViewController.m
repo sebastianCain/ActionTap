@@ -618,4 +618,18 @@
     
 }
 
+-(int)comparePattern:(Pattern*)first withPattern:(Pattern*)second{
+    int score = 0;
+    
+    NSMutableArray *firstPatternRaw = [[NSMutableArray alloc]init];
+    
+    NSMutableArray *secondPatternRaw = [[NSMutableArray alloc]init];
+    
+    
+    
+    
+    
+    return score;
+}
+
 @end

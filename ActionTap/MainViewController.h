@@ -10,4 +10,6 @@
 
 @interface MainViewController : UIViewController
 
+@property NSMutableDictionary *allPatterns;
+
 @end

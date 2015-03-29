@@ -21,6 +21,9 @@
 		0A4BA2C71AC7D837002CF438 /* BTSSineWaveLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */; };
 		3B37AB581AC78DAA00EAAFD7 /* AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */; };
 		3B37AB5F1AC7C3CE00EAAFD7 /* MotionListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */; };
+		3B4B00FF1AC7D0D300AAC7C9 /* button@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B4B00FC1AC7D0D300AAC7C9 /* button@1x.png */; };
+		3B4B01001AC7D0D300AAC7C9 /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B4B00FD1AC7D0D300AAC7C9 /* button@2x.png */; };
+		3B4B01031AC7D12700AAC7C9 /* button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B4B01021AC7D12700AAC7C9 /* button@3x.png */; };
 		BB1F92C01AC75AC200229753 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92BF1AC75AC200229753 /* Recorder.m */; };
 		BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C11AC75AD700229753 /* Model.xcdatamodeld */; };
 		BB1F92C61AC75D6300229753 /* Pattern.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F92C51AC75D6300229753 /* Pattern.m */; };
@@ -65,6 +68,9 @@
 		3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioRecorder.m; path = ../AudioRecorder.m; sourceTree = "<group>"; };
 		3B37AB5D1AC7C3CE00EAAFD7 /* MotionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionListener.h; sourceTree = "<group>"; };
 		3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionListener.m; sourceTree = "<group>"; };
+		3B4B00FC1AC7D0D300AAC7C9 /* button@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@1x.png"; sourceTree = "<group>"; };
+		3B4B00FD1AC7D0D300AAC7C9 /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
+		3B4B01021AC7D12700AAC7C9 /* button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@3x.png"; sourceTree = "<group>"; };
 		BB1F92BE1AC75AC200229753 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
 		BB1F92BF1AC75AC200229753 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
 		BB1F92C21AC75AD700229753 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 				0A4BA28B1AC73E77002CF438 /* Supporting Files */,
 				0A4BA2B41AC75290002CF438 /* MainViewController.h */,
 				0A4BA2B51AC75290002CF438 /* MainViewController.m */,
+				3B4B00FB1AC7D0D300AAC7C9 /* Design */,
 				3B37AB591AC78E7700EAAFD7 /* Recorders */,
 				BB1F92CB1AC7628400229753 /* DataAccess.h */,
 				BB1F92CC1AC7628400229753 /* DataAccess.m */,
@@ -178,6 +185,16 @@
 				BB1F92BF1AC75AC200229753 /* Recorder.m */,
 			);
 			name = Recorders;
+			sourceTree = "<group>";
+		};
+		3B4B00FB1AC7D0D300AAC7C9 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				3B4B00FC1AC7D0D300AAC7C9 /* button@1x.png */,
+				3B4B00FD1AC7D0D300AAC7C9 /* button@2x.png */,
+				3B4B01021AC7D12700AAC7C9 /* button@3x.png */,
+			);
+			path = Design;
 			sourceTree = "<group>";
 		};
 		BB1F92C71AC75D6900229753 /* CoreData */ = {
@@ -275,6 +292,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A4BA29A1AC73E77002CF438 /* Main.storyboard in Resources */,
+				3B4B01031AC7D12700AAC7C9 /* button@3x.png in Resources */,
+				3B4B00FF1AC7D0D300AAC7C9 /* button@1x.png in Resources */,
+				3B4B01001AC7D0D300AAC7C9 /* button@2x.png in Resources */,
 				0A4BA29F1AC73E77002CF438 /* LaunchScreen.xib in Resources */,
 				0A4BA29C1AC73E77002CF438 /* Images.xcassets in Resources */,
 			);

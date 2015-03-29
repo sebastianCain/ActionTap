@@ -56,7 +56,7 @@
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 	
 	[self.view addSubview:self.pageControl];
-<<<<<<< HEAD
+
 	
     // Do any additional setup after loading the view.
 	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
@@ -84,9 +84,7 @@
 	[layer setPhase:1];
 	
 	[layer setNeedsDisplay];
-=======
-    
->>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
+
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
@@ -195,11 +193,20 @@
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
 	
-	UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 80, self.view.frame.size.height*3/4, 80, 80)];
-	confirmButton.backgroundColor = [UIColor greenColor];
-	//[confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
-	self.confirmButton = confirmButton;
-	//[self.page3 addSubview:replayButton];
+    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 170, self.view.frame.size.width/2-40, 40)];
+    confirmButton.titleLabel.text = @"Confirm Changes?";
+    [self.page3 addSubview: confirmButton];
+    [confirmButton addTarget:self action:@selector(confirmChanges) forControlEvents:UIControlEventTouchUpInside];
+    confirmButton.backgroundColor = [UIColor greenColor];
+    self.confirmButton = confirmButton;
+    
+    
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(20+self.view.frame.size.width/2, 170, self.view.frame.size.width/2-40, 40)];
+    cancelButton.titleLabel.text = @"Confirm Changes?";
+    [self.page3 addSubview: cancelButton];
+    [cancelButton addTarget:self action:@selector(cancelChanges) forControlEvents:UIControlEventTouchUpInside];
+    cancelButton.backgroundColor = [UIColor redColor];
+    self.cancelButton = cancelButton;
 	
 	self.currentBar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
 	self.currentBar.backgroundColor = [UIColor redColor];
@@ -219,9 +226,30 @@
     //Recorder set up
     self.recorder = [[Recorder alloc] init];
     self.recorder.delegate = self;
+    
+    
+    
+}
+-(void)confirmChanges{
+    if ([self.pickedPattern.name isEqualToString:@""]) {
+        NSLog(@"Please name your pattern");
+        return;
+    }
+    [self.textField resignFirstResponder];
+    [self refreshAllPatternsForTV];
+    self.editingPattern = NO;
+    self.scrollLock = NO;
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width, 0) animated:YES];
+    [[DataAccess sharedInstance] saveContext];
+    [self.tableView reloadData];
 }
 
-<<<<<<< HEAD
+-(void)cancelChanges{
+    self.scrollLock = NO;
+    [self.textField resignFirstResponder];
+    [self refreshActionPage];
+}
+
 
 - (IBAction)updateAmplitude:(id)sender
 {
@@ -253,14 +281,14 @@
 }
 
 
-=======
+
 -(void)recordingFinishedForPatternWithName:(NSString *)name{
     
 }
 
->>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	NSLog(@"scrolling");
+    NSLog(@"scrolling");
     if (self.scrollLock) {
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
@@ -275,6 +303,8 @@
     
     if (self.pageControl.currentPage==1) {
         self.pickedPatternName = @"";
+        [self refreshAllPatternsForTV];
+        
     }
     
     if (self.pageControl.currentPage ==2){
@@ -296,22 +326,51 @@
             }
             self.pickedPattern = pattern;
         }
-        
+        [self refreshActionPage];
     }
     NSLog(@"scrolling- %d",self.pageControl.currentPage);
+    
+
  
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.pickedPatternName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+     self.patternPicked = YES;
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width*2, 0)animated:NO];
 }
 
 -(void)refreshActionPage{
-    
+    self.textField.text= self.pickedPattern.name;
 }
 
 #pragma mark - Text View
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    self.pickedPattern.name = textField.text;
+    return YES;
+}
+
+-(void)textFieldDidChange:(UITextField*)textField{
+    self.pickedPattern.name = textField.text;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.scrollLock = YES;
+    self.editingPattern = YES;
+    self.pickedPattern.name = textField.text;
+}
+
+-(void)setEditingPattern:(BOOL)editingPattern
+{
+    _editingPattern = editingPattern;
+    if (_editingPattern) {
+        self.scrollLock =YES;
+    }
+    
+}
 
 #pragma mark - Table View
 
@@ -344,7 +403,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	return 90.0f;
+	return 50.0f;
 }
 
 

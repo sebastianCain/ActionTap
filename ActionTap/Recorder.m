@@ -16,10 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CADisplayLink *displayLink = [[CADisplayLink alloc] init];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    tapGesture.numberOfTapsRequired = 2;
-    [self.view addGestureRecognizer:tapGesture];
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
+    self.displayLink.frameInterval = 6;
+    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    [self.displayLink setPaused:NO];
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    self.tapGesture.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:self.tapGesture];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,15 +32,17 @@
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
+        self.tapGesture.numberOfTapsRequired = 1;
         [self startReadingInput];
     }
 }
+
 
 -(void)onDisplayLink{
     
 }
 
--(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
+-(NSArray)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
     
     
     

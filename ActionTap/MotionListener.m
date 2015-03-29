@@ -16,22 +16,17 @@
     {
         self.motionManager = [[CMMotionManager alloc] init];
         [self.motionManager startAccelerometerUpdates];
-        [self.motionManager setAccelerometerUpdateInterval:0.1];
+        [self.motionManager setAccelerometerUpdateInterval:1/60.0];
         [self.motionManager startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error)
         {
             
-            CMAccelerometerData *returnedData = _motionManager.accelerometerData;
-            
-            int x = returnedData.acceleration.x;
-            int y = returnedData.acceleration.y;
-            int z = returnedData.acceleration.z;
-            NSLog(@"X: %i, Y: %i, Z: %i", x, y, z);
         }];
     }
     return self;
 }
 -(float)getMagnitude{
     CMAccelerometerData *returnedData = self.motionManager.accelerometerData;
-    return returnedData.acceleration.x + returnedData.acceleration.y + returnedData.acceleration.z;
+    float magnitude = 100*(ABS(returnedData.acceleration.z));
+    return magnitude;
 }
 @end

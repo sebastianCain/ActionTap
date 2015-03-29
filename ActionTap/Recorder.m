@@ -12,6 +12,10 @@
 @interface Recorder ()
 @property NSString *name;
 @property NSMutableArray *tempPattern; //of NSNumbers hoding float values
+@property float LOW_VOLUME_THRESHOLD;
+@property float HIGH_VOLUME_THRESHOLD;
+@property float LOW_MAGNITUDE_THRESHOLD;
+@property float HIGH_MAGNITUDE_THRESHOLD;
 @end
 
 @implementation Recorder
@@ -32,7 +36,10 @@
         
         self.LOW_VOLUME_THRESHOLD = -22;
         self.HIGH_VOLUME_THRESHOLD = 0;
+        self.LOW_MAGNITUDE_THRESHOLD = 98;
+        self.HIGH_MAGNITUDE_THRESHOLD = 102;
         self.audioRecorder = [[AudioRecorder alloc] init];
+        self.motionListener = [[MotionListener alloc] init];
     }
     
     return self;
@@ -49,12 +56,14 @@
 
 -(void)onDisplayLink
 {
-    float volume = [self.audioRecorder getVolume];
+    //float volume = [self.audioRecorder getVolume];
+    float magnitude = [self.motionListener getMagnitude];
+                    NSLog(@"%f", magnitude);
     if ([self.tempPattern count] < 300)
     {
-        if (volume > self.LOW_VOLUME_THRESHOLD && volume < self.HIGH_VOLUME_THRESHOLD)
+        if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
         {
-            NSLog(@"%f", volume);
+
             [self.tempPattern addObject:[NSNumber numberWithInt:1]];
         } else {
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];

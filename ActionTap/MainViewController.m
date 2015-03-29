@@ -253,13 +253,12 @@
 
 
 -(void)startRecording{
-    /*
+
 	Recorder *r = [[Recorder alloc]init];
 	r.delegate = self;
 	[r.audioRecorder recordAudio];
 	[r startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
-	*/
-    
+    /*
 	 self.recording = YES;
 	 self.numberOfTaps = 0;
 	 [UIView animateWithDuration:0.5 animations:^{
@@ -279,7 +278,7 @@
 	 
     self.touchDetector.userInteractionEnabled = YES;
     self.scrollLock = YES;
-	
+	*/
 	
 }
 

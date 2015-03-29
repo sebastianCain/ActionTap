@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AudioRecorder.h"
-
+#import "MotionListener.h"
 @protocol RecorderDelegate <NSObject>
 
 -(void)recordingFinishedForPatternWithName:(NSString*)name;
@@ -19,9 +19,7 @@
 @property CADisplayLink *displayLink;
 @property UITapGestureRecognizer *tapGesture;
 @property AudioRecorder *audioRecorder;
-
-@property float LOW_VOLUME_THRESHOLD;
-@property float HIGH_VOLUME_THRESHOLD;
+@property MotionListener *motionListener;
 
 @property (weak)id <RecorderDelegate> delegate;
 

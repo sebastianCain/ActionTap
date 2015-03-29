@@ -11,8 +11,7 @@
 @interface ActionViewController : UIViewController
 
 @property UIButton *startButton;
-@property UIButton *replayButton;
-
+@property UIButton *confirmButton;
 @property BOOL recording;
 @property int numberOfTaps;
 @property double startTime;

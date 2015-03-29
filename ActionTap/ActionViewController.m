@@ -31,10 +31,10 @@
     self.startButton = startButton;
     [self.view addSubview:startButton];
     
-    UIButton *replayButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 80, self.view.frame.size.height*3/4, 80, 80)];
-    replayButton.backgroundColor = [UIColor greenColor];
-    [replayButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
-    self.replayButton = replayButton;
+    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 80, self.view.frame.size.height*3/4, 80, 80)];
+    confirmButton.backgroundColor = [UIColor greenColor];
+    [confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
+    self.confirmButton = confirmButton;
     //[self.view addSubview:replayButton];
     
     self.currentBar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
@@ -111,12 +111,15 @@
             self.startTime = CACurrentMediaTime();
             self.lastTapTime = CACurrentMediaTime();
             [self.tapData addObject:[NSNumber numberWithDouble:0.0]];
+            UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
+            bar.backgroundColor = [UIColor greenColor];
+            [self.view addSubview:bar];
+            [self.allBars addObject:bar];
         }else{
             UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
             bar.backgroundColor = [UIColor greenColor];
             [self.view addSubview:bar];
             [self.allBars addObject:bar];
-            NSLog(@"tapCount - %d",self.numberOfTaps);
             NSLog(@"Seconds from last tap - %f", CACurrentMediaTime()-self.lastTapTime);
             [self.tapData addObject:[NSNumber numberWithDouble:(CACurrentMediaTime()-self.lastTapTime)]];
             self.lastTapTime = CACurrentMediaTime();
@@ -125,7 +128,7 @@
         
         
         self.numberOfTaps +=1;
-        
+        NSLog(@"tapCount - %d",self.numberOfTaps);
         
     }
     

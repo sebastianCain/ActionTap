@@ -86,7 +86,7 @@
     {
         [self.displayLink setPaused:YES];
         for(int i = 0; i < 300; i++){
-            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue];
+            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] intValue];
             if (x == 0){
                 NSLog(@"%i", x);
             }else{
@@ -111,16 +111,11 @@
         [self.displayLink setPaused:NO];
 }
 
--(void)startReadingInput
-{
-    //NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    
-}
-
 -(void)stopRecording
 {
     self.isRecording = NO;
     [self.displayLink setPaused:YES];
+    [self.motionListener.motionManager stopAccelerometerUpdates];
 }
 
 -(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray

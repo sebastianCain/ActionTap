@@ -17,7 +17,8 @@
 #import "BTSSineWaveLayer.h"
 #import "CreateViewController.h"
 @interface MainViewController ()<RecorderDelegate>
-@property Recorder *recorder;
+@property Recorder *patternRecorder;
+@property Recorder *backgroundRecorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
@@ -187,7 +188,7 @@
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	//startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
-	[startButton addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
+	[startButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
     
@@ -228,13 +229,16 @@
 	[self.scrollView addSubview:self.page3];
     
     //Recorder set up
-    self.recorder = [[Recorder alloc] init];
-    self.recorder.delegate = self;
+    self.patternRecorder = [[Recorder alloc] init];
+    self.patternRecorder.delegate = self;
     
     if (self.shouldJumpToPage3) {
         [self jumpToPage3];
     }
     
+    
+    
+    [self comparePattern:nil withPattern:nil];
 }
 
 -(void)jumpToPage3{
@@ -497,18 +501,18 @@
     }
 }
 
--(void)startRecording
+-(void)startRecordingNewPattern
 {
     self.editingPattern = YES;
     self.scrollLock = YES;
     
-    if(self.recorder.isRecording == NO)
+    if(self.patternRecorder.isRecording == NO)
     {
-        self.recorder.delegate = self;
-        [self.recorder startNewPatternWithPattern:self.pickedPattern];
+        self.patternRecorder.delegate = self;
+        [self.patternRecorder startNewPatternWithPattern:self.pickedPattern];
     } else
     {
-        [self.recorder stopRecording];
+        [self.patternRecorder stopRecording];
     }
      
     /*
@@ -535,7 +539,17 @@
 	
 }
 
-
+-(void)startRecordingInBackground{
+    self.scrollLock = YES;
+    if(self.backgroundRecorder.isRecording == NO)
+    {
+        self.backgroundRecorder.delegate = self;
+        [self.backgroundRecorder startNewPatternWithPattern:self.pickedPattern];
+    } else
+    {
+        [self.backgroundRecorder stopRecording];
+    }
+}
 
 -(void)runLoop{
 	if (self.recording) {
@@ -614,14 +628,93 @@
 }
 
 -(int)comparePattern:(Pattern*)first withPattern:(Pattern*)second{
-    int score = 0;
+    double score = 0;
     
-    NSMutableArray *firstPatternRaw = [[NSMutableArray alloc]init];
+    /*
+    NSData *test = first.allTaps;
+    if (test ==[NSNull null]) {
+        NSLog(@"First Null");
+        return 100000000;
+    }
+    if (test == nil) {
+        NSLog(@"First nil");
+        return 100000000;
+    }
     
-    NSMutableArray *secondPatternRaw = [[NSMutableArray alloc]init];
+    test = second.allTaps;
+    if (test ==[NSNull null]) {
+        NSLog(@"First Null");
+        return 100000000;
+    }
+    if (test == nil) {
+        NSLog(@"Second nil");
+        return 100000000;
+    }
+    */
+    int lastIndex1=0, lastIndex2=0;
+    NSMutableArray *firstPatternRaw = [NSKeyedUnarchiver unarchiveObjectWithData:first.allTaps];
+    NSMutableArray *secondPatternRaw =[NSKeyedUnarchiver unarchiveObjectWithData:second.allTaps];
+    firstPatternRaw = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 300; i++)
+    {
+        [firstPatternRaw addObject:[NSNumber numberWithInt:0]];
+    }
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:35];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:61];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:88];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:100];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:125];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:217];
+    
+    secondPatternRaw = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 300; i++)
+    {
+        [secondPatternRaw addObject:[NSNumber numberWithInt:0]];
+    }
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:30];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:65];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:82];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:120];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:155];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:237];
+    
+    
+    NSMutableArray *firstPattern = [[NSMutableArray alloc]init];
+    NSMutableArray *secondPattern = [[NSMutableArray alloc]init];
+    
+    for (int i=0; i<300; i++) {
+        if ([[firstPatternRaw objectAtIndex:i]intValue]==1) {
+            [firstPattern addObject:[NSNumber numberWithDouble:i-lastIndex1]];
+            lastIndex1=i;
+        }
+        if ([[secondPatternRaw objectAtIndex:i]intValue]==1) {
+            [secondPattern addObject:[NSNumber numberWithDouble:i-lastIndex2]];
+            lastIndex2 = i;
+        }
+    }
+    double count = 0.0;
+    double sum = 0;
+    for (int i=0; i<[firstPattern count] && i<[secondPattern count]; i++) {
+        
+        double diff = [firstPattern[i] intValue] - [secondPattern[i] intValue];
+        
+        sum+= pow(abs(diff), 2);
+        count++;
+        
+        NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
+    }
+    score += sum/count;
+    
+    NSLog(@"SECOND");
+    
+//    for (int i=0; i<[secondPattern count]; i++) {
+//        NSLog(@"%d =  %d",i,[[secondPattern objectAtIndex:i]intValue]);
+//    }
     
     
     
+    NSLog(@"Score - %f",score);
+    score += ([firstPattern count]-[secondPattern count])*100;
     
     
     return score;

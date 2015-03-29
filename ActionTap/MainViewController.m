@@ -237,6 +237,9 @@
         [self jumpToPage3];
     }
     
+    
+    
+    [self comparePattern:nil withPattern:nil];
 }
 
 -(void)jumpToPage3{
@@ -626,16 +629,93 @@
 }
 
 -(int)comparePattern:(Pattern*)first withPattern:(Pattern*)second{
-    int score = 0;
+    double score = 0;
     
-    NSMutableArray *firstPatternRaw = [[NSMutableArray alloc]init];
+    /*
+    NSData *test = first.allTaps;
+    if (test ==[NSNull null]) {
+        NSLog(@"First Null");
+        return 100000000;
+    }
+    if (test == nil) {
+        NSLog(@"First nil");
+        return 100000000;
+    }
     
-    NSMutableArray *secondPatternRaw = [[NSMutableArray alloc]init];
+    test = second.allTaps;
+    if (test ==[NSNull null]) {
+        NSLog(@"First Null");
+        return 100000000;
+    }
+    if (test == nil) {
+        NSLog(@"Second nil");
+        return 100000000;
+    }
+    */
+    int lastIndex1=0, lastIndex2=0;
+    NSMutableArray *firstPatternRaw = [NSKeyedUnarchiver unarchiveObjectWithData:first.allTaps];
+    NSMutableArray *secondPatternRaw =[NSKeyedUnarchiver unarchiveObjectWithData:second.allTaps];
+    firstPatternRaw = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 300; i++)
+    {
+        [firstPatternRaw addObject:[NSNumber numberWithInt:0]];
+    }
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:35];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:61];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:88];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:100];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:125];
+    [firstPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:217];
     
-    int lastIndex = 0;
-    int lastIndex2 = 0;
-    int currentIndex = 0;
+    secondPatternRaw = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 300; i++)
+    {
+        [secondPatternRaw addObject:[NSNumber numberWithInt:0]];
+    }
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:30];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:65];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:82];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:120];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:155];
+    [secondPatternRaw setObject:[NSNumber numberWithInt:1] atIndexedSubscript:237];
     
+    
+    NSMutableArray *firstPattern = [[NSMutableArray alloc]init];
+    NSMutableArray *secondPattern = [[NSMutableArray alloc]init];
+    
+    for (int i=0; i<300; i++) {
+        if ([[firstPatternRaw objectAtIndex:i]intValue]==1) {
+            [firstPattern addObject:[NSNumber numberWithDouble:i-lastIndex1]];
+            lastIndex1=i;
+        }
+        if ([[secondPatternRaw objectAtIndex:i]intValue]==1) {
+            [secondPattern addObject:[NSNumber numberWithDouble:i-lastIndex2]];
+            lastIndex2 = i;
+        }
+    }
+    double count = 0.0;
+    double sum = 0;
+    for (int i=0; i<[firstPattern count] && i<[secondPattern count]; i++) {
+        
+        double diff = [firstPattern[i] intValue] - [secondPattern[i] intValue];
+        
+        sum+= pow(abs(diff), 2);
+        count++;
+        
+        NSLog(@"%d =  %d",i,[[firstPattern objectAtIndex:i]intValue]);
+    }
+    score += sum/count;
+    
+    NSLog(@"SECOND");
+    
+//    for (int i=0; i<[secondPattern count]; i++) {
+//        NSLog(@"%d =  %d",i,[[secondPattern objectAtIndex:i]intValue]);
+//    }
+    
+    
+    
+    NSLog(@"Score - %f",score);
+    score += ([firstPattern count]-[secondPattern count])*100;
     
     
     return score;

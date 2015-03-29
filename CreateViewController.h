@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Pattern+Pattern_Functions.h"
+#import "MainViewController.h"
 @interface CreateViewController : UIViewController
 
 @property UITableView *tableView;
@@ -19,7 +20,12 @@
 @property NSString *originalLabelText;
 @property UITextField *textfield;
 @property UIButton *confirmButton;
+@property UIButton *resignButton;
+@property int arrayindex;
 
 
+@property BOOL patternPicked;
+@property NSString *pickedPatternName;
+@property Pattern* pickedPattern;
 
 @end

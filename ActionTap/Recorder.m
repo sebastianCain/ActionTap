@@ -86,7 +86,7 @@
     {
         [self.displayLink setPaused:YES];
         for(int i = 0; i < 300; i++){
-            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue];
+            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] intValue];
             if (x == 0){
                 NSLog(@"%i", x);
             }else{
@@ -111,7 +111,7 @@
         [self.displayLink setPaused:NO];
 }
 
--(void)startReadingInput
+-(void)startNewInputWithPattern:(Pattern*)pattern
 {
     //NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     

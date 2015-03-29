@@ -9,5 +9,7 @@
 #import "Pattern+Pattern_Functions.h"
 
 @implementation Pattern (Pattern_Functions)
-
++(NSNumber *) comparePattern:(Pattern *)firstPattern with: (Pattern*)secondPattern{
+    return 0;
+}
 @end

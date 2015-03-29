@@ -20,6 +20,8 @@
 @property UITapGestureRecognizer *tapGesture;
 @property AudioRecorder *audioRecorder;
 @property MotionListener *motionListener;
+@property(readonly) bool isRecording;
+-(void)stopRecording;
 
 @property (weak)id <RecorderDelegate> delegate;
 

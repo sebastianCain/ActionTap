@@ -16,6 +16,7 @@
 @property float HIGH_VOLUME_THRESHOLD;
 @property float LOW_MAGNITUDE_THRESHOLD;
 @property float HIGH_MAGNITUDE_THRESHOLD;
+@property(readwrite) bool isRecording;
 @end
 
 @implementation Recorder
@@ -40,6 +41,7 @@
         self.HIGH_MAGNITUDE_THRESHOLD = 102;
         self.audioRecorder = [[AudioRecorder alloc] init];
         self.motionListener = [[MotionListener alloc] init];
+        self.isRecording = NO;
     }
     
     return self;
@@ -97,23 +99,28 @@
     }
 }
 -(void)startNewPatternWithName:(NSString *)name withURL:(NSURL *)url
-
 {
-    if([self.displayLink isPaused] == YES)
-    {
+        self.isRecording = YES;
+        self.tempPattern = [[NSMutableArray alloc] init];
         self.name = name;
         [self.displayLink setPaused:NO];
-    }
-
 }
 
 -(void)startReadingInput
 {
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    //NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
 }
 
--(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray{
+-(void)stopRecording
+{
+    self.isRecording = NO;
+    self.name = @"";
+    [self.displayLink setPaused:YES];
+}
+
+-(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray
+{
     
     
     return 0.0;

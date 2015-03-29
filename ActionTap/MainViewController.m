@@ -14,6 +14,7 @@
 #import "Pattern+Pattern_Functions.h"
 #import "Recorder.h"
 @interface MainViewController ()<RecorderDelegate>
+@property Recorder *recorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
@@ -77,7 +78,7 @@
 	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
 	[self.page1 addSubview:title];
 	
-	int swaggyp = (self.view.frame.size.width-80)/3;
+	//int swaggyp = (self.view.frame.size.width-80)/3;
 	/*
 	UIButton *newAction = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, swaggyp, swaggyp)];
 	[newAction.layer setCornerRadius:swaggyp/2];
@@ -140,9 +141,9 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
-	
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	startButton.backgroundColor = [UIColor greenColor];
+    [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
 	[startButton addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
@@ -162,7 +163,7 @@
     [self.page3 addSubview:touchButton];
     [touchButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
     //touchButton.backgroundColor= [UIColor redColor];
-    self.touchDetector=touchButton;
+    self.touchDetector = touchButton;
 	
 	
 	
@@ -170,7 +171,10 @@
 	[self.scrollView addSubview:self.page1];
 	[self.scrollView addSubview:self.page2];
 	[self.scrollView addSubview:self.page3];
-	
+    
+    //Recorder set up
+    self.recorder = [[Recorder alloc] init];
+    self.recorder.delegate = self;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -252,13 +256,18 @@
 }
 
 
--(void)startRecording{
-
-	Recorder *r = [[Recorder alloc]init];
-	r.delegate = self;
-	[r.audioRecorder recordAudio];
-	[r startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
-    /*
+-(void)startRecording
+{
+    if(self.recorder.isRecording == NO)
+    {
+        [self.recorder.audioRecorder recordAudio];
+        [self.recorder startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
+    } else
+    {
+        [self.recorder.audioRecorder stopAudio];
+        [self.recorder stopRecording];
+    }
+	    /*
 	 self.recording = YES;
 	 self.numberOfTaps = 0;
 	 [UIView animateWithDuration:0.5 animations:^{

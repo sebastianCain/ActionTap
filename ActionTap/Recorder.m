@@ -32,6 +32,7 @@
         
         self.LOW_VOLUME_THRESHOLD = 60;
         self.HIGH_VOLUME_THRESHOLD = 180;
+        self.audioRecorder = [[AudioRecorder alloc] init];
     }
     
     return self;
@@ -49,7 +50,7 @@
 -(void)onDisplayLink
 {
     float volume = [self.audioRecorder getVolume];
-        NSLog(@"%f", volume);
+        NSLog(@"%f", [self.audioRecorder getVolume]);
     if ([self.tempPattern count] < 50)
     {
         if (volume > self.LOW_VOLUME_THRESHOLD && volume < self.HIGH_VOLUME_THRESHOLD)
@@ -59,6 +60,7 @@
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];
         }
     } else {
+        [self.displayLink setPaused:YES];
         //Save To core data
         NSManagedObjectContext *context = [DataAccess context];
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];

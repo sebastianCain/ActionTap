@@ -186,11 +186,15 @@
     
     
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
-	//startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
 	[startButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
+    
+    UIButton *calibrateButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 40, self.view.frame.size.height - 40, 80, 80)];
+    [calibrateButton setImage:[UIImage imageNamed:@"calibrateButton"] forState:UIControlStateNormal];
+    [calibrateButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
+    [self.page3 addSubview:calibrateButton];
     
     UIButton *actionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 100, self.view.frame.size.height*(2/3), 200, 100)];
     actionsButton.backgroundColor  = [UIColor blueColor];

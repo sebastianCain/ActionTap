@@ -71,7 +71,7 @@
 	
 	self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, 400)];
 	[self.sineview setTag:100];
-	[self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2+200)];
+	[self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height - 100)];
 	[self.sineview setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	[self.sineview.layer setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0].CGColor];
 	[self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
@@ -155,8 +155,7 @@
 	[tableView setDelegate:self];
 	self.tableView = tableView;
 	[self.page2 addSubview:tableView];
-	
-	UIView *coverView = [[UIView alloc]initWithFrame: self.view.frame];
+
 	//PAGE 3
 	
 	

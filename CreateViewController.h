@@ -23,6 +23,8 @@
 @property UIButton *resignButton;
 @property int arrayindex;
 
+@property UIToolbar *numberToolbar;
+
 
 @property BOOL patternPicked;
 @property NSString *pickedPatternName;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6750" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6735"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -60,99 +60,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5o-1u-NYP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1027" y="351"/>
-        </scene>
-        <!--Sine Wave-->
-        <scene sceneID="rZX-8W-fZd">
-            <objects>
-                <viewController id="NwH-oH-rFz" customClass="BTSSineWaveViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cl6-Qj-ZVL"/>
-                        <viewControllerLayoutGuide type="bottom" id="fyG-r6-ymY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9nr-dL-Pqw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view tag="100" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kRp-eA-hqF" customClass="BTSSineWaveView">
-                                <rect key="frame" x="0.0" y="64" width="600" height="276"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="1" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgb-BJ-UgX">
-                                <rect key="frame" x="114" y="348" width="468" height="31"/>
-                                <connections>
-                                    <action selector="updateAmplitude:" destination="NwH-oH-rFz" eventType="valueChanged" id="Jm6-8x-aTQ"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihG-HM-Tii">
-                                <rect key="frame" x="114" y="432" width="468" height="31"/>
-                                <connections>
-                                    <action selector="updatePhase:" destination="NwH-oH-rFz" eventType="valueChanged" id="XLX-au-pnL"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Amplitude" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="f9x-t4-kXZ">
-                                <rect key="frame" x="20" y="354" width="88" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="s9s-By-cNI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Frequency" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vfU-Ji-Z93">
-                                <rect key="frame" x="20" y="397" width="88" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Phase" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="GEy-Lt-mOq">
-                                <rect key="frame" x="20" y="438" width="88" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.031415000557899475" minValue="0.0" maxValue="0.06283000111579895" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taA-3c-yj4">
-                                <rect key="frame" x="114" y="388" width="468" height="31"/>
-                                <connections>
-                                    <action selector="updateFrequency:" destination="NwH-oH-rFz" eventType="valueChanged" id="KlK-kz-rtt"/>
-                                </connections>
-                            </slider>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ihG-HM-Tii" firstAttribute="top" secondItem="taA-3c-yj4" secondAttribute="bottom" constant="8" symbolic="YES" id="3av-OB-LGl"/>
-                            <constraint firstItem="f9x-t4-kXZ" firstAttribute="centerY" secondItem="rgb-BJ-UgX" secondAttribute="centerY" id="3e9-ew-3aG"/>
-                            <constraint firstItem="vfU-Ji-Z93" firstAttribute="leading" secondItem="GEy-Lt-mOq" secondAttribute="leading" id="615-yb-bLl"/>
-                            <constraint firstAttribute="trailing" secondItem="kRp-eA-hqF" secondAttribute="trailing" id="7Zv-l9-DXZ"/>
-                            <constraint firstItem="GEy-Lt-mOq" firstAttribute="centerY" secondItem="ihG-HM-Tii" secondAttribute="centerY" id="80r-xd-4uB"/>
-                            <constraint firstItem="f9x-t4-kXZ" firstAttribute="leading" secondItem="vfU-Ji-Z93" secondAttribute="leading" id="8qg-0W-Yur"/>
-                            <constraint firstItem="taA-3c-yj4" firstAttribute="leading" secondItem="vfU-Ji-Z93" secondAttribute="trailing" constant="8" symbolic="YES" id="9VP-dy-pjv"/>
-                            <constraint firstItem="ihG-HM-Tii" firstAttribute="leading" secondItem="GEy-Lt-mOq" secondAttribute="trailing" constant="8" symbolic="YES" id="Bvm-ZN-mko"/>
-                            <constraint firstItem="rgb-BJ-UgX" firstAttribute="leading" secondItem="taA-3c-yj4" secondAttribute="leading" id="D9c-gW-8Wm"/>
-                            <constraint firstItem="taA-3c-yj4" firstAttribute="leading" secondItem="ihG-HM-Tii" secondAttribute="leading" id="Su5-Kk-BQS"/>
-                            <constraint firstItem="fyG-r6-ymY" firstAttribute="top" secondItem="ihG-HM-Tii" secondAttribute="bottom" constant="15" id="Uo9-to-fdB"/>
-                            <constraint firstItem="vfU-Ji-Z93" firstAttribute="centerY" secondItem="taA-3c-yj4" secondAttribute="centerY" id="ZWQ-d3-1Mi"/>
-                            <constraint firstItem="ihG-HM-Tii" firstAttribute="trailing" secondItem="taA-3c-yj4" secondAttribute="trailing" id="Zku-5N-fDg"/>
-                            <constraint firstAttribute="trailing" secondItem="rgb-BJ-UgX" secondAttribute="trailing" constant="20" symbolic="YES" id="b6I-xi-TGu"/>
-                            <constraint firstItem="kRp-eA-hqF" firstAttribute="top" secondItem="cl6-Qj-ZVL" secondAttribute="bottom" id="gf2-Ui-idq"/>
-                            <constraint firstItem="kRp-eA-hqF" firstAttribute="leading" secondItem="9nr-dL-Pqw" secondAttribute="leading" id="iik-1i-p9z"/>
-                            <constraint firstItem="taA-3c-yj4" firstAttribute="trailing" secondItem="rgb-BJ-UgX" secondAttribute="trailing" id="iru-tX-tVQ"/>
-                            <constraint firstItem="rgb-BJ-UgX" firstAttribute="top" secondItem="kRp-eA-hqF" secondAttribute="bottom" constant="8" symbolic="YES" id="rTs-sV-ppX"/>
-                            <constraint firstItem="rgb-BJ-UgX" firstAttribute="leading" secondItem="f9x-t4-kXZ" secondAttribute="trailing" constant="8" symbolic="YES" id="thc-v6-2Iq"/>
-                            <constraint firstItem="taA-3c-yj4" firstAttribute="top" secondItem="rgb-BJ-UgX" secondAttribute="bottom" constant="10" id="xMx-Xa-Kgn"/>
-                            <constraint firstItem="f9x-t4-kXZ" firstAttribute="leading" secondItem="9nr-dL-Pqw" secondAttribute="leading" constant="20" symbolic="YES" id="yeA-uj-bbx"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Sine Wave" id="HHf-1k-kPc"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <connections>
-                        <outlet property="amplitudeSlider" destination="rgb-BJ-UgX" id="jQS-Jm-TGS"/>
-                        <outlet property="frequencySlider" destination="taA-3c-yj4" id="dBh-oE-gMB"/>
-                        <outlet property="phaseSlider" destination="ihG-HM-Tii" id="SHU-lX-L8d"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MLF-LF-vPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="640" y="1048"/>
         </scene>
     </scenes>
 </document>

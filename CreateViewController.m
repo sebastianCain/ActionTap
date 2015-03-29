@@ -17,7 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+	
+	UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+	numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelNumberPad)];
+	[cancelButton setTintColor:[UIColor colorWithRed:46/255.0 green:204/255.0 blue:113/255.0 alpha:1.0]];
+	UIBarButtonItem *donebutton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)];
+	[donebutton setTintColor:[UIColor colorWithRed:46/255.0 green:204/255.0 blue:113/255.0 alpha:1.0]];
+	numberToolbar.items = [NSArray arrayWithObjects:
+						   cancelButton,
+						   [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+						   donebutton,
+						   nil];
+	[numberToolbar sizeToFit];
+	self.numberToolbar = numberToolbar;
+	
     UIButton *resignButton = [[UIButton alloc]initWithFrame:self.view.frame];
     resignButton.userInteractionEnabled = NO;
     self.resignButton = resignButton;
@@ -70,9 +84,13 @@
     [self.textfield addTarget:self
                   action:@selector(textFieldDidChange:)
         forControlEvents:UIControlEventEditingChanged];
-    
     self.textfield.backgroundColor = [UIColor blackColor];
     self.textfield.delegate = self;
+	if (indexPath.row == 3 || indexPath.row == 4) {
+		self.textfield.inputAccessoryView = self.numberToolbar;
+		
+	}
+	
     [cell addSubview:self.textfield];
     
     if (indexPath.row == 0) {

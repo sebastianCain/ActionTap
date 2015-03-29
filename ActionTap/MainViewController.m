@@ -13,11 +13,15 @@
 #import "DataAccess.h"
 #import "Pattern+Pattern_Functions.h"
 #import "Recorder.h"
+#import "BTSSineWaveView.h"
+#import "BTSSineWaveLayer.h"
+
 @interface MainViewController ()<RecorderDelegate>
 @property Recorder *recorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
+@property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview;
 @end
 
 @implementation MainViewController
@@ -52,7 +56,35 @@
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 	
 	[self.view addSubview:self.pageControl];
+
 	
+    // Do any additional setup after loading the view.
+	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
+	[title setText:@"jarvis"];
+	[title setTextColor:[UIColor whiteColor]];
+	[title setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:72]];
+	[title setTextAlignment:NSTextAlignmentCenter];
+	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
+	[self.page1 addSubview:title];
+	
+	self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2+500, self.view.frame.size.width, 400)];
+	[self.sineview setTag:100];
+	[self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2+200)];
+	[self.sineview setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.sineview.layer setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0].CGColor];
+	[self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
+	[self.page1 addSubview:self.sineview];
+	
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	[layer setContentsScale:[[UIScreen mainScreen] scale]];
+	CGRect layerBounds = [layer bounds];
+	
+	[layer setAmplitude:10];
+	[layer setFrequency:0.01];
+	[layer setPhase:1];
+	
+	[layer setNeedsDisplay];
+
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
@@ -64,20 +96,9 @@
 	l.startPoint = CGPointMake(0.5f, 0.5f);
 	l.endPoint = CGPointMake(0.5f, 1.0f);
 	bgimage.layer.mask = l;
-	
 	[self.page1 addSubview:bgimage];
 	
 	NSLog(@"%@", bgimage);
-	
-    // Do any additional setup after loading the view.
-	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
-	[title setText:@"jarvis"];
-	[title setTextColor:[UIColor whiteColor]];
-	[title setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:72]];
-	[title setTextAlignment:NSTextAlignmentCenter];
-	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
-	[self.page1 addSubview:title];
-	
 	//int swaggyp = (self.view.frame.size.width-80)/3;
 	/*
 	UIButton *newAction = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, swaggyp, swaggyp)];
@@ -126,14 +147,24 @@
 	
 	//PAGE 2
 	
+	
+	UIView *coverView2 = [[UIView alloc]initWithFrame: self.view.frame];
+	[coverView2 setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.page2 addSubview:coverView2];
+	
 	UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 250)];
 	[tableView setDataSource:self];
 	[tableView setDelegate:self];
 	self.tableView = tableView;
 	[self.page2 addSubview:tableView];
 	
-	
+	UIView *coverView = [[UIView alloc]initWithFrame: self.view.frame];
 	//PAGE 3
+	
+	
+	UIView *coverView3 = [[UIView alloc]initWithFrame: self.view.frame];
+	[coverView3 setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.page3 addSubview:coverView3];
 	
 	UILabel *title3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
 	title3.text = @"Action";
@@ -141,6 +172,20 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 150, self.view.frame.size.width-40, 40)];
+    [tf setDelegate:self];
+    [tf setPlaceholder:@"put action name here"];
+    [tf setTintColor:[UIColor whiteColor]];
+    [tf setTextColor:[UIColor whiteColor]];
+    [tf setTextAlignment:NSTextAlignmentCenter];
+    [tf.layer setCornerRadius:10.0];
+    [tf.layer setMasksToBounds:YES];
+    [tf.layer setBorderWidth:2.0];
+    [tf.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.page3 addSubview:tf];
+    self.textField = tf;
+    
+    
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
@@ -148,11 +193,20 @@
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
 	
-	UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 80, self.view.frame.size.height*3/4, 80, 80)];
-	confirmButton.backgroundColor = [UIColor greenColor];
-	//[confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
-	self.confirmButton = confirmButton;
-	//[self.page3 addSubview:replayButton];
+    UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 170, self.view.frame.size.width/2-40, 40)];
+    confirmButton.titleLabel.text = @"Confirm Changes?";
+    [self.page3 addSubview: confirmButton];
+    [confirmButton addTarget:self action:@selector(confirmChanges) forControlEvents:UIControlEventTouchUpInside];
+    confirmButton.backgroundColor = [UIColor greenColor];
+    self.confirmButton = confirmButton;
+    
+    
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(20+self.view.frame.size.width/2, 170, self.view.frame.size.width/2-40, 40)];
+    cancelButton.titleLabel.text = @"Confirm Changes?";
+    [self.page3 addSubview: cancelButton];
+    [cancelButton addTarget:self action:@selector(cancelChanges) forControlEvents:UIControlEventTouchUpInside];
+    cancelButton.backgroundColor = [UIColor redColor];
+    self.cancelButton = cancelButton;
 	
 	self.currentBar = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2-50, 4, 100)];
 	self.currentBar.backgroundColor = [UIColor redColor];
@@ -165,9 +219,6 @@
     //touchButton.backgroundColor= [UIColor redColor];
     self.touchDetector = touchButton;
 	
-	
-	
-	
 	[self.scrollView addSubview:self.page1];
 	[self.scrollView addSubview:self.page2];
 	[self.scrollView addSubview:self.page3];
@@ -175,20 +226,152 @@
     //Recorder set up
     self.recorder = [[Recorder alloc] init];
     self.recorder.delegate = self;
+    
+    
+    
+}
+-(void)confirmChanges{
+    if ([self.pickedPattern.name isEqualToString:@""]) {
+        NSLog(@"Please name your pattern");
+        return;
+    }
+    [self.textField resignFirstResponder];
+    [self refreshAllPatternsForTV];
+    self.editingPattern = NO;
+    self.scrollLock = NO;
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width, 0) animated:YES];
+    [[DataAccess sharedInstance] saveContext];
+    [self.tableView reloadData];
 }
 
+-(void)cancelChanges{
+    self.scrollLock = NO;
+    [self.textField resignFirstResponder];
+    [self refreshActionPage];
+}
+
+
+- (IBAction)updateAmplitude:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float amplitude = [(UISlider *)sender value];
+	[layer setAmplitude:(CGFloat)amplitude];
+	[layer setNeedsDisplay];
+}
+
+- (IBAction)updateFrequency:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float frequency = [(UISlider *)sender value];
+	[layer setFrequency:(CGFloat)frequency];
+	[layer setNeedsDisplay];
+}
+
+- (IBAction)updatePhase:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float phase = [(UISlider *)sender value];
+	[layer setPhase:(CGFloat)phase];
+	[layer setNeedsDisplay];
+}
+
+- (BTSSineWaveLayer *)sineWaveLayer
+{
+	return (BTSSineWaveLayer *)[[[self view] viewWithTag:100] layer];
+}
+
+
+
+-(void)recordingFinishedForPatternWithName:(NSString *)name{
+    
+}
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	NSLog(@"scrolling");
+    NSLog(@"scrolling");
     if (self.scrollLock) {
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
     }
+    
+    
+    
     CGFloat pageWidth = self.scrollView.frame.size.width;
-	float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
-	NSInteger page = lround(fractionalPage);
-	self.pageControl.currentPage = page;
+    float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
+    NSInteger page = lround(fractionalPage);
+    self.pageControl.currentPage = page;
+    
+    if (self.pageControl.currentPage==1) {
+        self.pickedPatternName = @"";
+        [self refreshAllPatternsForTV];
+        
+    }
+    
+    if (self.pageControl.currentPage ==2){
+        [self refreshActionPage];
+        NSManagedObjectContext *context = [DataAccess context];
+        Pattern *pattern;
+        if (![self.pickedPattern.name isEqualToString:self.pickedPatternName]) {
+            if (self.patternPicked) {
+                NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+                NSArray *all = [context executeFetchRequest:request error:nil];
+                for(Pattern* p in all) {
+                    if ([p.name isEqualToString:self.pickedPatternName]) {
+                        pattern = p;
+                    }
+                }
+            }else if([self.pickedPatternName isEqualToString:@""]){
+                pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
+                pattern.name = @"";
+            }
+            self.pickedPattern = pattern;
+        }
+        [self refreshActionPage];
+    }
+    NSLog(@"scrolling- %d",self.pageControl.currentPage);
+    
+
  
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.pickedPatternName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+     self.patternPicked = YES;
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width*2, 0)animated:NO];
+}
+
+-(void)refreshActionPage{
+    self.textField.text= self.pickedPattern.name;
+}
+
+#pragma mark - Text View
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    self.pickedPattern.name = textField.text;
+    return YES;
+}
+
+-(void)textFieldDidChange:(UITextField*)textField{
+    self.pickedPattern.name = textField.text;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.scrollLock = YES;
+    self.editingPattern = YES;
+    self.pickedPattern.name = textField.text;
+}
+
+-(void)setEditingPattern:(BOOL)editingPattern
+{
+    _editingPattern = editingPattern;
+    if (_editingPattern) {
+        self.scrollLock =YES;
+    }
+    
+}
+
 #pragma mark - Table View
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -220,7 +403,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	return 90.0f;
+	return 50.0f;
 }
 
 
@@ -353,7 +536,9 @@
 -(void)refreshAllPatternsForTV{
     self.allPatternsForTV = [[NSMutableArray alloc]init];
     NSManagedObjectContext *context = [DataAccess context];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Patern"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.allPatternsForTV = [context executeFetchRequest:request error:nil];
     
 }

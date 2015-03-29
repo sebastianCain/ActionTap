@@ -19,9 +19,9 @@
 	// Override point for customization after application launch.
     
     self.recorder = [[AudioRecorder alloc]init];
-    [self.recorder recordAudio];
-    
-    
+	
+	
+	
 	return YES;
 }
 

@@ -16,6 +16,9 @@
 		0A4BA2AB1AC73E77002CF438 /* ActionTapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2AA1AC73E77002CF438 /* ActionTapTests.m */; };
 		0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2B51AC75290002CF438 /* MainViewController.m */; };
 		0A4BA2BE1AC781CE002CF438 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */; };
+		0A4BA2C51AC7D837002CF438 /* BTSSineWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2C01AC7D837002CF438 /* BTSSineWaveViewController.m */; };
+		0A4BA2C61AC7D837002CF438 /* BTSSineWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2C21AC7D837002CF438 /* BTSSineWaveView.m */; };
+		0A4BA2C71AC7D837002CF438 /* BTSSineWaveLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */; };
 		3B37AB581AC78DAA00EAAFD7 /* AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */; };
 		3B37AB5F1AC7C3CE00EAAFD7 /* MotionListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B37AB5E1AC7C3CE00EAAFD7 /* MotionListener.m */; };
 		3B4B00FF1AC7D0D300AAC7C9 /* button@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B4B00FC1AC7D0D300AAC7C9 /* button@1x.png */; };
@@ -55,6 +58,12 @@
 		0A4BA2B41AC75290002CF438 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		0A4BA2B51AC75290002CF438 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		0A4BA2BD1AC781CE002CF438 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0A4BA2BF1AC7D837002CF438 /* BTSSineWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSSineWaveViewController.h; sourceTree = "<group>"; };
+		0A4BA2C01AC7D837002CF438 /* BTSSineWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSSineWaveViewController.m; sourceTree = "<group>"; };
+		0A4BA2C11AC7D837002CF438 /* BTSSineWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSSineWaveView.h; sourceTree = "<group>"; };
+		0A4BA2C21AC7D837002CF438 /* BTSSineWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSSineWaveView.m; sourceTree = "<group>"; };
+		0A4BA2C31AC7D837002CF438 /* BTSSineWaveLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSSineWaveLayer.h; sourceTree = "<group>"; };
+		0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSSineWaveLayer.m; sourceTree = "<group>"; };
 		3B37AB561AC78DAA00EAAFD7 /* AudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioRecorder.h; path = ../AudioRecorder.h; sourceTree = "<group>"; };
 		3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioRecorder.m; path = ../AudioRecorder.m; sourceTree = "<group>"; };
 		3B37AB5D1AC7C3CE00EAAFD7 /* MotionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionListener.h; sourceTree = "<group>"; };
@@ -114,6 +123,7 @@
 		0A4BA28A1AC73E77002CF438 /* ActionTap */ = {
 			isa = PBXGroup;
 			children = (
+				0A4BA2C81AC7DF94002CF438 /* Sine Animation */,
 				031549711AC7CE5C002B21C4 /* CreateViewController.h */,
 				031549721AC7CE5C002B21C4 /* CreateViewController.m */,
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
@@ -157,6 +167,19 @@
 				0A4BA2A91AC73E77002CF438 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0A4BA2C81AC7DF94002CF438 /* Sine Animation */ = {
+			isa = PBXGroup;
+			children = (
+				0A4BA2BF1AC7D837002CF438 /* BTSSineWaveViewController.h */,
+				0A4BA2C01AC7D837002CF438 /* BTSSineWaveViewController.m */,
+				0A4BA2C11AC7D837002CF438 /* BTSSineWaveView.h */,
+				0A4BA2C21AC7D837002CF438 /* BTSSineWaveView.m */,
+				0A4BA2C31AC7D837002CF438 /* BTSSineWaveLayer.h */,
+				0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */,
+			);
+			name = "Sine Animation";
 			sourceTree = "<group>";
 		};
 		3B37AB591AC78E7700EAAFD7 /* Recorders */ = {
@@ -247,7 +270,7 @@
 					};
 					0A4BA2A31AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = K68L32QYS3;
+						DevelopmentTeam = 9XWYL3K4YT;
 						TestTargetID = 0A4BA2871AC73E77002CF438;
 					};
 				};
@@ -302,14 +325,17 @@
 				BB1F92CA1AC75DB300229753 /* Pattern+Pattern_Functions.m in Sources */,
 				0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */,
 				031549731AC7CE5C002B21C4 /* CreateViewController.m in Sources */,
+				0A4BA2C61AC7D837002CF438 /* BTSSineWaveView.m in Sources */,
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
 				BB1F92C61AC75D6300229753 /* Pattern.m in Sources */,
 				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,
 				3B37AB5F1AC7C3CE00EAAFD7 /* MotionListener.m in Sources */,
 				0A4BA2B61AC75290002CF438 /* MainViewController.m in Sources */,
+				0A4BA2C51AC7D837002CF438 /* BTSSineWaveViewController.m in Sources */,
 				3B37AB581AC78DAA00EAAFD7 /* AudioRecorder.m in Sources */,
 				BB1F92C01AC75AC200229753 /* Recorder.m in Sources */,
 				BB1F92CD1AC7628400229753 /* DataAccess.m in Sources */,
+				0A4BA2C71AC7D837002CF438 /* BTSSineWaveLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

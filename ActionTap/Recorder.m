@@ -15,26 +15,28 @@
 
 @implementation Recorder
 
-- (void)viewDidLoad
+
+
+-(instancetype)init
 {
-    [super viewDidLoad];
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
-    self.displayLink.frameInterval = 6;
-    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-    [self.displayLink setPaused:NO];
-    //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    //self.tapGesture.numberOfTapsRequired = 2;
-    //[self.view addGestureRecognizer:self.tapGesture];
+    self = [super init];
+    if(self ){
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
+        self.displayLink.frameInterval = 6;
+        [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        [self.displayLink setPaused:NO];
+        //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        //self.tapGesture.numberOfTapsRequired = 2;
+        //[self.view addGestureRecognizer:self.tapGesture];
+        
+        self.LOW_VOLUME_THRESHOLD = 60;
+        self.HIGH_VOLUME_THRESHOLD = 180;
+    }
     
-    self.LOW_VOLUME_THRESHOLD = 60;
-    self.HIGH_VOLUME_THRESHOLD = 180;
+    return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 //- (void)handleTapGesture:(UITapGestureRecognizer *)sender {
 //    if (sender.state == UIGestureRecognizerStateRecognized) {
@@ -46,6 +48,7 @@
 -(void)onDisplayLink
 {
     float volume = [self.audioRecorder getVolume];
+        NSLog(@"%f", volume);
     if ([self.tempPattern count] < 50)
     {
         if (volume > self.LOW_VOLUME_THRESHOLD && volume < self.HIGH_VOLUME_THRESHOLD)
@@ -75,7 +78,14 @@
 
 -(void)startReadingInput
 {
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
+}
+
+-(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray{
+    
+    
+    return 0.0;
 }
 
 /*

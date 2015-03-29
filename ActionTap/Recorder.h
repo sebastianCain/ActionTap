@@ -15,7 +15,7 @@
 
 @end
 
-@interface Recorder : UIViewController
+@interface Recorder : NSObject
 @property CADisplayLink *displayLink;
 @property UITapGestureRecognizer *tapGesture;
 @property AudioRecorder *audioRecorder;

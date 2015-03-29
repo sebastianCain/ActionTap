@@ -8,7 +8,7 @@
 //
 
 #import "ActionViewController.h"
-
+#import "Recorder.h"
 @interface ActionViewController ()
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
@@ -47,6 +47,10 @@
 }
 
 -(void)startRecording{
+    Recorder *r = [[Recorder alloc]init];
+    
+    [r startNewPatternWithName:@"testName" withURL:@"testUrl"];
+    /*
     self.recording = YES;
     self.numberOfTaps = 0;
     [UIView animateWithDuration:0.5 animations:^{
@@ -63,7 +67,7 @@
         [v removeFromSuperview];
     }
     self.allBars = [[NSMutableArray alloc]init];
-    
+    */
     
     
     

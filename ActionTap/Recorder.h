@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AudioRecorder.h"
 
+@protocol RecorderDelegate <NSObject>
+
+-(void)recordingFinishedForPatternWithName:(NSString*)name;
+
+@end
+
 @interface Recorder : UIViewController
 @property CADisplayLink *displayLink;
 @property UITapGestureRecognizer *tapGesture;
@@ -16,6 +22,9 @@
 
 @property float LOW_VOLUME_THRESHOLD;
 @property float HIGH_VOLUME_THRESHOLD;
+
+@property (weak)id <RecorderDelegate> delegate;
+
 -(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url;
 
 

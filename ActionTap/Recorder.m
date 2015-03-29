@@ -43,7 +43,6 @@
 //    }
 //}
 
-
 -(void)onDisplayLink
 {
     float volume = [self.audioRecorder getVolume];
@@ -56,7 +55,10 @@
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];
         }
     } else {
+        //Save To core data
         
+        //Trigger function in delegate
+        [self.delegate recordingFinishedForPatternWithName:self.name];
     }
 }
 

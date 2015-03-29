@@ -108,8 +108,6 @@
 		0A4BA28A1AC73E77002CF438 /* ActionTap */ = {
 			isa = PBXGroup;
 			children = (
-				3B37AB561AC78DAA00EAAFD7 /* AudioRecorder.h */,
-				3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */,
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
 				0A4BA2901AC73E77002CF438 /* AppDelegate.m */,
 				0A4BA2981AC73E77002CF438 /* Main.storyboard */,
@@ -122,8 +120,7 @@
 				0A4BA2B81AC752CA002CF438 /* MyActionsViewController.m */,
 				0A4BA2BA1AC752F8002CF438 /* ActionViewController.h */,
 				0A4BA2BB1AC752F8002CF438 /* ActionViewController.m */,
-				BB1F92BE1AC75AC200229753 /* Recorder.h */,
-				BB1F92BF1AC75AC200229753 /* Recorder.m */,
+				3B37AB591AC78E7700EAAFD7 /* Recorders */,
 				BB1F92CB1AC7628400229753 /* DataAccess.h */,
 				BB1F92CC1AC7628400229753 /* DataAccess.m */,
 				BB1F92C71AC75D6900229753 /* CoreData */,
@@ -155,6 +152,17 @@
 				0A4BA2A91AC73E77002CF438 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3B37AB591AC78E7700EAAFD7 /* Recorders */ = {
+			isa = PBXGroup;
+			children = (
+				3B37AB561AC78DAA00EAAFD7 /* AudioRecorder.h */,
+				3B37AB571AC78DAA00EAAFD7 /* AudioRecorder.m */,
+				BB1F92BE1AC75AC200229753 /* Recorder.h */,
+				BB1F92BF1AC75AC200229753 /* Recorder.m */,
+			);
+			name = Recorders;
 			sourceTree = "<group>";
 		};
 		BB1F92C71AC75D6900229753 /* CoreData */ = {

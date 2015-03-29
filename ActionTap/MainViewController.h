@@ -29,4 +29,8 @@
 @property double lastTapTime;
 @property  NSMutableArray *tapData;
 
+@property   NSArray *allPatternsForTV;
+
+@property BOOL scrollLock;
+
 @end

@@ -16,6 +16,7 @@
 @interface MainViewController ()<RecorderDelegate>
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
+@property UIButton *touchDetector;
 @end
 
 @implementation MainViewController
@@ -148,7 +149,7 @@
 	
 	UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 80, self.view.frame.size.height*3/4, 80, 80)];
 	confirmButton.backgroundColor = [UIColor greenColor];
-	[confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
+	//[confirmButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
 	self.confirmButton = confirmButton;
 	//[self.page3 addSubview:replayButton];
 	
@@ -156,7 +157,12 @@
 	self.currentBar.backgroundColor = [UIColor redColor];
 	[self.page3 addSubview:self.currentBar];
 	
-	
+    UIButton *touchButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.page3.frame.size.width, self.page3.frame.size.height)];
+    touchButton.userInteractionEnabled = NO;
+    [self.page3 addSubview:touchButton];
+    [touchButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+    //touchButton.backgroundColor= [UIColor redColor];
+    self.touchDetector=touchButton;
 	
 	
 	
@@ -169,18 +175,23 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSLog(@"scrolling");
-/*	CGFloat pageWidth = self.scrollView.frame.size.width;
+    if (self.scrollLock) {
+        self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
+        return;
+    }
+    CGFloat pageWidth = self.scrollView.frame.size.width;
 	float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
 	NSInteger page = lround(fractionalPage);
 	self.pageControl.currentPage = page;
- */
+ 
 }
+#pragma mark - Table View
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PatternCell"];
-	
-	
+    Pattern  *pattern = [self.allPatternsForTV objectAtIndex:indexPath.row];
+    cell.textLabel.text =pattern.name;
 	
 	[cell.textLabel setTextAlignment: NSTextAlignmentLeft];
 	[cell setTag: indexPath.row];
@@ -201,7 +212,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	
-	return 1;
+    return [self.allPatternsForTV count];;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -242,11 +253,13 @@
 
 
 -(void)startRecording{
+    /*
 	Recorder *r = [[Recorder alloc]init];
 	r.delegate = self;
 	[r.audioRecorder recordAudio];
 	[r startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
-	/*
+	*/
+    
 	 self.recording = YES;
 	 self.numberOfTaps = 0;
 	 [UIView animateWithDuration:0.5 animations:^{
@@ -263,17 +276,14 @@
 	 [v removeFromSuperview];
 	 }
 	 self.allBars = [[NSMutableArray alloc]init];
-	 */
-	
-	
+	 
+    self.touchDetector.userInteractionEnabled = YES;
+    self.scrollLock = YES;
 	
 	
 }
 
--(void)replay
-{
-	
-}
+
 
 -(void)runLoop{
 	if (self.recording) {
@@ -282,11 +292,13 @@
 			self.currentBar.center = CGPointMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2);
 		}
 		
-		if (CACurrentMediaTime() - self.startTime >5 ) {
+		if ((CACurrentMediaTime() - self.startTime >5 )&&[self.tapData count]) {
 			self.recording = NO;
 			[UIView animateWithDuration:1.0 animations:^{
 				self.startButton.alpha = 1.0;
 			}];
+            self.touchDetector.userInteractionEnabled = NO;
+            self.scrollLock = NO;
 			return;
 		}
 	}
@@ -294,12 +306,15 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
 	if (self.recording) {
 		if (CACurrentMediaTime() - self.startTime >5 ) {
 			self.recording = NO;
 			[UIView animateWithDuration:1.0 animations:^{
 				self.startButton.alpha = 1.0;
 			}];
+            self.touchDetector.userInteractionEnabled = NO;
+            self.scrollLock = NO;
 			return;
 		}
 		
@@ -327,5 +342,12 @@
 	}
 }
 
+-(void)refreshAllPatternsForTV{
+    self.allPatternsForTV = [[NSMutableArray alloc]init];
+    NSManagedObjectContext *context = [DataAccess context];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Patern"];
+    self.allPatternsForTV = [context executeFetchRequest:request error:nil];
+    
+}
 
 @end

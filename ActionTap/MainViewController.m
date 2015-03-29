@@ -56,6 +56,7 @@
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 	
 	[self.view addSubview:self.pageControl];
+<<<<<<< HEAD
 	
     // Do any additional setup after loading the view.
 	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
@@ -83,6 +84,9 @@
 	[layer setPhase:1];
 	
 	[layer setNeedsDisplay];
+=======
+    
+>>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
@@ -170,6 +174,20 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(20, 150, self.view.frame.size.width-40, 40)];
+    [tf setDelegate:self];
+    [tf setPlaceholder:@"put action name here"];
+    [tf setTintColor:[UIColor whiteColor]];
+    [tf setTextColor:[UIColor whiteColor]];
+    [tf setTextAlignment:NSTextAlignmentCenter];
+    [tf.layer setCornerRadius:10.0];
+    [tf.layer setMasksToBounds:YES];
+    [tf.layer setBorderWidth:2.0];
+    [tf.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.page3 addSubview:tf];
+    self.textField = tf;
+    
+    
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
@@ -203,6 +221,7 @@
     self.recorder.delegate = self;
 }
 
+<<<<<<< HEAD
 
 - (IBAction)updateAmplitude:(id)sender
 {
@@ -234,18 +253,66 @@
 }
 
 
+=======
+-(void)recordingFinishedForPatternWithName:(NSString *)name{
+    
+}
+
+>>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSLog(@"scrolling");
     if (self.scrollLock) {
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
     }
+    
+    
+    
     CGFloat pageWidth = self.scrollView.frame.size.width;
-	float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
-	NSInteger page = lround(fractionalPage);
-	self.pageControl.currentPage = page;
+    float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
+    NSInteger page = lround(fractionalPage);
+    self.pageControl.currentPage = page;
+    
+    if (self.pageControl.currentPage==1) {
+        self.pickedPatternName = @"";
+    }
+    
+    if (self.pageControl.currentPage ==2){
+        [self refreshActionPage];
+        NSManagedObjectContext *context = [DataAccess context];
+        Pattern *pattern;
+        if (![self.pickedPattern.name isEqualToString:self.pickedPatternName]) {
+            if (self.patternPicked) {
+                NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+                NSArray *all = [context executeFetchRequest:request error:nil];
+                for(Pattern* p in all) {
+                    if ([p.name isEqualToString:self.pickedPatternName]) {
+                        pattern = p;
+                    }
+                }
+            }else if([self.pickedPatternName isEqualToString:@""]){
+                pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
+                pattern.name = @"";
+            }
+            self.pickedPattern = pattern;
+        }
+        
+    }
+    NSLog(@"scrolling- %d",self.pageControl.currentPage);
  
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.pickedPatternName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width*2, 0)animated:NO];
+}
+
+-(void)refreshActionPage{
+    
+}
+
+#pragma mark - Text View
+
 #pragma mark - Table View
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

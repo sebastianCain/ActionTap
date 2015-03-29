@@ -30,7 +30,7 @@
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
         self.displayLink.frameInterval = 1;
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-        [self.displayLink setPaused:NO];
+        [self.displayLink setPaused:YES];
         //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         //self.tapGesture.numberOfTapsRequired = 2;
         //[self.view addGestureRecognizer:self.tapGesture];

@@ -5,13 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>ABBD4034-76B2-40E7-A6F8-C69D3F630363</string>
+	<string>CAA2F055-4A93-4BF7-9CAF-3DB3F2AE955C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ActionTap</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>30FCF99C086323FD85AE1A9C80FCAA5F60472E08</key>
-		<string>https://bitbucket.org/averylamp/galagagame.git</string>
 		<key>69C81847C8FAA972D04199FEF8E0102BF6A15661</key>
 		<string>https://github.com/sebastianCain/ActionTap.git</string>
 	</dict>
@@ -20,7 +18,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>30FCF99C086323FD85AE1A9C80FCAA5F60472E08</key>
-		<string>../../..</string>
+		<string>../../..</string>s
 		<key>69C81847C8FAA972D04199FEF8E0102BF6A15661</key>
 		<string>../..</string>
 	</dict>
@@ -44,6 +42,8 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+=======
+>>>>>>> Stashed changes
 			<string>69C81847C8FAA972D04199FEF8E0102BF6A15661</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ActionTap</string>

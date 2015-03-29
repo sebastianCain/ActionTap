@@ -17,7 +17,8 @@
 #import "BTSSineWaveLayer.h"
 #import "CreateViewController.h"
 @interface MainViewController ()<RecorderDelegate>
-@property Recorder *recorder;
+@property Recorder *patternRecorder;
+@property Recorder *backgroundRecorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
@@ -188,7 +189,7 @@
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	//startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
-	[startButton addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
+	[startButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
     
@@ -229,8 +230,8 @@
 	[self.scrollView addSubview:self.page3];
     
     //Recorder set up
-    self.recorder = [[Recorder alloc] init];
-    self.recorder.delegate = self;
+    self.patternRecorder = [[Recorder alloc] init];
+    self.patternRecorder.delegate = self;
     
     if (self.shouldJumpToPage3) {
         [self jumpToPage3];
@@ -498,18 +499,18 @@
     }
 }
 
--(void)startRecording
+-(void)startRecordingNewPattern
 {
     self.editingPattern = YES;
     self.scrollLock = YES;
     
-    if(self.recorder.isRecording == NO)
+    if(self.patternRecorder.isRecording == NO)
     {
-        self.recorder.delegate = self;
-        [self.recorder startNewPatternWithPattern:self.pickedPattern];
+        self.patternRecorder.delegate = self;
+        [self.patternRecorder startNewPatternWithPattern:self.pickedPattern];
     } else
     {
-        [self.recorder stopRecording];
+        [self.patternRecorder stopRecording];
     }
      
     /*
@@ -536,7 +537,17 @@
 	
 }
 
-
+-(void)startRecordingInBackground{
+    self.scrollLock = YES;
+    if(self.backgroundRecorder.isRecording == NO)
+    {
+        self.backgroundRecorder.delegate = self;
+        [self.backgroundRecorder startNewPatternWithPattern:self.pickedPattern];
+    } else
+    {
+        [self.backgroundRecorder stopRecording];
+    }
+}
 
 -(void)runLoop{
 	if (self.recording) {

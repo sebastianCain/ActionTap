@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "AudioRecorder.h"
+#import "Recorder.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,7 +17,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property AudioRecorder *recorder;
+@property Recorder *recorder;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

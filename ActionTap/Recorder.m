@@ -111,16 +111,11 @@
         [self.displayLink setPaused:NO];
 }
 
--(void)startNewInputWithPattern:(Pattern*)pattern
-{
-    //NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    
-}
-
 -(void)stopRecording
 {
     self.isRecording = NO;
     [self.displayLink setPaused:YES];
+    [self.motionListener.motionManager stopAccelerometerUpdates];
 }
 
 -(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray

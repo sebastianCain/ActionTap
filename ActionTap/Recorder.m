@@ -109,7 +109,7 @@
         }
         //Save To core data
         self.currentPattern.allTaps =[NSKeyedArchiver archivedDataWithRootObject:self.tempPattern];
-        
+        NSLog(self.currentPattern.name);
         
         
         

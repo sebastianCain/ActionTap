@@ -187,11 +187,15 @@
     
     
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
-	//startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
 	[startButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
+    
+    UIButton *calibrateButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 40, self.view.frame.size.height - 40, 80, 80)];
+    [calibrateButton setImage:[UIImage imageNamed:@"calibrateButton"] forState:UIControlStateNormal];
+    [calibrateButton addTarget:self action:@selector(startRecordingNewPattern) forControlEvents:UIControlEventTouchUpInside];
+    [self.page3 addSubview:calibrateButton];
     
     UIButton *actionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 100, self.view.frame.size.height*(2/3), 200, 100)];
     actionsButton.backgroundColor  = [UIColor blueColor];
@@ -327,7 +331,9 @@
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
     }
-    
+    if (self.pageControl.currentPage !=0) {
+        [self.backgroundRecorder stopRecording];
+    }
     
     
     CGFloat pageWidth = self.scrollView.frame.size.width;
@@ -472,11 +478,6 @@
     NSArray *tempAll = [context executeFetchRequest:request error:&error];
     self.allPatterns = [[NSMutableDictionary alloc]init];
     for (Pattern *p in tempAll) {
-        NSLog(@"name - %@",p.name);
-        if (!p.name) {
-            [context deleteObject:p];
-            continue;
-        }
         [self.allPatterns  setValue:p forKey:p.name];
     }
     [[DataAccess sharedInstance]saveContext];
@@ -486,9 +487,11 @@
 -(void)recordingFinishedForPatternIsBackground:(BOOL)background{
     if (background) {
         NSLog(@"FINISHED");
+        [self.backgroundRecorder stopRecording];
+        
     }else{
         [self refreshLines];
-   
+
     }
 }
 
@@ -642,11 +645,14 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.allPatternsForTV = [[context executeFetchRequest:request error:nil] mutableCopy];
-    for (Pattern *p in self.allPatternsForTV) {
+    Pattern *p;
+    for (int i=0; i<[self.allPatternsForTV count]; i++) {
+        p=[self.allPatternsForTV objectAtIndex:i];
         if ([p.name isEqualToString:@"BackgroundPattern"]) {
             [self.allPatternsForTV removeObject:p];
         }
     }
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

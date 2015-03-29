@@ -52,7 +52,7 @@
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 	
 	[self.view addSubview:self.pageControl];
-	
+    
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];

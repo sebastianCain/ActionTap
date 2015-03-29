@@ -9,48 +9,70 @@
 #import "Recorder.h"
 
 @interface Recorder ()
-
+@property NSString *name;
+@property NSMutableArray *tempPattern; //of NSNumbers hoding float values
 @end
 
 @implementation Recorder
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLink)];
     self.displayLink.frameInterval = 6;
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     [self.displayLink setPaused:NO];
-    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    self.tapGesture.numberOfTapsRequired = 2;
-    [self.view addGestureRecognizer:self.tapGesture];
+    //self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    //self.tapGesture.numberOfTapsRequired = 2;
+    //[self.view addGestureRecognizer:self.tapGesture];
+    
+    self.LOW_VOLUME_THRESHOLD = 60;
+    self.HIGH_VOLUME_THRESHOLD = 180;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)handleTapGesture:(UITapGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateRecognized) {
-        self.tapGesture.numberOfTapsRequired = 1;
-        [self startReadingInput];
+//- (void)handleTapGesture:(UITapGestureRecognizer *)sender {
+//    if (sender.state == UIGestureRecognizerStateRecognized) {
+//        self.tapGesture.numberOfTapsRequired = 1;
+//        [self startReadingInput];
+//    }
+//}
+
+
+-(void)onDisplayLink
+{
+    float volume = [self.audioRecorder getVolume];
+    if ([self.tempPattern count] < 50)
+    {
+        if (volume > self.LOW_VOLUME_THRESHOLD && volume < self.HIGH_VOLUME_THRESHOLD)
+        {
+            [self.tempPattern addObject:[NSNumber numberWithInt:1]];
+        } else {
+            [self.tempPattern addObject:[NSNumber numberWithInt:0]];
+        }
+    } else {
+        
     }
 }
 
-
--(void)onDisplayLink{
-    
-}
-
--(NSArray*)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url{
-    //record beats every 1/10th second, starting with a hit, into array of 50 elements
-    
-    //create permutations in a 2d array
-    
-    
+-(NSArray*)CreateNewPatternWithName:(NSString*)name withURL:(NSURL*)url
+{
+    if([self.displayLink isPaused] == YES)
+    {
+        self.name = name;
+        [self.displayLink setPaused:NO];
+    }
     return nil;
+
 }
--(void)startReadingInput{
+
+-(void)startReadingInput
+{
     
 }
 

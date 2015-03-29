@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AudioRecorder.h"
 
 @interface Recorder : UIViewController
 @property CADisplayLink *displayLink;
 @property UITapGestureRecognizer *tapGesture;
+@property AudioRecorder *audioRecorder;
+
+@property float LOW_VOLUME_THRESHOLD;
+@property float HIGH_VOLUME_THRESHOLD;
 -(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url;
 
 

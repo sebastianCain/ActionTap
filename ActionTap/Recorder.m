@@ -43,7 +43,6 @@
 //    }
 //}
 
-
 -(void)onDisplayLink
 {
     float volume = [self.audioRecorder getVolume];

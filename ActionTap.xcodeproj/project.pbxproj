@@ -123,12 +123,7 @@
 		0A4BA28A1AC73E77002CF438 /* ActionTap */ = {
 			isa = PBXGroup;
 			children = (
-				0A4BA2BF1AC7D837002CF438 /* BTSSineWaveViewController.h */,
-				0A4BA2C01AC7D837002CF438 /* BTSSineWaveViewController.m */,
-				0A4BA2C11AC7D837002CF438 /* BTSSineWaveView.h */,
-				0A4BA2C21AC7D837002CF438 /* BTSSineWaveView.m */,
-				0A4BA2C31AC7D837002CF438 /* BTSSineWaveLayer.h */,
-				0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */,
+				0A4BA2C81AC7DF94002CF438 /* Sine Animation */,
 				031549711AC7CE5C002B21C4 /* CreateViewController.h */,
 				031549721AC7CE5C002B21C4 /* CreateViewController.m */,
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
@@ -172,6 +167,19 @@
 				0A4BA2A91AC73E77002CF438 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0A4BA2C81AC7DF94002CF438 /* Sine Animation */ = {
+			isa = PBXGroup;
+			children = (
+				0A4BA2BF1AC7D837002CF438 /* BTSSineWaveViewController.h */,
+				0A4BA2C01AC7D837002CF438 /* BTSSineWaveViewController.m */,
+				0A4BA2C11AC7D837002CF438 /* BTSSineWaveView.h */,
+				0A4BA2C21AC7D837002CF438 /* BTSSineWaveView.m */,
+				0A4BA2C31AC7D837002CF438 /* BTSSineWaveLayer.h */,
+				0A4BA2C41AC7D837002CF438 /* BTSSineWaveLayer.m */,
+			);
+			name = "Sine Animation";
 			sourceTree = "<group>";
 		};
 		3B37AB591AC78E7700EAAFD7 /* Recorders */ = {
@@ -258,7 +266,7 @@
 				TargetAttributes = {
 					0A4BA2871AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 9XWYL3K4YT;
+						DevelopmentTeam = LDDTDLNHHL;
 					};
 					0A4BA2A31AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;

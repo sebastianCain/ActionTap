@@ -13,11 +13,15 @@
 #import "DataAccess.h"
 #import "Pattern+Pattern_Functions.h"
 #import "Recorder.h"
+#import "BTSSineWaveView.h"
+#import "BTSSineWaveLayer.h"
+
 @interface MainViewController ()<RecorderDelegate>
 @property Recorder *recorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
+@property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview;
 @end
 
 @implementation MainViewController
@@ -52,7 +56,37 @@
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 	
 	[self.view addSubview:self.pageControl];
+<<<<<<< HEAD
 	
+    // Do any additional setup after loading the view.
+	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
+	[title setText:@"jarvis"];
+	[title setTextColor:[UIColor whiteColor]];
+	[title setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:72]];
+	[title setTextAlignment:NSTextAlignmentCenter];
+	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
+	[self.page1 addSubview:title];
+	
+	self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2+500, self.view.frame.size.width, 400)];
+	[self.sineview setTag:100];
+	[self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2+200)];
+	[self.sineview setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.sineview.layer setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0].CGColor];
+	[self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
+	[self.page1 addSubview:self.sineview];
+	
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	[layer setContentsScale:[[UIScreen mainScreen] scale]];
+	CGRect layerBounds = [layer bounds];
+	
+	[layer setAmplitude:10];
+	[layer setFrequency:0.01];
+	[layer setPhase:1];
+	
+	[layer setNeedsDisplay];
+=======
+    
+>>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
@@ -64,20 +98,9 @@
 	l.startPoint = CGPointMake(0.5f, 0.5f);
 	l.endPoint = CGPointMake(0.5f, 1.0f);
 	bgimage.layer.mask = l;
-	
 	[self.page1 addSubview:bgimage];
 	
 	NSLog(@"%@", bgimage);
-	
-    // Do any additional setup after loading the view.
-	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
-	[title setText:@"jarvis"];
-	[title setTextColor:[UIColor whiteColor]];
-	[title setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:72]];
-	[title setTextAlignment:NSTextAlignmentCenter];
-	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
-	[self.page1 addSubview:title];
-	
 	//int swaggyp = (self.view.frame.size.width-80)/3;
 	/*
 	UIButton *newAction = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, swaggyp, swaggyp)];
@@ -126,14 +149,24 @@
 	
 	//PAGE 2
 	
+	
+	UIView *coverView2 = [[UIView alloc]initWithFrame: self.view.frame];
+	[coverView2 setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.page2 addSubview:coverView2];
+	
 	UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 250)];
 	[tableView setDataSource:self];
 	[tableView setDelegate:self];
 	self.tableView = tableView;
 	[self.page2 addSubview:tableView];
 	
-	
+	UIView *coverView = [[UIView alloc]initWithFrame: self.view.frame];
 	//PAGE 3
+	
+	
+	UIView *coverView3 = [[UIView alloc]initWithFrame: self.view.frame];
+	[coverView3 setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	[self.page3 addSubview:coverView3];
 	
 	UILabel *title3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
 	title3.text = @"Action";
@@ -179,9 +212,6 @@
     //touchButton.backgroundColor= [UIColor redColor];
     self.touchDetector = touchButton;
 	
-	
-	
-	
 	[self.scrollView addSubview:self.page1];
 	[self.scrollView addSubview:self.page2];
 	[self.scrollView addSubview:self.page3];
@@ -191,6 +221,44 @@
     self.recorder.delegate = self;
 }
 
+<<<<<<< HEAD
+
+- (IBAction)updateAmplitude:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float amplitude = [(UISlider *)sender value];
+	[layer setAmplitude:(CGFloat)amplitude];
+	[layer setNeedsDisplay];
+}
+
+- (IBAction)updateFrequency:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float frequency = [(UISlider *)sender value];
+	[layer setFrequency:(CGFloat)frequency];
+	[layer setNeedsDisplay];
+}
+
+- (IBAction)updatePhase:(id)sender
+{
+	BTSSineWaveLayer *layer = [self sineWaveLayer];
+	float phase = [(UISlider *)sender value];
+	[layer setPhase:(CGFloat)phase];
+	[layer setNeedsDisplay];
+}
+
+- (BTSSineWaveLayer *)sineWaveLayer
+{
+	return (BTSSineWaveLayer *)[[[self view] viewWithTag:100] layer];
+}
+
+
+=======
+-(void)recordingFinishedForPatternWithName:(NSString *)name{
+    
+}
+
+>>>>>>> 9167d95c4bfbcdc0d3f2632dc21912a30acf0fb3
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSLog(@"scrolling");
     if (self.scrollLock) {

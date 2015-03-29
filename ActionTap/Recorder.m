@@ -17,6 +17,7 @@
 @property float LOW_MAGNITUDE_THRESHOLD;
 @property float HIGH_MAGNITUDE_THRESHOLD;
 @property(readwrite) bool isRecording;
+@property int freezeDisplayLink;
 @end
 
 @implementation Recorder
@@ -37,11 +38,12 @@
         
         self.LOW_VOLUME_THRESHOLD = -22;
         self.HIGH_VOLUME_THRESHOLD = 0;
-        self.LOW_MAGNITUDE_THRESHOLD = 98;
+        self.LOW_MAGNITUDE_THRESHOLD = 97;
         self.HIGH_MAGNITUDE_THRESHOLD = 102;
         self.audioRecorder = [[AudioRecorder alloc] init];
         self.motionListener = [[MotionListener alloc] init];
         self.isRecording = NO;
+        self.freezeDisplayLink = 0;
     }
     
     return self;
@@ -59,33 +61,54 @@
 -(void)onDisplayLink
 {
     //float volume = [self.audioRecorder getVolume];
+    if (self.freezeDisplayLink > 0){
+        self.freezeDisplayLink -= 1;
+    }
+
     float magnitude = [self.motionListener getMagnitude];
                     NSLog(@"%f", magnitude);
     if ([self.tempPattern count] < 300)
     {
         if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
         {
-
-            [self.tempPattern addObject:[NSNumber numberWithInt:1]];
-        } else {
+            if(self.freezeDisplayLink == 0)
+            {
+                [self.tempPattern addObject:[NSNumber numberWithInt:1]];
+                self.freezeDisplayLink = 10;
+            }
+        } else
+        {
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];
+
         }
-    } else {
+    } else
+    {
         [self.displayLink setPaused:YES];
+        for(int i = 0; i < 300; i++){
+            int x = [(NSNumber *)[self.tempPattern objectAtIndex:i] integerValue];
+            if (x == 0){
+                NSLog(@"%i", x);
+            }else{
+                NSLog(@"💙");
+            }
+        }
         //Save To core data
         NSManagedObjectContext *context = [DataAccess context];
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
         NSArray *ar = [context executeFetchRequest:request error:nil];
         BOOL objectFound = NO;
         Pattern *pattern;
-        for (Pattern *p in ar) {
-            if ([p.name isEqualToString:self.name]) {
+        for (Pattern *p in ar)
+        {
+            if ([p.name isEqualToString:self.name])
+            {
                 objectFound = YES;
                 pattern = p;
             }
         }
         
-        if (!objectFound) {
+        if (!objectFound)
+        {
             pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
             pattern.name = self.name;
         }

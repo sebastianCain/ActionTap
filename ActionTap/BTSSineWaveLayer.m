@@ -7,6 +7,7 @@
 //
 
 #import "BTSSineWaveLayer.h"
+#import "AudioRecorder.h"
 
 static NSString *const kBTSSineWaveLayerAmplitude = @"amplitude";
 static NSString *const kBTSSineWaveLayerFrequency = @"frequency";
@@ -67,12 +68,16 @@ static NSString *const kBTSSineWaveLayerPhase = @"phase";
 
     //BTSDrawCoordinateAxes(context);
 
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);
     CGContextSetLineWidth(context, 2.0);
 
+	CGContextSetRGBFillColor(context, 40/255.0, 40/255.0, 40/255.0, 1.0);
+	CGContextFillRect(context, (CGRect){-100,-200, 1000,1000});
+	
     // The layer redraws the content using the current animation's interpolated values. The interpolated
     // values are retrieved from the layer's "presentationLayer".
     id presentationLayer = [self presentationLayer];
+
     CGFloat amplitude = [[(NSValue *)presentationLayer valueForKey:kBTSSineWaveLayerAmplitude] floatValue];
     CGFloat frequency = [[(NSValue *)presentationLayer valueForKey:kBTSSineWaveLayerFrequency] floatValue];
     CGFloat phase = [[(NSValue *)presentationLayer valueForKey:kBTSSineWaveLayerPhase] floatValue];
@@ -145,7 +150,9 @@ static NSString *const kBTSSineWaveLayerPhase = @"phase";
 
 - (void)animationTimerFired:(CADisplayLink *)displayLink
 {
+	self.phase -= .1;
     [self setNeedsDisplay];
+	//self.amplitude = [audiorecorder getVolume];
 }
 
 @end

@@ -13,7 +13,9 @@
 
 + (Class)layerClass
 {
+	
     return [BTSSineWaveLayer class];
+	
 }
 
 @end

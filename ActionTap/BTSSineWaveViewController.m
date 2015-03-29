@@ -35,7 +35,6 @@
 
     BTSSineWaveLayer *layer = [self sineWaveLayer];
     [layer setContentsScale:[[UIScreen mainScreen] scale]];
-
     CGRect layerBounds = [layer bounds];
 
     [

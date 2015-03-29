@@ -11,6 +11,15 @@
 @interface CreateViewController : UIViewController
 
 @property UITableView *tableView;
+@property NSInteger *selectedRowIndex;
 @property (nonatomic, strong) NSArray *schemes;
+@property UILabel *action;
+@property NSString *scheme;
+@property NSString *schemeValue;
+@property NSString *originalLabelText;
+@property UITextField *textfield;
+@property UIButton *confirmButton;
+
+
 
 @end

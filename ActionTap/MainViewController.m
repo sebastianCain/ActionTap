@@ -625,7 +625,9 @@
     
     NSMutableArray *secondPatternRaw = [[NSMutableArray alloc]init];
     
-    
+    int lastIndex = 0;
+    int lastIndex2 = 0;
+    int currentIndex = 0;
     
     
     

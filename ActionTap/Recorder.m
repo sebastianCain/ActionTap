@@ -17,6 +17,7 @@
 @property float LOW_MAGNITUDE_THRESHOLD;
 @property float HIGH_MAGNITUDE_THRESHOLD;
 @property(readwrite) bool isRecording;
+@property int freezeDisplayLink;
 @end
 
 @implementation Recorder
@@ -42,6 +43,7 @@
         self.audioRecorder = [[AudioRecorder alloc] init];
         self.motionListener = [[MotionListener alloc] init];
         self.isRecording = NO;
+        self.freezeDisplayLink = 0;
     }
     
     return self;
@@ -59,18 +61,28 @@
 -(void)onDisplayLink
 {
     //float volume = [self.audioRecorder getVolume];
+    if (self.freezeDisplayLink > 0){
+        self.freezeDisplayLink -= 1;
+    }
+
     float magnitude = [self.motionListener getMagnitude];
                     NSLog(@"%f", magnitude);
     if ([self.tempPattern count] < 300)
     {
         if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
         {
-
-            [self.tempPattern addObject:[NSNumber numberWithInt:1]];
-        } else {
+            if(self.freezeDisplayLink == 0)
+            {
+                [self.tempPattern addObject:[NSNumber numberWithInt:1]];
+                self.freezeDisplayLink = 5;
+            }
+        } else
+        {
             [self.tempPattern addObject:[NSNumber numberWithInt:0]];
+
         }
-    } else {
+    } else
+    {
         [self.displayLink setPaused:YES];
         //Save To core data
         NSManagedObjectContext *context = [DataAccess context];
@@ -78,14 +90,17 @@
         NSArray *ar = [context executeFetchRequest:request error:nil];
         BOOL objectFound = NO;
         Pattern *pattern;
-        for (Pattern *p in ar) {
-            if ([p.name isEqualToString:self.name]) {
+        for (Pattern *p in ar)
+        {
+            if ([p.name isEqualToString:self.name])
+            {
                 objectFound = YES;
                 pattern = p;
             }
         }
         
-        if (!objectFound) {
+        if (!objectFound)
+        {
             pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
             pattern.name = self.name;
         }

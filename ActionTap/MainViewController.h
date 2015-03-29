@@ -31,7 +31,7 @@
 @property double lastTapTime;
 @property  NSMutableArray *tapData;
 
-@property   NSArray *allPatternsForTV;
+@property   NSMutableArray *allPatternsForTV;
 
 @property BOOL scrollLock;
 @property (nonatomic)BOOL editingPattern;

@@ -85,15 +85,14 @@
         [self.delegate recordingFinishedForPatternWithName:self.name];
     }
 }
+-(void)startNewPatternWithName:(NSString *)name withURL:(NSURL *)url
 
--(NSArray*)CreateNewPatternWithName:(NSString*)name withURL:(NSURL*)url
 {
     if([self.displayLink isPaused] == YES)
     {
         self.name = name;
         [self.displayLink setPaused:NO];
     }
-    return nil;
 
 }
 

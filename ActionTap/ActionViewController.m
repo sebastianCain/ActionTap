@@ -9,7 +9,7 @@
 
 #import "ActionViewController.h"
 #import "Recorder.h"
-@interface ActionViewController ()
+@interface ActionViewController ()<RecorderDelegate>
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @end
@@ -48,8 +48,8 @@
 
 -(void)startRecording{
     Recorder *r = [[Recorder alloc]init];
-    
-    [r startNewPatternWithName:@"testName" withURL:@"testUrl"];
+    r.delegate = self;
+    [r startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
     /*
     self.recording = YES;
     self.numberOfTaps = 0;

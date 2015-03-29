@@ -436,9 +436,30 @@
     
 }
 
--(void)recordingFinishedForPatternWithName:(NSString *)name
-{
-    
+-(void)recordingFinishedForPattern{
+    [self refreshLines];
+}
+
+-(void)refreshLines{
+    NSArray *allTaps = [NSKeyedUnarchiver unarchiveObjectWithData:self.pickedPattern.allTaps];
+    if ([allTaps count]==300) {
+        for (UIView *v in self.allBars) {
+            [v removeFromSuperview];
+        }
+        self.allBars = [[NSMutableArray alloc]init];
+        for (int i=0; i<300; i++) {
+            if ([[allTaps objectAtIndex:i]intValue]==1) {
+                UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(i/300.0*self.view.frame.size.width, self.view.frame.size.height/2-50, 4, 100)];
+                bar.backgroundColor = [UIColor greenColor];
+                [self.page3 addSubview:bar];
+                [self.allBars addObject:bar];
+
+            }
+        }
+        
+        
+        
+    }
 }
 
 -(void)startRecording
@@ -449,7 +470,7 @@
     if(self.recorder.isRecording == NO)
     {
         self.recorder.delegate = self;
-        [self.recorder startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
+        [self.recorder startNewPatternWithPattern:self.pickedPattern];
     } else
     {
         [self.recorder stopRecording];

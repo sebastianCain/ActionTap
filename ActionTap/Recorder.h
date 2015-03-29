@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AudioRecorder.h"
 #import "MotionListener.h"
+#import "Pattern+Pattern_Functions.h"
 @protocol RecorderDelegate <NSObject>
 
--(void)recordingFinishedForPatternWithName:(NSString*)name;
+-(void)recordingFinishedForPattern;
 
 @end
 
@@ -22,10 +23,10 @@
 @property MotionListener *motionListener;
 @property(readonly) bool isRecording;
 -(void)stopRecording;
-
+@property  Pattern *currentPattern;
 @property (weak)id <RecorderDelegate> delegate;
 
--(void)startNewPatternWithName:(NSString*)name withURL:(NSURL*)url;
+-(void)startNewPatternWithPattern:(Pattern*)pattern;
 
 
 @end

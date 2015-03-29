@@ -10,7 +10,6 @@
 #import "DataAccess.h"
 #import "Pattern+Pattern_Functions.h"
 @interface Recorder ()
-@property NSString *name;
 @property NSMutableArray *tempPattern; //of NSNumbers hoding float values
 @property float LOW_VOLUME_THRESHOLD;
 @property float HIGH_VOLUME_THRESHOLD;
@@ -39,7 +38,7 @@
         self.LOW_VOLUME_THRESHOLD = -22;
         self.HIGH_VOLUME_THRESHOLD = 0;
         self.LOW_MAGNITUDE_THRESHOLD = 97;
-        self.HIGH_MAGNITUDE_THRESHOLD = 102;
+        self.HIGH_MAGNITUDE_THRESHOLD = 104;
         self.audioRecorder = [[AudioRecorder alloc] init];
         self.motionListener = [[MotionListener alloc] init];
         self.isRecording = NO;
@@ -75,6 +74,8 @@
             {
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
                 self.freezeDisplayLink = 10;
+            }else{
+                [self.tempPattern addObject:[NSNumber numberWithInt:0]];
             }
         } else
         {
@@ -93,39 +94,20 @@
             }
         }
         //Save To core data
-        NSManagedObjectContext *context = [DataAccess context];
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
-        NSArray *ar = [context executeFetchRequest:request error:nil];
-        BOOL objectFound = NO;
-        Pattern *pattern;
-        for (Pattern *p in ar)
-        {
-            if ([p.name isEqualToString:self.name])
-            {
-                objectFound = YES;
-                pattern = p;
-            }
-        }
+        self.currentPattern.allTaps =[NSKeyedArchiver archivedDataWithRootObject:self.tempPattern];
         
-        if (!objectFound)
-        {
-            pattern = [NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
-            pattern.name = self.name;
-        }
-        
-        [[DataAccess sharedInstance]saveContext];
         
         
         
         //Trigger function in delegate
-        [self.delegate recordingFinishedForPatternWithName:self.name];
+        [self.delegate recordingFinishedForPattern];
     }
 }
--(void)startNewPatternWithName:(NSString *)name withURL:(NSURL *)url
+-(void)startNewPatternWithPattern:(Pattern*)pattern
 {
         self.isRecording = YES;
+    self.currentPattern = pattern;
         self.tempPattern = [[NSMutableArray alloc] init];
-        self.name = name;
         [self.displayLink setPaused:NO];
 }
 
@@ -138,7 +120,6 @@
 -(void)stopRecording
 {
     self.isRecording = NO;
-    self.name = @"";
     [self.displayLink setPaused:YES];
 }
 

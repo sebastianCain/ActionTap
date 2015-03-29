@@ -8,7 +8,7 @@
 
 #import "CreateViewController.h"
 
-@interface CreateViewController ()
+@interface CreateViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -17,7 +17,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.schemes = [[NSArray alloc] initWithObjects:@"Workflow",@"Music",@"Phone",@"SMS", nil];
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 250)];
+    [tableView setDataSource:self];
+    [tableView setDelegate:self];
+    self.tableView = tableView;
+    [self.view addSubview:tableView];
 }
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    
+    cell.textLabel.text = self.schemes[indexPath.row];
+    
+    return cell;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.schemes count];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

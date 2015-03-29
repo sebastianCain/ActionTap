@@ -10,4 +10,7 @@
 
 @interface CreateViewController : UIViewController
 
+@property UITableView *tableView;
+@property (nonatomic, strong) NSArray *schemes;
+
 @end

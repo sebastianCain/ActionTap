@@ -8,7 +8,7 @@
 
 #import "CreateViewController.h"
 
-@interface CreateViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface CreateViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @end
 
@@ -17,6 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIButton *resignButton = [[UIButton alloc]initWithFrame:self.view.frame];
+    resignButton.userInteractionEnabled = NO;
+    self.resignButton = resignButton;
+    [self.resignButton addTarget:self action:@selector(resignKeyboard) forControlEvents:UIControlEventTouchUpInside ];
+    [self.view addSubview:self.resignButton];
+    
+    
     
     UILabel *actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.width/2 - 500, 100, 100)];
     actionLabel.center = CGPointMake(CGRectGetMidX(self.view.frame)-100, self.view.frame.size.width/4);
@@ -49,16 +57,14 @@
     [self performSegueWithIdentifier:@"showMainMenu" sender:self];
 }
 
--(IBAction)userDoneEnteringText:(id)sender
-{
-    UITextField *field = (UITextField*)sender;
-    // do whatever you want with this text field
-    
-    [field removeFromSuperview];
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    self.resignButton.userInteractionEnabled =YES;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.textfield = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 250, 80)];
     [self.textfield addTarget:self
@@ -66,6 +72,7 @@
         forControlEvents:UIControlEventEditingChanged];
     
     self.textfield.backgroundColor = [UIColor blackColor];
+    self.textfield.delegate = self;
     [cell addSubview:self.textfield];
     
     if (indexPath.row == 0) {
@@ -82,6 +89,7 @@
     self.originalLabelText = self.action.text;
     
     self.selectedRowIndex = indexPath.row;
+    self.arrayindex = indexPath.row;
     [tableView beginUpdates];
     [tableView endUpdates];
 }
@@ -127,15 +135,39 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)resignKeyboard{
+    [self.textfield resignFirstResponder];
+    self.resignButton.userInteractionEnabled = NO;
+    
+}
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MainViewController *mainVC = (MainViewController*)segue.destinationViewController;
+    mainVC.pickedPattern = self.pickedPattern;
+    mainVC.pickedPatternName = self.pickedPatternName;
+    mainVC.patternPicked = YES;
+    NSString *url;
+    if (self.arrayindex == 0) {
+        url = [@"workflow://import-workflow?url=" stringByAppendingString:self.schemeValue];
+    } else if (self.arrayindex == 1) {
+        url = @"music:";
+    } else if (self.arrayindex == 2) {
+        url = [@"tel:" stringByAppendingString:self.schemeValue];
+    } else if (self.arrayindex == 3) {
+        url = [@"sms:" stringByAppendingString:self.schemeValue];
+    }
+    mainVC.pickedPattern.url = url;
+    
+    mainVC.shouldJumpToPage3 = YES;
+    
+    
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

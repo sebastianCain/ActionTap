@@ -15,7 +15,7 @@
 #import "Recorder.h"
 #import "BTSSineWaveView.h"
 #import "BTSSineWaveLayer.h"
-
+#import "CreateViewController.h"
 @interface MainViewController ()<RecorderDelegate>
 @property Recorder *recorder;
 @property UIView *currentBar;
@@ -190,11 +190,17 @@
     
     
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
-	startButton.backgroundColor = [UIColor greenColor];
+	//startButton.backgroundColor = [UIColor greenColor];
     [startButton setImage:[UIImage imageNamed:@"recordButton"] forState:UIControlStateNormal];
 	[startButton addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
 	self.startButton = startButton;
 	[self.page3 addSubview:startButton];
+    
+    UIButton *actionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 100, self.view.frame.size.height*(2/3), 200, 100)];
+    actionsButton.backgroundColor  = [UIColor blueColor];
+    [actionsButton addTarget:self action:@selector(showActions) forControlEvents:UIControlEventTouchUpInside];
+    self.actionsButton = actionsButton;
+    [self.page3 addSubview:actionsButton];
 	
     UIButton *confirmButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 170, self.view.frame.size.width/2-40, 40)];
     confirmButton.titleLabel.text = @"Confirm Changes?";
@@ -230,9 +236,21 @@
     self.recorder = [[Recorder alloc] init];
     self.recorder.delegate = self;
     
-    
+    if (self.shouldJumpToPage3) {
+        [self jumpToPage3];
+    }
     
 }
+
+-(void)jumpToPage3{
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width*2, 0)];
+    self.scrollLock = YES;
+}
+-(void)showActions {
+    [self performSegueWithIdentifier:@"showCreate" sender:self];
+    
+}
+
 -(void)confirmChanges{
     if ([self.pickedPattern.name isEqualToString:@""]) {
         NSLog(@"Please name your pattern");
@@ -307,6 +325,7 @@
     
     if (self.pageControl.currentPage ==2){
         [self refreshActionPage];
+        [self refreshAllPatterns];
         NSManagedObjectContext *context = [DataAccess context];
         Pattern *pattern;
         if (![self.pickedPattern.name isEqualToString:self.pickedPatternName]) {
@@ -325,6 +344,7 @@
             self.pickedPattern = pattern;
         }
         [self refreshActionPage];
+        [self refreshAllPatterns];
     }
     NSLog(@"scrolling- %d",self.pageControl.currentPage);
     
@@ -333,9 +353,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     self.pickedPatternName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
      self.patternPicked = YES;
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width*2, 0)animated:NO];
+    [self refreshLines];
 }
 
 -(void)refreshActionPage{
@@ -353,6 +375,7 @@
 
 -(void)textFieldDidChange:(UITextField*)textField{
     self.pickedPattern.name = textField.text;
+    self.pickedPatternName = textField.text;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -441,8 +464,25 @@
 }
 
 -(void)refreshLines{
-    NSArray *allTaps = [NSKeyedUnarchiver unarchiveObjectWithData:self.pickedPattern.allTaps];
-    if ([allTaps count]==300) {
+    
+    NSData *test = self.pickedPattern.allTaps;
+    if (test ==[NSNull null]) {
+        NSLog(@"First Null");
+    }
+    if (test == nil) {
+        NSLog(@"Second nil");
+    }
+    NSObject *obj = [NSKeyedUnarchiver unarchiveObjectWithData:self.pickedPattern.allTaps];
+    if ([obj isKindOfClass:[NSNull class]]) {
+        
+        for (UIView *v in self.allBars) {
+            [v removeFromSuperview];
+        }
+        self.allBars = [[NSMutableArray alloc]init];
+        return;
+    }
+    NSArray *allTaps =(NSArray*) obj;
+       if ([allTaps count]==300) {
         for (UIView *v in self.allBars) {
             [v removeFromSuperview];
         }
@@ -566,6 +606,15 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.allPatternsForTV = [context executeFetchRequest:request error:nil];
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    CreateViewController *cVC = (CreateViewController *)segue.destinationViewController;
+    cVC.pickedPattern = self.pickedPattern;
+    cVC.patternPicked = YES;
+    cVC.pickedPatternName = self.pickedPatternName;
+    
     
 }
 

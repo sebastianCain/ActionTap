@@ -23,6 +23,7 @@
 @property UITableView* tableView;
 
 @property UIButton *startButton;
+@property UIButton *actionsButton;
 @property BOOL recording;
 @property BOOL listening;
 @property int numberOfTaps;
@@ -43,5 +44,11 @@
 @property UIButton *confirmButton;
 @property UIButton *cancelButton;
 
+@property NSString *scheme;
+@property NSString *schemeValue;
+
+@property NSString *url;
+
+@property BOOL shouldJumpToPage3;
 
 @end

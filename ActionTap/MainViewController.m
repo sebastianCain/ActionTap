@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshAllPatterns];
+    NSLog(@"second");
     [self refreshAllPatternsForTV];
     
 	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
@@ -57,8 +58,7 @@
 	self.pageControl.currentPage = 0;
 	self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-	
-	[self.view addSubview:self.pageControl];
+	//[self.view addSubview:self.pageControl];
 
 	
     // Do any additional setup after loading the view.
@@ -254,6 +254,7 @@
     }
     if (!backgroundPattern) {
         backgroundPattern =[NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
+        backgroundPattern.name= @"BackgroundPattern";
     }
     self.backgroudPattern = backgroundPattern;
     
@@ -329,7 +330,9 @@
         self.scrollView.contentOffset = CGPointMake(self.pageControl.currentPage *self.view.frame.size.width, 0);
         return;
     }
-    
+    if (self.pageControl.currentPage !=0) {
+        [self.backgroundRecorder stopRecording];
+    }
     
     
     CGFloat pageWidth = self.scrollView.frame.size.width;
@@ -381,6 +384,7 @@
 }
 
 -(void)refreshActionPage{
+    NSLog(@"refreshActionPage");
     self.textField.text= self.pickedPattern.name;
 }
 
@@ -468,28 +472,32 @@
 }
 
 -(void)refreshAllPatterns{
+    NSLog(@"refresh patterns");
     NSManagedObjectContext *context = [DataAccess context];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
-    NSArray *tempAll = [context executeFetchRequest:request error:nil];
+    NSError *error;
+    NSArray *tempAll = [context executeFetchRequest:request error:&error];
     self.allPatterns = [[NSMutableDictionary alloc]init];
     for (Pattern *p in tempAll) {
         [self.allPatterns  setValue:p forKey:p.name];
     }
-    
+    [[DataAccess sharedInstance]saveContext];
     
 }
 
 -(void)recordingFinishedForPatternIsBackground:(BOOL)background{
     if (background) {
         NSLog(@"FINISHED");
+        [self.backgroundRecorder stopRecording];
+        
     }else{
         [self refreshLines];
-   
+
     }
 }
 
 -(void)refreshLines{
-    
+    NSLog(@"refresh lines");
     NSData *test = self.pickedPattern.allTaps;
     if (test ==[NSNull null]) {
         NSLog(@"First Null");
@@ -567,13 +575,10 @@
 
 -(void)startRecordingInBackground{
     
-    if(self.backgroundRecorder.isRecording == NO)
+    if(self.backgroundRecorder.isRecording == NO &&self.pageControl.currentPage ==0)
     {
         self.backgroundRecorder.delegate = self;
         [self.backgroundRecorder startNewPatternWithPattern:self.backgroudPattern isBackground:YES];
-    } else
-    {
-        [self.backgroundRecorder stopRecording];
     }
 }
 
@@ -640,8 +645,15 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    self.allPatternsForTV = [context executeFetchRequest:request error:nil];
-    
+    self.allPatternsForTV = [[context executeFetchRequest:request error:nil] mutableCopy];
+    Pattern *p;
+    for (int i=0; i<[self.allPatternsForTV count]; i++) {
+        p=[self.allPatternsForTV objectAtIndex:i];
+        if ([p.name isEqualToString:@"BackgroundPattern"]) {
+            [self.allPatternsForTV removeObject:p];
+        }
+    }
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

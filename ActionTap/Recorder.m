@@ -85,6 +85,7 @@
         {
             if(self.freezeDisplayLink == 0)
             {
+                NSLog(@"%f", magnitude);
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
                 self.freezeDisplayLink = 10;
             }else{
@@ -121,6 +122,7 @@
 {
     //NSLog(@"RECORDING IN BACKGROUND");
     //float volume = [self.audioRecorder getVolume];
+    NSLog(@"UNPAUSED");
     if (self.freezeDisplayLink > 0){
         self.freezeDisplayLink -= 1;
         return;

@@ -57,8 +57,7 @@
 	self.pageControl.currentPage = 0;
 	self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
 	self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-	
-	[self.view addSubview:self.pageControl];
+	//[self.view addSubview:self.pageControl];
 
 	
     // Do any additional setup after loading the view.

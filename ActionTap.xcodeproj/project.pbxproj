@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031549731AC7CE5C002B21C4 /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 031549721AC7CE5C002B21C4 /* CreateViewController.m */; };
 		0A4BA28E1AC73E77002CF438 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA28D1AC73E77002CF438 /* main.m */; };
 		0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4BA2901AC73E77002CF438 /* AppDelegate.m */; };
 		0A4BA29A1AC73E77002CF438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4BA2981AC73E77002CF438 /* Main.storyboard */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031549711AC7CE5C002B21C4 /* CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateViewController.h; path = ../CreateViewController.h; sourceTree = "<group>"; };
+		031549721AC7CE5C002B21C4 /* CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateViewController.m; path = ../CreateViewController.m; sourceTree = "<group>"; };
 		0A4BA2881AC73E77002CF438 /* ActionTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActionTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4BA28C1AC73E77002CF438 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A4BA28D1AC73E77002CF438 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 		0A4BA28A1AC73E77002CF438 /* ActionTap */ = {
 			isa = PBXGroup;
 			children = (
+				031549711AC7CE5C002B21C4 /* CreateViewController.h */,
+				031549721AC7CE5C002B21C4 /* CreateViewController.m */,
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
 				0A4BA2901AC73E77002CF438 /* AppDelegate.m */,
 				0A4BA2981AC73E77002CF438 /* Main.storyboard */,
@@ -296,6 +301,7 @@
 			files = (
 				BB1F92CA1AC75DB300229753 /* Pattern+Pattern_Functions.m in Sources */,
 				0A4BA2911AC73E77002CF438 /* AppDelegate.m in Sources */,
+				031549731AC7CE5C002B21C4 /* CreateViewController.m in Sources */,
 				0A4BA28E1AC73E77002CF438 /* main.m in Sources */,
 				BB1F92C61AC75D6300229753 /* Pattern.m in Sources */,
 				BB1F92C31AC75AD700229753 /* Model.xcdatamodeld in Sources */,

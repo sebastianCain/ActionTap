@@ -71,6 +71,7 @@
 
 -(void)onDisplayLink
 {
+
     //float volume = [self.audioRecorder getVolume];
     if (self.freezeDisplayLink > 0){
         self.freezeDisplayLink -= 1;
@@ -79,6 +80,7 @@
 
     float magnitude = [self.motionListener getMagnitude];
                     //NSLog(@"%f", magnitude);
+    NSLog(@"Displaylink1%f", magnitude);
     if ([self.tempPattern count] < 300)
     {
         if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
@@ -213,7 +215,7 @@
     self.backgroundIsRecording= NO;
     [self.displayLink2 setPaused:YES];
     [self.displayLink setPaused:YES];
-    [self.motionListener.motionManager stopAccelerometerUpdates];
+    //[self.motionListener.motionManager stopAccelerometerUpdates];
 }
 
 -(double)compareArray:(NSMutableArray *)patternArray withArray:(NSMutableArray *)inputArray

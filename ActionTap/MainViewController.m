@@ -14,6 +14,7 @@
 #import "Pattern+Pattern_Functions.h"
 #import "Recorder.h"
 @interface MainViewController ()<RecorderDelegate>
+@property Recorder *recorder;
 @property UIView *currentBar;
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
@@ -170,7 +171,10 @@
 	[self.scrollView addSubview:self.page1];
 	[self.scrollView addSubview:self.page2];
 	[self.scrollView addSubview:self.page3];
-	
+    
+    //Recorder set up
+    self.recorder = [[Recorder alloc] init];
+    self.recorder.delegate = self;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -252,13 +256,18 @@
 }
 
 
--(void)startRecording{
-
-	Recorder *r = [[Recorder alloc]init];
-	r.delegate = self;
-	[r.audioRecorder recordAudio];
-	[r startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
-    /*
+-(void)startRecording
+{
+    if(self.recorder.isRecording == NO)
+    {
+        [self.recorder.audioRecorder recordAudio];
+        [self.recorder startNewPatternWithName:@"testName" withURL:[NSURL URLWithString: @"testUrl"]];
+    } else
+    {
+        [self.recorder.audioRecorder stopAudio];
+        [self.recorder stopRecording];
+    }
+	    /*
 	 self.recording = YES;
 	 self.numberOfTaps = 0;
 	 [UIView animateWithDuration:0.5 animations:^{

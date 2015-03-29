@@ -154,6 +154,7 @@
 	UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 250)];
 	[tableView setDataSource:self];
 	[tableView setDelegate:self];
+	[tableView setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	self.tableView = tableView;
 	[self.page2 addSubview:tableView];
 
@@ -419,16 +420,14 @@
     Pattern  *pattern = [self.allPatternsForTV objectAtIndex:indexPath.row];
     cell.textLabel.text =pattern.name;
 	
-	[cell.textLabel setTextAlignment: NSTextAlignmentLeft];
 	[cell setTag: indexPath.row];
-	[cell.textLabel setTextColor:[UIColor blackColor]];
 	
-	
-	
-	[cell.layer setCornerRadius:10.0];
-	[cell.layer setBorderWidth:2.0];
-	[cell.layer setBorderColor:[UIColor colorWithRed:14/255.0 green:191/255.0 blue:233/255.0 alpha:1.0].CGColor];
-	cell.layer.masksToBounds = YES;
+	[cell setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	UIView *bgColorView = [[UIView alloc] init];
+	bgColorView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:1.0];
+	[cell setSelectedBackgroundView:bgColorView];
+	[cell.textLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
+	[cell.textLabel setTextColor:[UIColor whiteColor]];
 	[cell setBackgroundColor:[UIColor whiteColor]];
 	
 	

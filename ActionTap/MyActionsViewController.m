@@ -42,8 +42,11 @@
     return cell;
 }
 
-
-
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return 1;
+}
 
 /*
 #pragma mark - Navigation

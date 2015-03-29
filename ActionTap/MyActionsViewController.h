@@ -10,4 +10,6 @@
 
 @interface MyActionsViewController : UIViewController
 
+@property UITableView* tableView;
+
 @end

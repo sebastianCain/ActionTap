@@ -8,7 +8,7 @@
 
 #import "MyActionsViewController.h"
 
-@interface MyActionsViewController ()
+@interface MyActionsViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -16,6 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, self.view.frame.size.height - 250)];
+    [tableView setDataSource:self];
+    [tableView setDelegate:self];
+    
+    
+    
+    
     // Do any additional setup after loading the view.
 }
 
@@ -23,6 +30,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Table View
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    
+    
+    return cell;
+}
+
+
+
 
 /*
 #pragma mark - Navigation

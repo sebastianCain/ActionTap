@@ -126,7 +126,7 @@
         return;
     }
     
-    float magnitude = [self.motionListener getMagnitude];
+    float magnitude = [self.motionListener2 getMagnitude];
    // NSLog(@"%f", magnitude);
     self.currentIndex ++;
     if ((magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD) &&self.isbackground)

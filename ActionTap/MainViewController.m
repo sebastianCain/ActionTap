@@ -10,7 +10,8 @@
 #import "MyActionsViewController.h"
 #import "ActionViewController.h"
 #import "QuartzCore/QuartzCore.h"
-
+#import "DataAccess.h"
+#import "Pattern+Pattern_Functions.h"
 @interface MainViewController ()
 
 @end
@@ -19,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    [self refreshAllPatterns];
 	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];
 	[bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
@@ -106,6 +107,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)refreshAllPatterns{
+    NSManagedObjectContext *context = [DataAccess context];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSArray *tempAll = [context executeFetchRequest:request error:nil];
+    self.allPatterns = [[NSMutableDictionary alloc]init];
+    for (Pattern *p in tempAll) {
+        [self.allPatterns  setValue:p forKey:p.name];
+    }
+    
+    
+}
+
 
 /*
 #pragma mark - Navigation

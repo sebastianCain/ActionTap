@@ -8,8 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property UIView *page1;
+@property UIView *page2;
+@property UIView *page3;
+
+@property UIScrollView *scrollView;
+@property UIPageControl *pageControl;
 
 @property NSMutableDictionary *allPatterns;
+
+@property UITableView* tableView;
+
+@property UIButton *startButton;
+@property UIButton *confirmButton;
+@property BOOL recording;
+@property int numberOfTaps;
+@property double startTime;
+@property double lastTapTime;
+@property  NSMutableArray *tapData;
 
 @end

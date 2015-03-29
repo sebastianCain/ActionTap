@@ -10,4 +10,8 @@
 
 @interface ActionViewController : UIViewController
 
+@property UIButton *startButton;
+@property BOOL recording;
+@property int numberOfTaps;
+@property double startTime
 @end

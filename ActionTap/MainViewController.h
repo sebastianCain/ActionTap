@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pattern+Pattern_Functions.h"
 
 @interface MainViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -33,5 +34,12 @@
 @property   NSArray *allPatternsForTV;
 
 @property BOOL scrollLock;
+
+
+@property BOOL patternPicked;
+@property NSString *pickedPatternName;
+@property Pattern* pickedPattern;
+
+@property UITextField   *textField;
 
 @end

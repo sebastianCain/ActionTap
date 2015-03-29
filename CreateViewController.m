@@ -18,6 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
+	[self.view setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	
 	UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
 	numberToolbar.barStyle = UIBarStyleBlackTranslucent;
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelNumberPad)];
@@ -40,22 +42,27 @@
     
     
     
-    UILabel *actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.width/2 - 500, 100, 100)];
-    actionLabel.center = CGPointMake(CGRectGetMidX(self.view.frame)-100, self.view.frame.size.width/4);
+    UILabel *actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 100, 100)];
+    actionLabel.center = CGPointMake(CGRectGetMidX(self.view.frame)-100, 50);
     actionLabel.text = @"Action:";
+	[actionLabel setTextColor:[UIColor whiteColor]];
+	[actionLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
     [self.view addSubview:actionLabel];
     
-    self.action = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.width/2 - 500, 270, 100)];
-    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame)+50, self.view.frame.size.width/4);
+    self.action = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 270, 100)];
+    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame)+50, 50);
     self.action.text = @"";
+	[self.action setTextColor:[UIColor whiteColor]];
+	[self.action setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
     [self.view addSubview:self.action];
     
     
-    self.schemes = [[NSArray alloc] initWithObjects:@"Workflow",@"Music",@"Phone",@"SMS", nil];
+    self.schemes = [[NSArray alloc] initWithObjects:@"Workflow",@"Music",@"Phone",@"SMS", @"Weather",@"Web", @"Mail", @"Maps", @"Facetime", nil];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, self.view.frame.size.height - 420)];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(20, 100, self.view.frame.size.width-40, self.view.frame.size.height - 200)];
     [tableView setDataSource:self];
     [tableView setDelegate:self];
+	[tableView setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
@@ -86,9 +93,11 @@
         forControlEvents:UIControlEventEditingChanged];
     self.textfield.backgroundColor = [UIColor blackColor];
     self.textfield.delegate = self;
-	if (indexPath.row == 3 || indexPath.row == 4) {
+	[self.textfield setTextColor:[UIColor whiteColor]];
+	[self.textfield setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
+	if (indexPath.row == 2 || indexPath.row == 3) {
 		self.textfield.inputAccessoryView = self.numberToolbar;
-		
+		self.textfield.keyboardType = UIKeyboardTypeNumberPad;
 	}
 	
     [cell addSubview:self.textfield];
@@ -112,6 +121,17 @@
     [tableView endUpdates];
 }
 
+
+-(void)cancelNumberPad {
+	[self.textfield resignFirstResponder];
+	self.textfield.text = @"";
+}
+
+-(void)doneWithNumberPad{
+	[self.textfield resignFirstResponder];
+}
+
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.textfield removeFromSuperview];
 }
@@ -133,9 +153,13 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     
-    
+	[cell setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+	UIView *bgColorView = [[UIView alloc] init];
+	bgColorView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:1.0];
+	[cell setSelectedBackgroundView:bgColorView];
     cell.textLabel.text = self.schemes[indexPath.row];
-    
+	[cell.textLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];
+	[cell.textLabel setTextColor:[UIColor whiteColor]];
     return cell;
 }
 
@@ -177,7 +201,17 @@
         url = [@"tel:" stringByAppendingString:self.schemeValue];
     } else if (self.arrayindex == 3) {
         url = [@"sms:" stringByAppendingString:self.schemeValue];
-    }
+	} else if (self.arrayindex == 4) {
+		url = @"http://weather.com";
+	} else if (self.arrayindex == 5) {
+		url = [@"http://" stringByAppendingString:self.schemeValue];
+	} else if (self.arrayindex == 6) {
+		url = [@"mailto:" stringByAppendingString:self.schemeValue];
+	} else if (self.arrayindex == 7) {
+		url = [@"http://maps.apple.com/?q=" stringByAppendingString:self.schemeValue];
+	} else if (self.arrayindex == 8) {
+		url = [@"facetime:" stringByAppendingString:self.schemeValue];
+	}
     mainVC.pickedPattern.url = url;
     
     mainVC.shouldJumpToPage3 = YES;

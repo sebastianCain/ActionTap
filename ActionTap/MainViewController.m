@@ -140,6 +140,12 @@
 	title3.font = [UIFont boldSystemFontOfSize:40];
 	[self.page3 addSubview:title3];
 	
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 150, self.view.frame.size.width-40, 30)];
+    [textField setDelegate:self];
+    [textField setBorderStyle:UITextBorderStyleRoundedRect];
+    [textField setTintColor:[UIColor blueColor]];
+    [textField setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
+    [self.page3 addSubview:textField];
 	
 	UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2 - 40, self.view.frame.size.height*2/3, 80, 80)];
 	startButton.backgroundColor = [UIColor greenColor];

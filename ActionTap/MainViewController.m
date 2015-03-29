@@ -69,7 +69,7 @@
 	[title setCenter:CGPointMake(self.view.frame.size.width/2, 75)];
 	[self.page1 addSubview:title];
 	
-	self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2+500, self.view.frame.size.width, 400)];
+	self.sineview = [[BTSSineWaveView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, 400)];
 	[self.sineview setTag:100];
 	[self.sineview setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2+200)];
 	[self.sineview setBackgroundColor:[UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:1.0]];
@@ -77,15 +77,11 @@
 	[self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
 	[self.page1 addSubview:self.sineview];
 	
-	BTSSineWaveLayer *layer = [self sineWaveLayer];
-	[layer setContentsScale:[[UIScreen mainScreen] scale]];
-	CGRect layerBounds = [layer bounds];
+	[(BTSSineWaveLayer *)self.sineview.layer setAmplitude:10];
+	[(BTSSineWaveLayer *)self.sineview.layer setFrequency:0.01];
+	[(BTSSineWaveLayer *)self.sineview.layer setPhase:1];
 	
-	[layer setAmplitude:10];
-	[layer setFrequency:0.01];
-	[layer setPhase:1];
-	
-	[layer setNeedsDisplay];
+	[self.sineview.layer setNeedsDisplay];
 
 	
 	UIImageView *bgimage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"willsmith.png"]];

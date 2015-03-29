@@ -23,7 +23,6 @@
 @property UITableView* tableView;
 
 @property UIButton *startButton;
-@property UIButton *confirmButton;
 @property BOOL recording;
 @property BOOL listening;
 @property int numberOfTaps;
@@ -34,12 +33,15 @@
 @property   NSArray *allPatternsForTV;
 
 @property BOOL scrollLock;
-
+@property (nonatomic)BOOL editingPattern;
 
 @property BOOL patternPicked;
 @property NSString *pickedPatternName;
 @property Pattern* pickedPattern;
 
 @property UITextField   *textField;
+@property UIButton *confirmButton;
+@property UIButton *cancelButton;
+
 
 @end

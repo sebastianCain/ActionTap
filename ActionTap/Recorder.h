@@ -12,7 +12,7 @@
 #import "Pattern+Pattern_Functions.h"
 @protocol RecorderDelegate <NSObject>
 
--(void)recordingFinishedForPattern;
+-(void)recordingFinishedForPatternIsBackground:(BOOL)background;
 
 @end
 
@@ -24,9 +24,17 @@
 @property(readonly) bool isRecording;
 -(void)stopRecording;
 @property  Pattern *currentPattern;
+@property  Pattern *backgroundPattern;
 @property (weak)id <RecorderDelegate> delegate;
 
--(void)startNewPatternWithPattern:(Pattern*)pattern;
+
+@property CADisplayLink *displayLink2;
+@property MotionListener *motionListener2;
+@property BOOL backgroundStarted;
+@property int currentIndex;
+@property int lastDetectIndex;
+
+-(void)startNewPatternWithPattern:(Pattern*)pattern isBackground:(BOOL)background;
 
 
 @end

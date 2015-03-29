@@ -231,12 +231,29 @@
     //Recorder set up
     self.patternRecorder = [[Recorder alloc] init];
     self.patternRecorder.delegate = self;
+    self.backgroundRecorder = [[Recorder alloc]init];
+    self.backgroundRecorder.delegate = self;
+    
     
     if (self.shouldJumpToPage3) {
         [self jumpToPage3];
     }
     
+    NSManagedObjectContext *context = [DataAccess context];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Pattern"];
+    NSArray *allPatterns = [context executeFetchRequest:request error:nil];
+    Pattern *backgroundPattern;
+    for(Pattern *p in allPatterns ) {
+        if([p.name isEqualToString:@"BackgroundPattern"]){
+            backgroundPattern = p;
+        }
+    }
+    if (!backgroundPattern) {
+        backgroundPattern =[NSEntityDescription insertNewObjectForEntityForName:@"Pattern" inManagedObjectContext:context];
+    }
+    self.backgroudPattern = backgroundPattern;
     
+    [self startRecordingInBackground];
     
     [self comparePattern:nil withPattern:nil];
 }
@@ -458,8 +475,13 @@
     
 }
 
--(void)recordingFinishedForPattern{
-    [self refreshLines];
+-(void)recordingFinishedForPatternIsBackground:(BOOL)background{
+    if (background) {
+        NSLog(@"FINISHED");
+    }else{
+        [self refreshLines];
+   
+    }
 }
 
 -(void)refreshLines{
@@ -509,7 +531,7 @@
     if(self.patternRecorder.isRecording == NO)
     {
         self.patternRecorder.delegate = self;
-        [self.patternRecorder startNewPatternWithPattern:self.pickedPattern];
+        [self.patternRecorder startNewPatternWithPattern:self.pickedPattern isBackground:NO];
     } else
     {
         [self.patternRecorder stopRecording];
@@ -540,11 +562,11 @@
 }
 
 -(void)startRecordingInBackground{
-    self.scrollLock = YES;
+    
     if(self.backgroundRecorder.isRecording == NO)
     {
         self.backgroundRecorder.delegate = self;
-        [self.backgroundRecorder startNewPatternWithPattern:self.pickedPattern];
+        [self.backgroundRecorder startNewPatternWithPattern:self.backgroudPattern isBackground:YES];
     } else
     {
         [self.backgroundRecorder stopRecording];

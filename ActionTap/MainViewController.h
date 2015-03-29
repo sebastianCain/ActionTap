@@ -39,6 +39,7 @@
 @property BOOL patternPicked;
 @property NSString *pickedPatternName;
 @property Pattern* pickedPattern;
+@property Pattern* backgroudPattern;
 
 @property UITextField   *textField;
 @property UIButton *confirmButton;

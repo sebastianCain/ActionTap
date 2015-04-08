@@ -50,7 +50,7 @@
 //    [self.view addSubview:actionLabel];
     
     self.action = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 300, 100)];
-    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame), 100);
+    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame), 75);
     self.action.text = @"[Action]";
 	[self.action setTextColor:[UIColor whiteColor]];
 	[self.action setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
@@ -94,7 +94,6 @@
     [self.textfield addTarget:self
                   action:@selector(textFieldDidChange:)
         forControlEvents:UIControlEventEditingChanged];
-    self.textfield.backgroundColor = [UIColor blackColor];
     self.textfield.delegate = self;
 	[self.textfield setTextColor:[UIColor whiteColor]];
 	[self.textfield setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:17]];

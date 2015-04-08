@@ -95,6 +95,14 @@
     [bgimage setFrame:CGRectMake(0, self.view.frame.size.height/2-self.view.frame.size.width/2-30, self.view.frame.size.width, self.view.frame.size.width)];
     [bgimage setContentMode:UIViewContentModeScaleAspectFill];
     
+    self.bgRecording = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
+    [self.bgRecording setText:@"Recording in Background"];
+    
+    [self.bgRecording setTextColor:[UIColor whiteColor]];
+    [self.bgRecording setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:24]];
+    [self.bgRecording setTextAlignment:NSTextAlignmentCenter];
+    [self.bgRecording setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height - 50)];
+    
     CAGradientLayer *l = [CAGradientLayer layer];
     l.frame = bgimage.bounds;
     l.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
@@ -490,6 +498,9 @@
     [self.backgroundRecorder stopRecording];
     [self.backgroundRecorder startNewPatternWithPattern:self.backgroudPattern isBackground:YES];
     self.backgroundTrigger.userInteractionEnabled = NO;
+    if (self.pageControl.currentPage == 0) {
+        [self.page1 addSubview:self.bgRecording];
+    }
 }
 
 -(void)setEditingPattern:(BOOL)editingPattern
@@ -573,9 +584,13 @@
 -(void)recordingFinishedForPatternIsBackground:(BOOL)background{
     if (background) {
         NSLog(@"FINISHED");
+        self.backgroundRecorder.isRecognizing = NO;
+        [self.bgRecording setText:@"Recording in Background"];
         [self.backgroundRecorder stopRecording];
         
         [self compare];
+        
+        [self.bgRecording removeFromSuperview];
         
         
         
@@ -679,6 +694,10 @@
         [self.patternRecorder stopRecording];
     }
     
+    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(runLoop)];
+    displayLink.frameInterval = 1;
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    
     /*
      self.recording = YES;
      self.numberOfTaps = 0;
@@ -709,26 +728,34 @@
     {
         self.backgroundRecorder.delegate = self;
         [self.backgroundRecorder startNewPatternWithPattern:self.backgroudPattern isBackground:YES];
+        
+        [self.bgRecording setText:@"Recording in Background"];
+        [self.page1 addSubview:self.bgRecording];
     }
 }
 
 -(void)runLoop{
-    if (self.recording) {
-        if (self.lastTapTime >self.startTime) {
-            
-            self.currentBar.center = CGPointMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2);
-        }
+    if (self.backgroundRecorder.isRecognizing) {
         
-        if ((CACurrentMediaTime() - self.startTime >5 )&&[self.tapData count]) {
-            self.recording = NO;
-            [UIView animateWithDuration:1.0 animations:^{
-                self.startButton.alpha = 1.0;
-            }];
-            self.touchDetector.userInteractionEnabled = NO;
-            self.scrollLock = NO;
-            return;
-        }
+        [self.bgRecording setText:@"Recognizing"];
+        
     }
+//    if (self.recording) {
+//        if (self.lastTapTime >self.startTime) {
+//            
+//            self.currentBar.center = CGPointMake(((CACurrentMediaTime() - self.startTime)/5)*self.view.frame.size.width, self.view.frame.size.height/2);
+//        }
+//        
+//        if ((CACurrentMediaTime() - self.startTime >5 )&&[self.tapData count]) {
+//            self.recording = NO;
+//            [UIView animateWithDuration:1.0 animations:^{
+//                self.startButton.alpha = 1.0;
+//            }];
+//            self.touchDetector.userInteractionEnabled = NO;
+//            self.scrollLock = NO;
+//            return;
+//        }
+//    }
     
 }
 

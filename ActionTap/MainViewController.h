@@ -56,5 +56,6 @@
 @property BOOL shouldJumpToPage3;
 
 @property UIView *bgView;
+@property UILabel *bgRecording;
 
 @end

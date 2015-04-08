@@ -136,6 +136,10 @@
         if (self.currentIndex -self.lastDetectIndex<60) {
             self.backgroundStarted = YES;
             NSLog(@"\nDOUBLE TAP RECOGNIZED💙\nDOUBLE TAP RECOGNIZED💙\nDOUBLE TAP RECOGNIZED💙\nDOUBLE TAP RECOGNIZED💙\nDOUBLE TAP RECOGNIZED💙\n)");
+            
+            self.isRecognizing = YES;
+            
+            
             return;
         }else{
             self.freezeDisplayLink = 15;

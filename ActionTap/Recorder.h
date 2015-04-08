@@ -34,6 +34,7 @@
 @property int currentIndex;
 @property int lastDetectIndex;
 
+@property BOOL isRecognizing;
 
 @property BOOL isbackground;
 @property(readwrite) BOOL backgroundIsRecording;

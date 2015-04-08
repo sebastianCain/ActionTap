@@ -42,16 +42,16 @@
     
     
     
-    UILabel *actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 100, 100)];
-    actionLabel.center = CGPointMake(CGRectGetMidX(self.view.frame)-100, 50);
-    actionLabel.text = @"Action:";
-	[actionLabel setTextColor:[UIColor whiteColor]];
-	[actionLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
-    [self.view addSubview:actionLabel];
+//    UILabel *actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 100, 100)];
+//    actionLabel.center = CGPointMake(CGRectGetMidX(self.view.frame)-100, 50);
+//    actionLabel.text = @"Action:";
+//	[actionLabel setTextColor:[UIColor whiteColor]];
+//	[actionLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
+//    [self.view addSubview:actionLabel];
     
-    self.action = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 270, 100)];
-    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame)+50, 50);
-    self.action.text = @"";
+    self.action = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, 300, 100)];
+    self.action.center = CGPointMake(CGRectGetMidX(self.view.frame), 100);
+    self.action.text = @"[Action]";
 	[self.action setTextColor:[UIColor whiteColor]];
 	[self.action setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:20]];
     [self.view addSubview:self.action];
@@ -114,6 +114,18 @@
         self.action.text = @"Call: ";
     } else if (indexPath.row == 3) {
         self.action.text = @"Send text to: ";
+    } else if (indexPath.row == 4) {
+        self.action.text = @"Check Weather";
+        [self.textfield removeFromSuperview];
+    } else if (indexPath.row == 5) {
+        self.action.text = @"Visit Website: ";
+    } else if (indexPath.row == 6) {
+        self.action.text = @"Check Mail ";
+        [self.textfield removeFromSuperview];
+    } else if (indexPath.row == 7) {
+        self.action.text = @"Directions to: ";
+    } else if (indexPath.row == 8) {
+        self.action.text = @"Facetime: ";
     }
     
     self.originalLabelText = self.action.text;

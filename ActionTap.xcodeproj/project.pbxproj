@@ -126,14 +126,14 @@
 				0A4BA2C81AC7DF94002CF438 /* Sine Animation */,
 				031549711AC7CE5C002B21C4 /* CreateViewController.h */,
 				031549721AC7CE5C002B21C4 /* CreateViewController.m */,
+				0A4BA2B41AC75290002CF438 /* MainViewController.h */,
+				0A4BA2B51AC75290002CF438 /* MainViewController.m */,
 				0A4BA28F1AC73E77002CF438 /* AppDelegate.h */,
 				0A4BA2901AC73E77002CF438 /* AppDelegate.m */,
 				0A4BA2981AC73E77002CF438 /* Main.storyboard */,
 				0A4BA29B1AC73E77002CF438 /* Images.xcassets */,
 				0A4BA29D1AC73E77002CF438 /* LaunchScreen.xib */,
 				0A4BA28B1AC73E77002CF438 /* Supporting Files */,
-				0A4BA2B41AC75290002CF438 /* MainViewController.h */,
-				0A4BA2B51AC75290002CF438 /* MainViewController.m */,
 				3B4B00FB1AC7D0D300AAC7C9 /* Design */,
 				3B37AB591AC78E7700EAAFD7 /* Recorders */,
 				BB1F92CB1AC7628400229753 /* DataAccess.h */,
@@ -266,11 +266,11 @@
 				TargetAttributes = {
 					0A4BA2871AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 9XWYL3K4YT;
+						DevelopmentTeam = K68L32QYS3;
 					};
 					0A4BA2A31AC73E77002CF438 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 9XWYL3K4YT;
+						DevelopmentTeam = K68L32QYS3;
 						TestTargetID = 0A4BA2871AC73E77002CF438;
 					};
 				};

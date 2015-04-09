@@ -307,6 +307,12 @@
     pat.name = @"c";
     [[DataAccess sharedInstance] saveContext];
     */
+    
+    if (self.pageControl.currentPage == 0) {
+        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(runLoop)];
+        displayLink.frameInterval = 1;
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    }
 }
 
 -(void)jumpToPage3{
@@ -693,10 +699,6 @@
     {
         [self.patternRecorder stopRecording];
     }
-    
-    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(runLoop)];
-    displayLink.frameInterval = 1;
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
     /*
      self.recording = YES;

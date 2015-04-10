@@ -59,6 +59,7 @@
 @property UILabel *bgRecording;
 
 @property int sinceLastKnock;
+@property int timeSinceLastKnock;
 @property BOOL knockedOnce;
 @property UILabel *knockLabel;
 @property UILabel *knockLabel2;

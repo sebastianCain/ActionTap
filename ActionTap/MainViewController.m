@@ -87,7 +87,7 @@
     [self.sineview.layer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.page1 addSubview:self.sineview];
     
-    [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:10];
+    [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:5];
     [(BTSSineWaveLayer *)self.sineview.layer setFrequency:0.01];
     [(BTSSineWaveLayer *)self.sineview.layer setPhase:1];
     
@@ -443,6 +443,7 @@
             l.endPoint = CGPointMake(0.5f, 1.0f);
             bgimage.layer.mask = l;
             [self.page1 addSubview:bgimage];
+            self.sinceLastKnock = 0;
         }
     }
     
@@ -762,6 +763,11 @@
 }
 
 -(void)runLoop{
+    self.timeSinceLastKnock++;
+    if (self.timeSinceLastKnock > 300) {
+        [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:10];
+    }
+    
     if (self.pageControl.currentPage == 0) {
         if (self.backgroundRecorder.isRecognizing) {
             [self.bgRecording setText:@"Recognizing"];
@@ -950,9 +956,10 @@
 
 -(void)knock {
     self.sinceLastKnock += 20;
+    self.timeSinceLastKnock = 0;
     if (self.pageControl.currentPage == 0) {
         
-        [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:30];
+        [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:36];
         [(BTSSineWaveLayer *)self.sineview.layer setFrequency:0.01];
         [(BTSSineWaveLayer *)self.sineview.layer setPhase:self.sinceLastKnock];
         [self.sineview.layer setNeedsDisplay];

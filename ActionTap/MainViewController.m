@@ -23,6 +23,8 @@
 @property NSMutableArray *allBars;
 @property UIButton *touchDetector;
 @property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview;
+@property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview2;
+@property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview3;
 @property   UIButton *backgroundTrigger;
 
 @end
@@ -947,13 +949,14 @@
 }
 
 -(void)knock {
+    self.sinceLastKnock += 20;
     if (self.pageControl.currentPage == 0) {
-        self.knockLabel.alpha = 1.0;
-        [UIView animateWithDuration:0.2 animations:^{
-            self.knockLabel.alpha = 0.0;
-        }];
         
-        
+        [(BTSSineWaveLayer *)self.sineview.layer setAmplitude:30];
+        [(BTSSineWaveLayer *)self.sineview.layer setFrequency:0.01];
+        [(BTSSineWaveLayer *)self.sineview.layer setPhase:self.sinceLastKnock];
+        [self.sineview.layer setNeedsDisplay];
+    
     } else if (self.pageControl.currentPage == 2) {
         self.knockLabel2.alpha = 1.0;
         [UIView animateWithDuration:0.2 animations:^{

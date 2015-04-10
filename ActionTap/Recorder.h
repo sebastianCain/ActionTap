@@ -10,6 +10,7 @@
 #import "AudioRecorder.h"
 #import "MotionListener.h"
 #import "Pattern+Pattern_Functions.h"
+#import "MainViewController.h"
 @protocol RecorderDelegate <NSObject>
 
 -(void)recordingFinishedForPatternIsBackground:(BOOL)background;
@@ -35,9 +36,11 @@
 @property int lastDetectIndex;
 
 @property BOOL isRecognizing;
+@property BOOL isKnocking;
 
 @property BOOL isbackground;
 @property(readwrite) BOOL backgroundIsRecording;
+@property MainViewController *parentViewController;
 
 -(void)startNewPatternWithPattern:(Pattern*)pattern isBackground:(BOOL)background;
 

@@ -24,6 +24,7 @@
 @property UIButton *touchDetector;
 @property (strong, nonatomic) IBOutlet BTSSineWaveView *sineview;
 @property   UIButton *backgroundTrigger;
+
 @end
 
 @implementation MainViewController
@@ -97,11 +98,22 @@
     
     self.bgRecording = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
     [self.bgRecording setText:@"Recording in Background"];
-    
     [self.bgRecording setTextColor:[UIColor whiteColor]];
     [self.bgRecording setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:24]];
     [self.bgRecording setTextAlignment:NSTextAlignmentCenter];
     [self.bgRecording setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height - 50)];
+    
+    self.knockLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
+    [self.knockLabel setTextColor:[UIColor whiteColor]];
+    [self.knockLabel setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:24]];
+    [self.knockLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.knockLabel setCenter:CGPointMake(self.view.frame.size.width/2, 120)];
+    [self.knockLabel setText:@"knock"];
+    self.knockLabel.alpha = 0.0;
+    
+    [self.page1 addSubview:self.knockLabel];
+
+                              
     
     CAGradientLayer *l = [CAGradientLayer layer];
     l.frame = bgimage.bounds;
@@ -254,6 +266,15 @@
     self.currentBar.backgroundColor = [UIColor redColor];
     [self.page3 addSubview:self.currentBar];
     
+    self.knockLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-40, 100)];
+    [self.knockLabel2 setTextColor:[UIColor whiteColor]];
+    [self.knockLabel2 setFont:[UIFont fontWithName:@"AvenirNext-UltraLight" size:24]];
+    [self.knockLabel2 setTextAlignment:NSTextAlignmentCenter];
+    [self.knockLabel2 setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2-100)];
+    [self.knockLabel2 setText:@"Knock"];
+    self.knockLabel2.alpha = 0.0;
+    
+    [self.page3 addSubview:self.knockLabel2];
     
     UIButton *touchButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.page3.frame.size.width, self.page3.frame.size.height)];
     touchButton.userInteractionEnabled = NO;
@@ -269,8 +290,10 @@
     //Recorder set up
     self.patternRecorder = [[Recorder alloc] init];
     self.patternRecorder.delegate = self;
+    self.patternRecorder.parentViewController = self;
     self.backgroundRecorder = [[Recorder alloc]init];
     self.backgroundRecorder.delegate = self;
+    self.backgroundRecorder.parentViewController = self;
     
     
     if (self.shouldJumpToPage3) {
@@ -308,7 +331,7 @@
     [[DataAccess sharedInstance] saveContext];
     */
     
-    if (self.pageControl.currentPage == 0) {
+    if (self.pageControl.currentPage == 0 || self.pageControl.currentPage == 3) {
         CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(runLoop)];
         displayLink.frameInterval = 1;
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -737,11 +760,18 @@
 }
 
 -(void)runLoop{
-    if (self.backgroundRecorder.isRecognizing) {
-        
-        [self.bgRecording setText:@"Recognizing"];
-        
+    if (self.pageControl.currentPage == 0) {
+        if (self.backgroundRecorder.isRecognizing) {
+            [self.bgRecording setText:@"Recognizing"];
+            
+        }
+    } else if (self.pageControl.currentPage == 2) {
+        if (self.recording) {
+            
+        }
     }
+    
+    
 //    if (self.recording) {
 //        if (self.lastTapTime >self.startTime) {
 //            
@@ -914,6 +944,22 @@
         self.closestPatternName = first.name;
     }
     return [NSNumber numberWithInt:score];
+}
+
+-(void)knock {
+    if (self.pageControl.currentPage == 0) {
+        self.knockLabel.alpha = 1.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.knockLabel.alpha = 0.0;
+        }];
+        
+        
+    } else if (self.pageControl.currentPage == 2) {
+        self.knockLabel2.alpha = 1.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.knockLabel2.alpha = 0.0;
+        }];
+    }
 }
 
 @end

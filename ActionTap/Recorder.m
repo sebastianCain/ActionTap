@@ -84,6 +84,9 @@
         {
             if(self.freezeDisplayLink == 0)
             {
+                //KNOCK DETECTED
+                [self.parentViewController knock];
+                
                 NSLog(@"%f", magnitude);
                 [self.tempPattern addObject:[NSNumber numberWithInt:1]];
                 self.freezeDisplayLink = 10;
@@ -132,6 +135,9 @@
     self.currentIndex ++;
     if ((magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD) && !self.backgroundStarted)
     {
+        //KNOCK DETECTED
+        [self.parentViewController knock];
+        
         NSLog(@"%f", magnitude);
         if (self.currentIndex -self.lastDetectIndex<60) {
             self.backgroundStarted = YES;
@@ -154,6 +160,8 @@
     {
         if (magnitude < self.LOW_MAGNITUDE_THRESHOLD || magnitude > self.HIGH_MAGNITUDE_THRESHOLD)
         {
+            [self.parentViewController knock];
+            //KNOCK DETECTED
             if(self.freezeDisplayLink == 0)
             {
                 NSLog(@"%f", magnitude);

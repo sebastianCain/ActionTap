@@ -58,4 +58,10 @@
 @property UIView *bgView;
 @property UILabel *bgRecording;
 
+@property int sinceLastKnock;
+@property BOOL knockedOnce;
+@property UILabel *knockLabel;
+@property UILabel *knockLabel2;
+
+-(void)knock;
 @end
